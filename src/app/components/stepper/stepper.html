@@ -1,0 +1,158 @@
+<mat-stepper class="stepper" [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="customerFormGroup" label="Select Customer">
+        <section>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3 class="form-tittle">Select existing Customer</h3>
+                <button matButton="filled" style="border-radius: 0px; height: 30px;"
+                    (click)="openCreateCustomerDialog()">Create
+                    new Customer</button>
+            </div>
+            <form [formGroup]="customerFormGroup">
+                <mat-selection-list [multiple]="false" #customerDetails style="height: 200px; overflow-y: scroll;"
+                    formControlName="selectedCustomer">
+                    @for (customer of customers; track customer) {
+                    <mat-list-option [value]="customer">
+                        <div style=" display: flex; align-items:center;justify-content: space-between;">
+                            {{customer.name}}
+                            <mat-chip style="width: 125px; height: 20px; background-color: rgba(213, 223, 247, 0.463);">
+                                {{customer.type}}
+                            </mat-chip>
+                        </div>
+                    </mat-list-option>
+                    }
+                </mat-selection-list>
+            </form>
+
+        </section>
+        <div class="stepper-footer">
+            <button matButton matStepperNext class="no-radius" (click)="setOGr()">Next</button>
+        </div>
+
+    </mat-step>
+    <mat-step [stepControl]="oeSelectedFormGroup" label="Select ORG Entity">
+        <div *ngIf="customerFormGroup.value.selectedCustomer[0]?.type === 'ORG ENTITY'">
+            <section>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3 class="form-tittle">Select existing OE</h3>
+                    <button matButton="filled" style="border-radius: 0px; height: 30px;"
+                        (click)="openCreateEntityDialog()">Create
+                        new OE</button>
+                </div>
+                <form [formGroup]="oeSelectedFormGroup">
+                    <mat-selection-list [multiple]="false" #shoes style="height: 200px; overflow-y: scroll;"
+                        formControlName="selected">
+                        @for (orgEntity of orgEntities; track orgEntity) {
+                        <mat-list-option [value]="orgEntity"
+                            [matTooltip]="createOrgEntityTooltipTemplate(orgEntity)">{{orgEntity.name}}</mat-list-option>
+                        }
+                    </mat-selection-list>
+                </form>
+            </section>
+        </div>
+        <div *ngIf="customerFormGroup.value.selectedCustomer[0]?.type === 'PRODUCT OWNER'">
+            <section>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3>Select existing OE</h3>
+                    <button matButton="filled" style="border-radius: 0px; height: 30px;"
+                        (click)="openCreateEntityDialog()">Create
+                        new OE</button>
+                </div>
+                <form [formGroup]="oeSelectedFormGroup">
+                    <mat-selection-list #shoes style="height: 200px; overflow-y: scroll;" formControlName="selected">
+                        @for (orgEntity of orgEntities; track orgEntity) {
+                        <mat-list-option [matTooltip]="createOrgEntityTooltipTemplate(orgEntity)"
+                            [value]="orgEntity">{{orgEntity.name}}</mat-list-option>
+                        }
+                    </mat-selection-list>
+                </form>
+            </section>
+        </div>
+        <div class="stepper-footer" align="end">
+            <button matButton matStepperPrevious class="no-radius">Back</button>
+            <button matButton matStepperNext class="no-radius">Next</button>
+        </div>
+    </mat-step>
+    <mat-step label="Select Application">
+        <div style="height: 10px;">
+            <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+        </div>
+        <section *ngIf="!creatingApplication">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3 class="form-tittle">Select existing Application</h3>
+                <button matButton="filled" style="border-radius: 0px; height: 30px;"
+                    (click)="createApplication()">Create
+                    new Application</button>
+            </div>
+            <form [formGroup]="applicationFormGroup">
+                <mat-selection-list [multiple]="false" style="height: 200px; overflow-y: scroll;"
+                    formControlName="selectedApplication">
+                    @for (application of applications; track application) {
+                    <mat-list-option [value]="application">
+                        <div style=" display: flex; align-items:center;justify-content: space-between;">
+                            {{application.name}}
+                        </div>
+                    </mat-list-option>
+                    }
+                </mat-selection-list>
+            </form>
+        </section>
+        <section *ngIf="creatingApplication">
+            <button style="display: flex; margin-left: auto;" matButton (click)="calcelCreateApplication()">Select
+                application</button>
+            <form [formGroup]="newApplicationFormGroup" style="display: flex; flex-direction: column;">
+                <div>
+                    <h3 class="form-tittle">Application details</h3>
+                    <div style="display: flex;align-items: center;">
+                        <mat-form-field style="margin-left: 20px;">
+                            <mat-label>Name</mat-label>
+                            <input matInput placeholder="Application Name" formControlName="name" required>
+                        </mat-form-field>
+                        <mat-form-field style="margin-left: 20px;">
+                            <mat-label>Description</mat-label>
+                            <input matInput placeholder="Application description" formControlName="description"
+                                required>
+                        </mat-form-field>
+                        <mat-form-field style="margin-left: 20px;">
+                            <mat-label>Consumer Key</mat-label>
+                            <input matInput placeholder="Consumeer Key" formControlName="consumerKey" required>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="form-tittle">Application status</h3>
+                    <div style="display: flex; align-items: center;">
+                        <div style="margin-left: 20px;">
+                            <h5 class="fomr-tittle-section">Activation Status</h5>
+                            <mat-button-toggle-group formControlName="isActive" [hideSingleSelectionIndicator]="true">
+                                <mat-button-toggle [value]="true">Activated</mat-button-toggle>
+                                <mat-button-toggle [value]="false">Disabled</mat-button-toggle>
+                            </mat-button-toggle-group>
+                        </div>
+                        <div style="margin-left: 20px;">
+                            <h5 class="fomr-tittle-section">Lock Status</h5>
+                            <mat-button-toggle-group formControlName="isLocked" [hideSingleSelectionIndicator]="true">
+                                <mat-button-toggle [value]="true">Locked</mat-button-toggle>
+                                <mat-button-toggle [value]="false">Unlocked</mat-button-toggle>
+                            </mat-button-toggle-group>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="form-tittle">Application workFlows</h3>
+
+                </div>
+            </form>
+
+        </section>
+        <div class="stepper-footer">
+            <button matButton matStepperPrevious>Back</button>
+            <button matButton matStepperNext class="no-radius">Next</button>
+        </div>
+    </mat-step>
+    <mat-step label="Onboard Application">
+        <div class="stepper-footer">
+            <button matButton matStepperPrevious>Back</button>
+            <button matButton="filled" matStepperNext class="no-radius">Onboard Application</button>
+        </div>
+    </mat-step>
+</mat-stepper>

@@ -1,0 +1,31 @@
+.presentation-card {
+    width: 500px;
+    margin: auto;
+    border: none;
+    border-radius: 2px;
+    padding: 20px;
+}
+
+.tittle {
+    font-size: 50px;
+    font-weight: 400;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #006192;
+}
+
+.sub-tittle {
+    color: #006192;
+
+}
+
+.icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 200px;
+    width: 200px;
+    height: 200px;
+    z-index: 0;
+    color: #00619222;
+
+}

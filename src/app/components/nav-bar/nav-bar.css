@@ -1,0 +1,45 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.nav {
+  background-color: white;
+  border-bottom: 1px solid rgb(198, 198, 198);
+}
+
+.nav-button {
+  background-color: transparent;
+  border: none;
+  margin: 15px;
+  margin-bottom: 0px;
+  font-size: 15px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border-bottom: 4px transparent solid;
+  padding: 15px;
+  transition: 0.2s;
+}
+
+.nav-button:hover {
+  color: #006192;
+  border-bottom: 4px #006192 solid;
+}
+
+.user-button {
+  background-color: transparent;
+  color: #b7b7b7;
+  border: none;
+  transition: 0.9s;
+}
+
+.user-button:hover {
+  color: #006192;
+}
+
+.example-header-image {
+  width: 100px;
+}
+
+.active-link {
+  color: #006192;
+  border-bottom: 4px #006192 solid;
+}

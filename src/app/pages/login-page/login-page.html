@@ -1,0 +1,28 @@
+<div style="min-width: 100%; min-height: 100%; display: flex;">
+    <mat-card class="example-card">
+        <div style="height: 10px;">
+            <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+        </div>
+        <mat-card-header>
+            <div class="example-header-image">
+                <img src="https://ngx-ndbx.frameworks.allianz.io/assets/logos/allianz_logo_with_name.svg"
+                    alt="Allianz logo">
+            </div>
+        </mat-card-header>
+        <mat-card-content style="margin-top: 20px;">
+            <form class="example-form" [formGroup]="loginFormGroup">
+                <mat-form-field class="example-full-width">
+                    <input type="text" matInput formControlName="userName" placeholder="User">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input type="password" matInput formControlName="password" placeholder="Password">
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+        <mat-card-actions style="margin-top: 20px;">
+            <button [disabled]="loginFormGroup.invalid || loading" (click)="startLoginProcess()"
+                style="height: 30px; background-color: #006192;; color: white; border-radius: 2px; margin-left: auto;"
+                matButton>Login</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

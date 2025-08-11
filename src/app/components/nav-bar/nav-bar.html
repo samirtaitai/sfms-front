@@ -1,0 +1,19 @@
+<mat-toolbar class="nav">
+    <div class="example-header-image">
+        <img src="https://ngx-ndbx.frameworks.allianz.io/assets/logos/allianz_logo_with_name.svg" alt="Allianz logo">
+    </div>
+    <button matButton class="nav-button" aria-label="Home button" routerLink="/home" routerLinkActive="active-link">
+        Home
+    </button>
+    <button matButton class="nav-button" aria-label="Administrator button" routerLink="/administrator"
+        *ngIf="isAdminUser()">
+        Administrator
+    </button>
+    <button matButton class="nav-button" aria-label="Billing button" routerLink="/billing">
+        Billing account
+    </button>
+    <span class="example-spacer"></span>
+    <button matIconButton class="user-button" aria-label="User button" (click)="logOut()">
+        <mat-icon>logout</mat-icon>
+    </button>
+</mat-toolbar>
