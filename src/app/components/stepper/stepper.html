@@ -97,12 +97,26 @@
             </form>
         </section>
         <section *ngIf="creatingApplication">
-            <button style="display: flex; margin-left: auto;" matButton (click)="calcelCreateApplication()">Select
-                application</button>
+            <button style="display: flex; margin-left: auto;" matButton
+                (click)="calcelCreateApplication()">Cancel</button>
             <form [formGroup]="newApplicationFormGroup" style="display: flex; flex-direction: column;">
-                <div>
-                    <h3 class="form-tittle">Application details</h3>
-                    <div style="display: flex;align-items: center;">
+                <div style="display: flex;">
+                    <div>
+                        <mat-button-toggle-group formControlName="isActive" [hideSingleSelectionIndicator]="true">
+                            <mat-button-toggle [value]="true">Activated</mat-button-toggle>
+                            <mat-button-toggle [value]="false">Disabled</mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </div>
+                    <div style="margin-left: 20px;">
+                        <mat-button-toggle-group formControlName="isLocked" [hideSingleSelectionIndicator]="true">
+                            <mat-button-toggle [value]="true">Locked</mat-button-toggle>
+                            <mat-button-toggle [value]="false">Unlocked</mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <h3 class="form-tittle">Application Details</h3>
+                    <div style="display: flex; align-items: center;">
                         <mat-form-field style="margin-left: 20px;">
                             <mat-label>Name</mat-label>
                             <input matInput placeholder="Application Name" formControlName="name" required>
@@ -118,30 +132,20 @@
                         </mat-form-field>
                     </div>
                 </div>
-                <div>
-                    <h3 class="form-tittle">Application status</h3>
-                    <div style="display: flex; align-items: center;">
-                        <div style="margin-left: 20px;">
-                            <h5 class="fomr-tittle-section">Activation Status</h5>
-                            <mat-button-toggle-group formControlName="isActive" [hideSingleSelectionIndicator]="true">
-                                <mat-button-toggle [value]="true">Activated</mat-button-toggle>
-                                <mat-button-toggle [value]="false">Disabled</mat-button-toggle>
-                            </mat-button-toggle-group>
-                        </div>
-                        <div style="margin-left: 20px;">
-                            <h5 class="fomr-tittle-section">Lock Status</h5>
-                            <mat-button-toggle-group formControlName="isLocked" [hideSingleSelectionIndicator]="true">
-                                <mat-button-toggle [value]="true">Locked</mat-button-toggle>
-                                <mat-button-toggle [value]="false">Unlocked</mat-button-toggle>
-                            </mat-button-toggle-group>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="form-tittle">Application workFlows</h3>
-
-                </div>
             </form>
+            <form [formGroup]="oeSelectedFormGroup">
+                <h3 class="form-tittle">Select Workflow</h3>
+                <button matButton="filled" style="border-radius: 0px; height: 30px;"
+                    routerLink="/create-workflow">Create
+                    new Workflow</button>
+                <mat-selection-list [multiple]="true" #shoes style="height: 200px; overflow-y: scroll;"
+                    formControlName="selected">
+                    @for (flow of flows; track flow) {
+                    <mat-list-option [value]="flow">{{flow.name}}</mat-list-option>
+                    }
+                </mat-selection-list>
+            </form>
+
 
         </section>
         <div class="stepper-footer">

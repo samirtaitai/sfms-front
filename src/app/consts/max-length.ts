@@ -25,3 +25,7 @@ export enum ConsumerMaxLength {
     oidcProvider = 50,
     complianceRegion = 60
 }
+
+//scan sync 
+// scan async 
+// scan and download

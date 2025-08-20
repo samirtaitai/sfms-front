@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { getCustomers, getOes, getApplications } from "../../../../__mocks__/customers"
+import { getCustomers, getOes, getApplications, getFlows } from "../../../../__mocks__/customers"
 import { OrgEntity } from '../models/orgEntity';
 import { CustomerDetails } from '../models/customer';
 import { OrgEntityI } from '../interfaces/orgEntity';
@@ -13,7 +13,7 @@ export class Customer {
   private customers = getCustomers();
   private orgEntities = getOes();
   private applications = getApplications();
-
+  private flows = getFlows();
 
   setCustomerData(name: string, description: string, type: CUSTOMER_TYPE) {
     this.customerDetails.name = name;
@@ -53,6 +53,10 @@ export class Customer {
 
   createOe() {
     this.orgEntities.push(this.orgEntity);
+  }
+
+  getAllFlows() {
+    return [...this.flows];
   }
 
 }

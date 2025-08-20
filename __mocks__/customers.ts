@@ -36,6 +36,13 @@ const applications = [
     { name: 'Area 2', description: 'Counsumer Area 2', flowCode: 'newFlow', flowDescription: 'secure flow', flowAction: 'download', fileType: 'JPG', fileSize: '5' }
 ]
 
+const flows = [
+    { name: 'Flow 1', description: 'Flow 1 description' },
+    { name: 'Flow 2', description: 'Flow 2 description' },
+    { name: 'Flow 3', description: 'Flow 3 description' },
+    { name: 'Flow 4', description: 'Flow 4 description' }
+]
+
 export function getCustomers(): any[] {
     return customers;
 }
@@ -48,4 +55,8 @@ export function getApplications() {
     return applications;
 }
 
+
+export function getFlows() {
+    return flows;
+}
 

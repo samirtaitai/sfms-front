@@ -20,7 +20,9 @@ import { CreateCustomerModal } from '../create-customer-modal/create-customer-mo
 import { CreateOrgEntityModal } from '../create-org-entity-modal/create-org-entity-modal';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressBar } from '@angular/material/progress-bar';
-import { timer } from 'rxjs';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatIconModule } from "@angular/material/icon";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-stepper',
@@ -39,19 +41,45 @@ import { timer } from 'rxjs';
     MatCardModule,
     MatChipsModule,
     MatTooltipModule,
-    MatProgressBar
+    MatProgressBar,
+    MatTreeModule,
+    MatIconModule,
+    RouterLink
   ],
   standalone: true,
   templateUrl: './stepper.html',
   styleUrl: './stepper.css'
 })
 export class Stepper {
+
+  dataSource = [
+    {
+      name: 'Work flow',
+      children: [
+        {
+          name: 'Green',
+          children: [{ name: 'Broccoli' }, { name: 'Brussels sprouts' }],
+        },
+        {
+          name: 'Orange',
+          children: [{ name: 'Pumpkins' }, { name: 'Carrots' }],
+        },
+      ],
+    },
+  ];;
+
+  childrenAccessor = (node: any) => node.children ?? [];
+
+  hasChild = (_: number, node: any) => !!node.children && node.children.length > 0;
+
+
   readonly animal = signal('');
   readonly name = model('');
   readonly dialog = inject(MatDialog);
   isLinear = true;
   orgEntities: OrgEntityI[] | undefined;
   customers: any[] = [];
+  flows: any[] = [];
   applications: any[] = [];
   loading = false;
   creatingApplication = false;
@@ -61,6 +89,7 @@ export class Stepper {
     this.orgEntities = [];
     this.customers = this.customerSrv.getAllCustomers();
     this.applications = this.customerSrv.getAllApplications();
+    this.flows = this.customerSrv.getAllFlows();
   }
 
   hideSingleSelectionIndicator() {
@@ -87,6 +116,11 @@ export class Stepper {
     consumerKey: ['', Validators.required],
     isActive: [false, Validators.required],
     isLocked: [false, Validators.required]
+  });
+
+  workflowFormGroup = this._formBuilder.group({
+    name: ['', Validators.required],
+    description: ['', Validators.required],
   });
 
   setOGr() {
