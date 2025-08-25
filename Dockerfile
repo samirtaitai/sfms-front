@@ -21,3 +21,5 @@ RUN ng build --configuration=production
 FROM nginx:stable AS final
 EXPOSE 80
 COPY --from=build src/dist/sfms-front/browser  /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+# We copy the nginx configuration file that will allow us to do the redirections correctly.

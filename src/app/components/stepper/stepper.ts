@@ -72,7 +72,6 @@ export class Stepper {
 
   hasChild = (_: number, node: any) => !!node.children && node.children.length > 0;
 
-
   readonly animal = signal('');
   readonly name = model('');
   readonly dialog = inject(MatDialog);
@@ -81,6 +80,7 @@ export class Stepper {
   customers: any[] = [];
   flows: any[] = [];
   applications: any[] = [];
+  oidcProviders: any[] = ['IDP', 'CUSTOM']
   loading = false;
   creatingApplication = false;
   readonly panelOpenState = signal(false);
@@ -123,6 +123,11 @@ export class Stepper {
     description: ['', Validators.required],
   });
 
+  storageFormGroup = this._formBuilder.group({
+    instrospecionEndpoint: ['', Validators.required],
+    storageRegion: ['', Validators.required],
+  })
+
   setOGr() {
     console.log(this.customerFormGroup.value.selectedCustomer[0])
     if (this.customerFormGroup.value.selectedCustomer[0].type === 'ORG_ENTITY')
@@ -152,6 +157,16 @@ export class Stepper {
         console.log(result);
       }
     });
+  }
+
+  instros = ''
+
+  getIntrospecionEndpoint(value: string) {
+    if (value === 'IDP') {
+      this.instros = 'https://OIDC.AZ/instrospect';
+    } else if (value === 'CUSTOM') {
+      this.instros = '';
+    }
   }
 
 

@@ -133,25 +133,94 @@
                     </div>
                 </div>
             </form>
-            <form [formGroup]="oeSelectedFormGroup">
-                <h3 class="form-tittle">Select Workflow</h3>
-                <button matButton="filled" style="border-radius: 0px; height: 30px;"
-                    routerLink="/create-workflow">Create
-                    new Workflow</button>
-                <mat-selection-list [multiple]="true" #shoes style="height: 200px; overflow-y: scroll;"
-                    formControlName="selected">
-                    @for (flow of flows; track flow) {
-                    <mat-list-option [value]="flow">{{flow.name}}</mat-list-option>
-                    }
-                </mat-selection-list>
-            </form>
-
-
         </section>
         <div class="stepper-footer">
             <button matButton matStepperPrevious>Back</button>
             <button matButton matStepperNext class="no-radius">Next</button>
         </div>
+    </mat-step>
+    <mat-step label="Configure Application">
+        <form [formGroup]="oeSelectedFormGroup">
+
+
+            <div style="display: flex; justify-content:space-evenly; align-items:center;">
+                <mat-card class="example-card" appearance="outlined" style="border: none;">
+                    <mat-card-header>
+                        <div mat-card-avatar class="example-header-image"></div>
+                        <mat-card-title>{{newApplicationFormGroup.value.name}}</mat-card-title>
+                        <mat-card-subtitle style="color: rgb(189, 189, 189);">Application Name</mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+
+                <mat-card class="example-card" appearance="outlined" style="border: none;">
+                    <mat-card-header>
+                        <div mat-card-avatar class="example-header-image"></div>
+                        <mat-card-title>{{newApplicationFormGroup.value.description}}</mat-card-title>
+                        <mat-card-subtitle style="color: rgb(189, 189, 189);">Application
+                            Description</mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+
+                <mat-card class="example-card" appearance="outlined" style="border: none;">
+                    <mat-card-header>
+                        <div mat-card-avatar class="example-header-image"></div>
+                        <mat-card-title>{{newApplicationFormGroup.value.consumerKey}}</mat-card-title>
+                        <mat-card-subtitle style="color: rgb(189, 189, 189);">Application
+                            ConsumerKey</mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+            </div>
+
+            <section>
+                <div style="display: flex; flex-direction: column; ">
+
+                    <div>
+                        <h3 class="form-tittle">Select OIDP Provider</h3>
+                        <form [formGroup]="applicationFormGroup" style="width: 500px;">
+                            <mat-selection-list [multiple]="false" formControlName="selectedApplication">
+                                @for (application of oidcProviders; track application) {
+                                <mat-list-option [value]="application" (click)="getIntrospecionEndpoint(application)">
+                                    <div style=" display: flex; align-items:center;justify-content: space-between;">
+                                        {{application}}
+                                    </div>
+                                </mat-list-option>
+                                }
+                            </mat-selection-list>
+                        </form>
+                    </div>
+
+                    <div>
+                        <h3 class="form-tittle">Storage</h3>
+
+                        <form [formGroup]="storageFormGroup" display="flex; flex-direction: column; width: 500px;">
+                            <mat-form-field style="margin-left: 20px;">
+                                <mat-label>Introspection endpoint</mat-label>
+                                <input [value]="instros" matInput placeholder="Introspection enpoints"
+                                    formControlName="instrospecionEndpoint" required>
+                            </mat-form-field>
+                            <mat-form-field style="margin-left: 20px;">
+                                <mat-label>S3 Storage region</mat-label>
+                                <input matInput placeholder="Storage region" formControlName="storageRegion" required>
+                            </mat-form-field>
+                        </form>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <h3 class="form-tittle">Select Workflow</h3>
+            <button matButton="filled" style="border-radius: 0px; height: 30px;" routerLink="/create-workflow">Create
+                new Workflow</button>
+            <mat-selection-list [multiple]="true" #shoes style="height: 200px; overflow-y: scroll;"
+                formControlName="selected">
+                @for (flow of flows; track flow) {
+                <mat-list-option [value]="flow">{{flow.name}}</mat-list-option>
+                }
+            </mat-selection-list>
+        </form>
+
+
     </mat-step>
     <mat-step label="Onboard Application">
         <div class="stepper-footer">
