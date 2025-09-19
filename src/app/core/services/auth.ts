@@ -37,7 +37,7 @@ export class Auth {
             this.user = new User(userName, rol);
             switch (this.user.rol) {
               case 'admin':
-                this.router.navigate(['/administrator']);
+                this.router.navigate(['/admin-distributive']);
                 break;
               case 'agent':
                 this.router.navigate(['/home']);

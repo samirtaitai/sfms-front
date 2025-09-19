@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-create-workflow',
   standalone: true,
-  imports: [CommonModule, NavBar, ReactiveFormsModule, MatInputModule, MatButton, MatSelectModule,MatIconModule],
+  imports: [CommonModule, NavBar, ReactiveFormsModule, MatInputModule, MatButton, MatSelectModule, MatIconModule],
   templateUrl: './create-workflow.html',
   styleUrl: './create-workflow.css'
 })
@@ -32,7 +32,6 @@ export class CreateWorkflow {
     });
   }
 
-
   addAcction() {
     if (this.fileTypesForm.valid) {
       this.fileActions.push(this.fileTypesForm.value);
@@ -53,8 +52,7 @@ export class CreateWorkflow {
     { value: 'TXT', viewValue: 'TXT File' },
   ];
 
-
-  deleteAction(file:any){
+  deleteAction(file: any) {
     const index = this.fileActions.indexOf(file);
     if (index > -1) {
       this.fileActions.splice(index, 1);

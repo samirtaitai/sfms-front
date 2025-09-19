@@ -1,4 +1,4 @@
-import { Component,ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import {
@@ -15,8 +15,16 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login-page',
-  changeDetection:ChangeDetectionStrategy.Default,
-  imports: [CommonModule, MatProgressBarModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule],
+  changeDetection: ChangeDetectionStrategy.Default,
+  imports: [
+    CommonModule,
+    MatProgressBarModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule
+  ],
   templateUrl: './login-page.html',
   styleUrl: './login-page.css'
 })

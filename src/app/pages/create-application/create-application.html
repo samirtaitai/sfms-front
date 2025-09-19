@@ -1,1 +1,74 @@
-<p>create-application works!</p>
+<app-nav-bar></app-nav-bar>
+<button [disabled]="workflowForm.invalid" matIconButton aria-label="Back History button" (click)="backHistory()">
+    <mat-icon>keyboard_backspace</mat-icon>
+</button>
+<button matButton style="display: flex; margin-left: auto; border-radius: 5px; height: 35px;"
+    (click)="createApplication()">
+    <mat-icon>save</mat-icon>
+    Create Application
+</button>
+<div class="page-container">
+    <mat-card class="application-card" appearance="outlined">
+        <mat-card-header>
+            <mat-icon mat-card-avatar>web</mat-icon>
+            <mat-card-title>Create Application</mat-card-title>
+            <mat-card-subtitle>Create a new application to the platform</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content style="padding: 20px; display:flex; flex-direction: column;">
+            <p>To create a new application, please provide the following details:</p>
+            <form [formGroup]="applicationForm" style="padding: 20px; display:flex; flex-direction: column;">
+                <mat-form-field  appearance="fill" class="full-width">
+                    <mat-label>Application Name</mat-label>
+                    <input formControlName="name" matInput placeholder="Enter the application name">
+                </mat-form-field>
+                <mat-form-field  appearance="fill" class="full-width">
+                    <mat-label>Application Description</mat-label>
+                    <input formControlName="description" matInput placeholder="Enter the application descripton">
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="application-card" appearance="outlined">
+        <mat-card-header>
+            <mat-icon mat-card-avatar>web</mat-icon>
+            <mat-card-title>Flows</mat-card-title>
+            <mat-card-subtitle>Added flows</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content style="padding: 20px; display:flex; flex-direction: column;">
+            <form [formGroup]="workflowForm">
+                <div style="display: flex; align-items: center; ">
+                    <mat-form-field style=" height: 70px;">
+                        <mat-label>Code</mat-label>
+                        <input matInput placeholder="Flow Code" formControlName="name" required>
+                    </mat-form-field>
+                    <mat-form-field style="margin-left: 10px; height: 70px">
+                        <mat-label>Description</mat-label>
+                        <input matInput placeholder="Flow Description" formControlName="description" required>
+                    </mat-form-field>
+
+                </div>
+                <button matButton="filled" style="display: flex; margin-left: auto; border-radius: 5px; height: 25px;"
+                    (click)="addAcction()">
+                    <mat-icon>post_add</mat-icon>
+                    Add Flow
+                </button>
+            </form>
+            <div class="container2">
+                @for (flow of applicationFlows; track flow) {
+                <div
+                    style="padding: 5px; display: flex; justify-content: space-between; align-items: center; height: 20px; margin-top: 5px; background-color: rgba(103, 117, 143, 0.08); min-width: 100%;">
+                    <div style="display: flex; align-items: centery;width: 50%;">
+                        <h5 style="margin-right: auto;">{{flow.name}}</h5>
+                        <h5 style="margin-left: auto;">{{flow.description}}</h5>
+                    </div>
+                    <button style="color: rgb(148, 49, 49);" matButton matMiniFab (click)="deleteAction(flow)">
+                        <mat-icon color="danger">delete</mat-icon>
+                    </button>
+                </div>
+                }
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+</div>

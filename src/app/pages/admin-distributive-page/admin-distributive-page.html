@@ -1,0 +1,121 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="page-container">
+    <!--
+
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: start;">
+
+        <mat-card class="example-card" appearance="outlined">
+            <mat-card-header>
+                <mat-icon mat-card-avatar>apartment</mat-icon>
+                <mat-card-title>Customers</mat-card-title>
+                <mat-card-subtitle>Admin</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+   
+            </mat-card-content>
+            <mat-card-actions>
+                <button matButton>All Entities</button>
+                <button matButton>Create Entity</button>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="example-card" appearance="outlined">
+            <mat-card-header>
+                <mat-icon mat-card-avatar>apartment</mat-icon>
+                <mat-card-title>ORG ENTITY</mat-card-title>
+                <mat-card-subtitle>Entities Manager</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <p>
+                    Manage your entities and their types
+                </p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button matButton>All Entities</button>
+                <button matButton>Create Entity</button>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="example-card" appearance="outlined">
+            <mat-card-header>
+                <mat-icon mat-card-avatar>schema</mat-icon>
+                <mat-card-title>Flows</mat-card-title>
+                <mat-card-subtitle>Flows Manager</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <p>
+                    Create the flows you need, assign a file type and size
+                </p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button matButton>All flows</button>
+                <button matButton>Create Flow</button>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="example-card" appearance="outlined">
+            <mat-card-header>
+                <mat-icon mat-card-avatar>web</mat-icon>
+                <mat-card-title>Applicatinos</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p>
+                    The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+                </p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button matButton>LIKE</button>
+                <button matButton>SHARE</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+        -->
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: start;">
+        <mat-card class="application-card" appearance="outlined">
+            <mat-card-header>
+                <mat-card-title>Applications/Services</mat-card-title>
+                <mat-card-subtitle>Manage your Applications/Services</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content style="display: flex; flex-direction: column;">
+                <button matButton class="dist-button">
+                    <mat-icon>cloud_done</mat-icon>
+                    Existing Applications/Services
+                </button>
+                <button matButton class="dist-button" routerLink="/onboard-application">
+                    <mat-icon>cloud_upload</mat-icon>
+                    Onboard Application/Service
+                </button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: start;">
+        <mat-card class="application-card" appearance="outlined">
+            <mat-card-header>
+                <mat-card-title>Configuration</mat-card-title>
+                <mat-card-subtitle>Manage your core components</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content style="display: flex; flex-direction: column;">
+                <button matButton class="dist-button" routerLink="/customers">
+                    <mat-icon>person</mat-icon>
+                    Customers
+                </button>
+                <button matButton class="dist-button" routerLink="/organization-entities">
+                    <mat-icon>apartment</mat-icon>
+
+                    Organization Entities</button>
+                <button matButton class="dist-button" routerLink="/applications">
+                    <mat-icon>web</mat-icon>
+
+                    <p>
+                        Applications
+                    </p>
+                </button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+
+
+</div>

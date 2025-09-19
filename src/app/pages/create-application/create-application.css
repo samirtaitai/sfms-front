@@ -1,0 +1,16 @@
+.page-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.application-card {
+  width:420px;
+  color: #006192;
+  background-color: white;
+}
+

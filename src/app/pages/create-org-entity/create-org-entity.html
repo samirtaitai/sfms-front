@@ -1,0 +1,32 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="page-container">
+    <mat-card class="application-card" appearance="outlined">
+        <mat-card-header>
+            <mat-icon mat-card-avatar>web</mat-icon>
+            <mat-card-title>Create ORG Entity</mat-card-title>
+            <mat-card-subtitle>Create a new ORG Entity to the platform</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content style="padding: 20px; display:flex; flex-direction: column;">
+            <p>To create a new ORG Entity, please provide the following details:</p>
+            <form [formGroup]="oeFormGroup" style="padding: 20px; display:flex; flex-direction: column;">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>ORG Entity Name</mat-label>
+                    <input formControlName="name" matInput placeholder="Enter the ORG Entity name">
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>ORG Entity Code</mat-label>
+                    <input formControlName="code" matInput placeholder="Enter the ORG Entity code">
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>ORG Entity debtor</mat-label>
+                    <input formControlName="debtor" matInput placeholder="Enter ORG Entity debtor">
+                </mat-form-field>
+            </form>
+            <button matButton="filled" style="display: flex; margin-left: auto; border-radius: 5px; height: 25px;"(click)="createOe()">
+                <mat-icon>post_add</mat-icon>
+                Add Flow
+            </button>
+        </mat-card-content>
+    </mat-card>
+</div>

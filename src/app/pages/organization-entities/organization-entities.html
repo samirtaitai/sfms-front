@@ -1,0 +1,27 @@
+<app-nav-bar></app-nav-bar>
+<button matIconButton class="user-button" aria-label="Back History button" (click)="backHistory()">
+    <mat-icon>keyboard_backspace</mat-icon>
+</button>
+<div style=" padding: 100px;">
+    <mat-card class="actions-card">
+        <mat-card-header>
+            <mat-card-subtitle class="sub-tittle">All OE`S Table</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+            <button style="margin-left: auto;" matButton routerLink="/create-org-entity">Create New OE</button>
+        </mat-card-actions>
+    </mat-card>
+    <table id="customers">
+        <tr>
+            <th>Name</th>
+            <th>Code</th>
+        </tr>
+
+        @for (oe of oes; track oe) {
+        <tr>
+            <td>{{oe.name}}</td>
+            <td>{{oe.code}}</td>
+        </tr>
+        }
+    </table>
+</div>

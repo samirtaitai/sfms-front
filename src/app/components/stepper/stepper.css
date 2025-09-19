@@ -50,3 +50,11 @@
     font-weight: 500;
     color: #006192;
 }
+
+.application-card {
+    color: #006192;
+    background-color: rgba(246, 246, 246, 0.429);
+    height: 400px;
+    padding: 10px;
+    margin-bottom: 10px;
+}

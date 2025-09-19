@@ -3,7 +3,7 @@ import { MatProgressBar } from "@angular/material/progress-bar";
 import { MatDialogActions, MatDialogContent, MatDialogRef } from "@angular/material/dialog";
 import { MatInputModule } from "@angular/material/input";
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Customer } from '../../core/services/customer';
+import { Customer } from '../../core/services/customer/customer';
 import { MatButton } from '@angular/material/button';
 
 @Component({

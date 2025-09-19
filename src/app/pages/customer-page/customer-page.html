@@ -1,102 +1,11 @@
 <div style="min-width: 100%; min-height: 100%; display: flex; flex-direction: column; position: relative;">
     <app-nav-bar></app-nav-bar>
     <mat-tab-group>
-        <mat-tab label="Customers">
-            <div style=" padding: 100px;">
-                <mat-card class="actions-card">
-                    <mat-card-header>
-                        <mat-card-subtitle class="sub-tittle">All Customers Table</mat-card-subtitle>
-                    </mat-card-header>
-                    <mat-card-content>
-
-                    </mat-card-content>
-                    <mat-card-actions>
-                        <button style="margin-left: auto;" matButton (click)="openNewCustomerDialog()">Create New
-                            Customer
-                        </button>
-                        <button matButton routerLink="/create-customer">Onboard New
-                            Consummer
-                        </button>
-                    </mat-card-actions>
-                </mat-card>
-                <table id="customers">
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Type</th>
-                    </tr>
-
-                    @for (customer of customers; track customer) {
-                    <tr>
-                        <td>{{customer.name}}</td>
-                        <td>{{customer.description}}</td>
-                        <td>{{customer.type}}</td>
-                    </tr>
-                    }
-                </table>
-            </div>
-        </mat-tab>
         <mat-tab label="OE's">
-            <div style=" padding: 100px;">
-                <mat-card class="actions-card">
-                    <mat-card-header>
-                        <mat-card-subtitle class="sub-tittle">All OE`S Table</mat-card-subtitle>
-                    </mat-card-header>
-                    <mat-card-actions>
-                        <button style="margin-left: auto;" matButton (click)="openNewOeDialog()">Create New OE</button>
-                    </mat-card-actions>
-                </mat-card>
-                <table id="customers">
-                    <tr>
-                        <th>Name</th>
-                        <th>Code</th>
-                    </tr>
 
-                    @for (oe of oes; track oe) {
-                    <tr>
-                        <td>{{oe.name}}</td>
-                        <td>{{oe.code}}</td>
-                    </tr>
-                    }
-                </table>
-            </div>
         </mat-tab>
         <mat-tab label="Applications">
-            <div style=" padding: 100px;">
-                <mat-card class="actions-card">
-                    <mat-card-header>
-                        <mat-card-subtitle class="sub-tittle">All Applications Table</mat-card-subtitle>
-                    </mat-card-header>
-                    <mat-card-actions>
-                        <button style="margin-left: auto;" matButton>Create New Application</button>
-                    </mat-card-actions>
-                </mat-card>
-                <table id="customers">
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Flow Code</th>
-                        <th>Flow Description</th>
-                        <th>Flow Action</th>
-                        <th>Flow Type</th>
-                        <th>Fyle Size</th>
-                    </tr>
 
-                    @for (application of applications; track application) {
-                    <tr>
-                        <td>{{application.name}}</td>
-                        <td>{{application.description}}</td>
-                        <td>{{application.flowCode}}</td>
-                        <td>{{application.flowDescription}}</td>
-                        <td>{{application.flowAction}}</td>
-
-                        <td>{{application.fileType}}</td>
-                        <td>{{application.fileSize}}</td>
-
-                    </tr>
-                    }
-                </table>
-            </div>
         </mat-tab>
     </mat-tab-group>
 </div>
