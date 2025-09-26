@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/login-page/login-page.css"],
+  "sourcesContent": [".example-card {\r\n    max-width: 400px;\r\n    background-color: white;\r\n    padding-left: 40px;\r\n    padding-right: 40px;\r\n    padding-bottom: 15px;\r\n    padding-top: 15px;\r\n    border-radius: 5px;\r\n    margin: auto;\r\n    border: none;\r\n}\r\n\r\n.example-full-width {\r\n    width: 100%;\r\n}\r\n\r\n.example-header-image {\r\n    width: 100px;\r\n}\r\n\r\n.card-tittle {\r\n    font-size: 15px;\r\n    font-family: Verdana, Geneva, Tahoma, sans-serif;\r\n    font-weight: 400;\r\n    margin-top: 10px;\r\n}"],
+  "mappings": ";AAAA,CAAC;AACG,aAAW;AACX,oBAAkB;AAClB,gBAAc;AACd,iBAAe;AACf,kBAAgB;AAChB,eAAa;AACb,iBAAe;AACf,UAAQ;AACR,UAAQ;AACZ;AAEA,CAAC;AACG,SAAO;AACX;AAEA,CAAC;AACG,SAAO;AACX;AAEA,CAAC;AACG,aAAW;AACX;AAAA,IAAa,OAAO;AAAA,IAAE,MAAM;AAAA,IAAE,MAAM;AAAA,IAAE;AACtC,eAAa;AACb,cAAY;AAChB;",
+  "names": []
+}

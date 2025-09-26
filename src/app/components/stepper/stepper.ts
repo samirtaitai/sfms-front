@@ -9,14 +9,15 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
-import { Customer } from '../../core/services/customer/customer';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from "@angular/material/icon";
-import { Application } from '../../core/services/application/application';
+import { Application } from '../../features/application/service/application';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { Customer } from '../../../../__mocks__/customer/customer';
 
 @Component({
   selector: 'app-stepper',
@@ -38,14 +39,16 @@ import { MatChipsModule } from '@angular/material/chips';
     MatIconModule,
     MatSelectModule,
     MatButtonModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSlideToggleModule
   ],
   standalone: true,
   templateUrl: './stepper.html',
   styleUrl: './stepper.css'
 })
 export class Stepper implements OnInit {
-
+  allTypesSelected = false;
+  addButonDisabled = false;
   ngOnInit(): void {
 
     this.applicationConfigFormGroup.get('customer')?.valueChanges.subscribe(value => {
@@ -98,13 +101,23 @@ export class Stepper implements OnInit {
 
     this.applicationConfigFormGroup.get('storageRegion')?.valueChanges.subscribe(value => {
       const oidcProvidersnControl = this.applicationConfigFormGroup.get('status');
+      const enabled = this.applicationConfigFormGroup.get('enabled');
       if (value) {
         this.getIntrospecionEndpoint(value);
         oidcProvidersnControl?.enable();
+        enabled?.enable();
       } else {
         oidcProvidersnControl?.disable();
+        enabled?.disable();
       }
     });
+
+    this.fileTypesForm.get('type')?.valueChanges.subscribe(value => {
+      if (value !== 'ALL') {
+        this.addButonDisabled = false;
+      }
+    })
+
   }
 
   childrenAccessor = (node: any) => node.children ?? [];
@@ -137,6 +150,7 @@ export class Stepper implements OnInit {
   ];
 
   foods: any[] = [
+    { value: 'ALL', viewValue: 'All File Types' },
     { value: 'CSV', viewValue: 'CSV File' },
     { value: 'PDF', viewValue: 'PDF File' },
     { value: 'TXT', viewValue: 'TXT File' },
@@ -155,11 +169,25 @@ export class Stepper implements OnInit {
 
 
   addConfiguration(flowName: any) {
-    if (this.fileTypesForm.valid) {
+    if (this.fileTypesForm.value.type === 'ALL') {
+      this.configurationId = 1
+      const config = { ...this.fileTypesForm.value, id: this.configurationId, flowName, }
+      this.configurations = [config]
+      this.fileTypesForm.reset();
+      this.addButonDisabled = true;
+      return;
+    } else {
+
+      const hasAllTypes = this.configurations.some((config: any) => config.type === 'ALL');
+      if (hasAllTypes) {
+        this.configurationId = 1
+        this.configurations = [];
+      }
+
       const config = { ...this.fileTypesForm.value, id: this.configurationId, flowName, }
       this.configurations.push(config);
-      this.fileTypesForm.reset();
       this.configurationId++;
+      this.fileTypesForm.reset();
     }
   }
 
@@ -192,7 +220,6 @@ export class Stepper implements OnInit {
       const config = { ...this.selectedConfiguration };
       config.flowName = flowName;
       config.id = this.configurationId;
-      console.log(config);
       this.configurations.push(config);
       this.configurationId++;
     }
@@ -206,7 +233,8 @@ export class Stepper implements OnInit {
     oidcProviders: [{ value: '', disabled: true }, Validators.required],
     instrospecionEndpoint: [{ value: '', disabled: true }, Validators.required],
     storageRegion: [{ value: '', disabled: true }, Validators.required],
-    status: [{ value: '', disabled: true }, Validators.required],
+    status: [{ value: true, disabled: true }, Validators.required],
+    enabled: [{ value: false, disabled: true }, Validators.required],
   })
 
   roleConfigFormGroup = this._formBuilder.group({

@@ -9,9 +9,9 @@ import {
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { Auth } from '../../core/services/auth';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CommonModule } from '@angular/common';
+import { Auth } from '../../core/services/auth';
 
 @Component({
   selector: 'app-login-page',

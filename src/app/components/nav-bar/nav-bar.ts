@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { Auth } from '../../core/services/auth';
 import { CommonModule } from '@angular/common';
+import { Auth } from '../../core/services/auth';
 
 @Component({
   selector: 'app-nav-bar',

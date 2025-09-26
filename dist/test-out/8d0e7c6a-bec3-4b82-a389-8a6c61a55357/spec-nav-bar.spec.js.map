@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/nav-bar/nav-bar.spec.ts"],
+  "sourcesContent": ["import { ComponentFixture, TestBed } from '@angular/core/testing';\r\n\r\nimport { NavBar } from './nav-bar';\r\n\r\ndescribe('NavBar', () => {\r\n  let component: NavBar;\r\n  let fixture: ComponentFixture<NavBar>;\r\n\r\n  beforeEach(async () => {\r\n    await TestBed.configureTestingModule({\r\n      imports: [NavBar]\r\n    })\r\n    .compileComponents();\r\n\r\n    fixture = TestBed.createComponent(NavBar);\r\n    component = fixture.componentInstance;\r\n    fixture.detectChanges();\r\n  });\r\n\r\n  it('should create', () => {\r\n    expect(component).toBeTruthy();\r\n  });\r\n});\r\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;AAAA;;;AAEA;AAEA,aAAS,UAAU,MAAK;AACtB,UAAI;AACJ,UAAI;AAEJ,iBAAW,MAAW;AACpB,cAAM,QAAQ,uBAAuB;UACnC,SAAS,CAAC,MAAM;SACjB,EACA,kBAAiB;AAElB,kBAAU,QAAQ,gBAAgB,MAAM;AACxC,oBAAY,QAAQ;AACpB,gBAAQ,cAAa;MACvB,EAAC;AAED,SAAG,iBAAiB,MAAK;AACvB,eAAO,SAAS,EAAE,WAAU;MAC9B,CAAC;IACH,CAAC;;;",
+  "names": []
+}

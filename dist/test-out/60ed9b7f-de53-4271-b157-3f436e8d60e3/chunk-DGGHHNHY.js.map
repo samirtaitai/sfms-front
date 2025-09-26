@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/features/application/service/application.ts"],
+  "sourcesContent": ["import { Injectable } from '@angular/core';\r\n\r\nconst applications = [\r\n  { name: 'App1', description: 'Description for App1', flows: [{ code: \"App1 flow\", description: \"this is app 1 flow\" }] },\r\n  { name: 'App2', description: 'Description for App2', flows: [{ code: \"App2 flow\", description: \"this is app 2 flow\" }] },\r\n  { name: 'App3', description: 'Description for App3', flows: [{ code: \"App3 flow\", description: \"this is app 3 flow\" }, { code: \"App3 flow 2\", description: \"this is app 3 flow second flow\" }] }\r\n];\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class Application {\r\n  getapplications() {\r\n    return [...applications];\r\n  }\r\n\r\n  createApplication(name: string, description: string, flows: any[]) {\r\n    applications.push({ name, description, flows });\r\n  }\r\n\r\n}\r\n"],
+  "mappings": ";;;;;;;;;IAEM,cASO;;;;;AAXb;AAEA,IAAM,eAAe;MACnB,EAAE,MAAM,QAAQ,aAAa,wBAAwB,OAAO,CAAC,EAAE,MAAM,aAAa,aAAa,qBAAoB,CAAE,EAAC;MACtH,EAAE,MAAM,QAAQ,aAAa,wBAAwB,OAAO,CAAC,EAAE,MAAM,aAAa,aAAa,qBAAoB,CAAE,EAAC;MACtH,EAAE,MAAM,QAAQ,aAAa,wBAAwB,OAAO,CAAC,EAAE,MAAM,aAAa,aAAa,qBAAoB,GAAI,EAAE,MAAM,eAAe,aAAa,iCAAgC,CAAE,EAAC;;AAMzL,IAAM,cAAN,MAAMA,aAAW;MACtB,kBAAe;AACb,eAAO,CAAC,GAAG,YAAY;MACzB;MAEA,kBAAkB,MAAc,aAAqB,OAAY;AAC/D,qBAAa,KAAK,EAAE,MAAM,aAAa,MAAK,CAAE;MAChD;;AAPW,kBAAW,WAAA;MAHvB,WAAW;QACV,YAAY;OACb;OACY,WAAW;;;",
+  "names": ["Application"]
+}

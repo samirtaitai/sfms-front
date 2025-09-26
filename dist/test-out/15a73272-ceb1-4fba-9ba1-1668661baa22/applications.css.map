@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/features/application/applications/applications.css"],
+  "sourcesContent": ["#customers {\r\n  font-family: Arial, Helvetica, sans-serif;\r\n  border-collapse: collapse;\r\n  width: 100%;\r\n  background-color: white;\r\n  margin-top: 10px;\r\n}\r\n\r\n#customers td, #customers th {\r\n  border: 1px solid #ddd;\r\n  padding: 8px;\r\n}\r\n\r\n#customers tr:nth-child(even){background-color: #f2f2f2;}\r\n\r\n#customers tr:hover {background-color: #ddd;}\r\n\r\n#customers th {\r\n  padding-top: 12px;\r\n  padding-bottom: 12px;\r\n  text-align: left;\r\n  background-color: #006192;;\r\n  color: white;\r\n}\r\n\r\n.actions-card{\r\n    border: none;\r\n    border-radius: 2px;\r\n    background-color: white;\r\n    box-shadow: none;\r\n}"],
+  "mappings": ";AAAA,CAAC;AACC;AAAA,IAAa,KAAK;AAAA,IAAE,SAAS;AAAA,IAAE;AAC/B,mBAAiB;AACjB,SAAO;AACP,oBAAkB;AAClB,cAAY;AACd;AAEA,CARC,UAQU;AAAI,CARd,UAQyB;AACxB,UAAQ,IAAI,MAAM;AAClB,WAAS;AACX;AAEA,CAbC,UAaU,EAAE;AAAiB,oBAAkB;AAAQ;AAExD,CAfC,UAeU,EAAE;AAAQ,oBAAkB;AAAK;AAE5C,CAjBC,UAiBU;AACT,eAAa;AACb,kBAAgB;AAChB,cAAY;AACZ,oBAAkB;AAClB,SAAO;AACT;AAEA,CAAC;AACG,UAAQ;AACR,iBAAe;AACf,oBAAkB;AAClB,cAAY;AAChB;",
+  "names": []
+}

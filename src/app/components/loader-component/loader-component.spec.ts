@@ -1,3 +1,5 @@
+import 'zone.js/testing'; // 👈 Necesario para tests
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoaderComponent } from './loader-component';

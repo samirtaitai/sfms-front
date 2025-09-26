@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/nav-bar/nav-bar.css"],
+  "sourcesContent": [".example-spacer {\r\n  flex: 1 1 auto;\r\n}\r\n\r\n.nav {\r\n  background-color: white;\r\n  border-bottom: 1px solid rgb(198, 198, 198);\r\n}\r\n\r\n.nav-button {\r\n  background-color: transparent;\r\n  border: none;\r\n  margin: 15px;\r\n  margin-bottom: 0px;\r\n  font-size: 15px;\r\n  font-family: Verdana, Geneva, Tahoma, sans-serif;\r\n  border-bottom: 4px transparent solid;\r\n  padding: 15px;\r\n  transition: 0.2s;\r\n}\r\n\r\n.nav-button:hover {\r\n  color: #006192;\r\n  border-bottom: 4px #006192 solid;\r\n}\r\n\r\n.user-button {\r\n  background-color: transparent;\r\n  color: #b7b7b7;\r\n  border: none;\r\n  transition: 0.9s;\r\n}\r\n\r\n.user-button:hover {\r\n  color: #006192;\r\n}\r\n\r\n.example-header-image {\r\n  width: 100px;\r\n}\r\n\r\n.active-link {\r\n  color: #006192;\r\n  border-bottom: 4px #006192 solid;\r\n}"],
+  "mappings": ";AAAA,CAAC;AACC,QAAM,EAAE,EAAE;AACZ;AAEA,CAAC;AACC,oBAAkB;AAClB,iBAAe,IAAI,MAAM,IAAI,GAAG,EAAE,GAAG,EAAE;AACzC;AAEA,CAAC;AACC,oBAAkB;AAClB,UAAQ;AACR,UAAQ;AACR,iBAAe;AACf,aAAW;AACX;AAAA,IAAa,OAAO;AAAA,IAAE,MAAM;AAAA,IAAE,MAAM;AAAA,IAAE;AACtC,iBAAe,IAAI,YAAY;AAC/B,WAAS;AACT,cAAY;AACd;AAEA,CAZC,UAYU;AACT,SAAO;AACP,iBAAe,IAAI,QAAQ;AAC7B;AAEA,CAAC;AACC,oBAAkB;AAClB,SAAO;AACP,UAAQ;AACR,cAAY;AACd;AAEA,CAPC,WAOW;AACV,SAAO;AACT;AAEA,CAAC;AACC,SAAO;AACT;AAEA,CAAC;AACC,SAAO;AACP,iBAAe,IAAI,QAAQ;AAC7B;",
+  "names": []
+}

@@ -1,15 +1,23 @@
 import { inject, Injectable } from '@angular/core';
-import { User } from '../models/User';
-import { loginMock } from '../../../../__mocks__/login'
+import { loginMock } from '../../../../__mocks__/login';
 import { Observable, Subject } from 'rxjs';
 import { Router } from '@angular/router';
+
+class User {
+  userName: string;
+  rol: string;
+  constructor(userName: string, rol: string) {
+    this.userName = userName;
+    this.rol = rol;
+  }
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class Auth {
   private router = inject(Router);
-  user: User = {
+  user: any = {
     userName: '',
     rol: ''
   };

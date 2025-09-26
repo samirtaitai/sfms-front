@@ -1,0 +1,32 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="page-container">
+    <h1>Configured Applications/Services</h1>
+
+    <div style=" padding: 100px;">
+        <mat-card class="actions-card">
+            <mat-card-header>
+                <mat-card-subtitle class="sub-tittle">All Applications Table</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions>
+                <button matButton class="dist-button" routerLink="/onboard-application">
+                    <mat-icon>cloud_upload</mat-icon>
+                    Onboard Application/Service
+                </button>
+            </mat-card-actions>
+        </mat-card>
+        <table id="customers">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+
+            @for (application of configuredApps; track application) {
+            <tr>
+                <td>{{application.name}}</td>
+                <td>{{application.description}}</td>
+            </tr>
+            }
+        </table>
+    </div>
+</div>

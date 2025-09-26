@@ -43,13 +43,9 @@
                         <input matInput placeholder="storage region" formControlName="storageRegion" required>
                     </mat-form-field>
                 </div>
-                <div>
-                    <mat-button-toggle-group value="active" formControlName="status" [hideSingleSelectionIndicator]="false">
-                        <mat-button-toggle value="active">Active</mat-button-toggle>
-                    </mat-button-toggle-group>
-                    <mat-button-toggle-group formControlName="status" [hideSingleSelectionIndicator]="false">
-                        <mat-button-toggle value="disabled">Locked</mat-button-toggle>
-                    </mat-button-toggle-group>
+                <div style="display:flex; gap: 20px; margin-left: 20px; align-items: center;">
+                    <p>Active <mat-slide-toggle [checked]="true" formControlName="status" labelPosition="before"></mat-slide-toggle></p>
+                    <p>Enabled<mat-slide-toggle formControlName="enabled" labelPosition="before"></mat-slide-toggle></p>
                 </div>
             </form>
 
@@ -116,7 +112,7 @@
                                 <mat-icon>content_copy</mat-icon>
                                 Clone
                             </button>
-                            <button (click)="addConfiguration(flow.code)" matButton="filled"
+                            <button [disabled]="addButonDisabled" (click)="addConfiguration(flow.code)" matButton="filled"
                                 style="display: flex; border-radius: 5px; height: 25px;">
                                 <mat-icon>playlist_add</mat-icon>
                                 Add

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/core/auth-interceptor.spec.ts", "src/app/core/auth-interceptor.ts"],
+  "sourcesContent": ["import 'zone.js/testing'; // 👈 Necesario para tests\r\n\r\nimport { TestBed } from '@angular/core/testing';\r\nimport { HttpInterceptorFn } from '@angular/common/http';\r\nimport { authInterceptor } from './auth-interceptor';\r\n\r\n\r\ndescribe('authInterceptor', () => {\r\n  const interceptor: HttpInterceptorFn = (req, next) => \r\n    TestBed.runInInjectionContext(() => authInterceptor(req, next));\r\n\r\n  beforeEach(() => {\r\n    TestBed.configureTestingModule({});\r\n  });\r\n\r\n  it('should be created', () => {\r\n    expect(interceptor).toBeTruthy();\r\n  });\r\n});\r\n", "import { HttpInterceptorFn } from '@angular/common/http';\r\n\r\nexport const authInterceptor: HttpInterceptorFn = (req, next) => {\r\n  return next(req);\r\n};\r\n"],
+  "mappings": ";;;;;;;;;AAAA;AAEA;;;ACAO,IAAM,kBAAqC,CAAC,KAAK,SAAQ;AAC9D,SAAO,KAAK,GAAG;AACjB;;;ADGA,SAAS,mBAAmB,MAAK;AAC/B,QAAM,cAAiC,CAAC,KAAK,SAC3C,QAAQ,sBAAsB,MAAM,gBAAgB,KAAK,IAAI,CAAC;AAEhE,aAAW,MAAK;AACd,YAAQ,uBAAuB,CAAA,CAAE;EACnC,CAAC;AAED,KAAG,qBAAqB,MAAK;AAC3B,WAAO,WAAW,EAAE,WAAU;EAChC,CAAC;AACH,CAAC;",
+  "names": []
+}
