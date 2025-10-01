@@ -10,6 +10,7 @@ import { MatCard, MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { CustomerService } from '../customer.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-create-customer',
@@ -24,6 +25,7 @@ import { ChangeDetectorRef } from '@angular/core';
     MatCard,
     MatCardModule,
     MatIconModule,
+    RouterLink
   ],
   providers: [CustomerService],
   standalone: true,

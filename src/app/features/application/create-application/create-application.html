@@ -8,11 +8,19 @@
 </div>
 
 <div class="page-container" *ngIf="!loading">
-    <button matButton style="display: flex; margin-left: auto; border-radius: 5px; height: 35px;"
+    <div style="display: flex;align-items: center; justify-content: end; gap: 50px;">
+    <button mat-button color="warn"
+    [routerLink]="['/admin-distributive']"
+    style="display: flex; margin-left: auto; border-radius: 5px; height: 35px; color: rgba(255, 0, 0, 0.491);">
+        Cancel
+    </button>
+    <button matButton style="display: flex;border-radius: 5px; height: 35px;"
         (click)="createApplication()">
         <mat-icon>save</mat-icon>
         Create Application
     </button>
+    </div>
+
     <mat-card class="application-card" appearance="outlined">
         <mat-card-header>
             <mat-icon mat-card-avatar>web</mat-icon>

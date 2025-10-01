@@ -3,10 +3,17 @@
     <div class="page-header">
         <app-filter (filterChanged)="onFilterChanged($event)" [loading]="loading"
             placeHolder="Filter Applications..."></app-filter>
-        <button routerLink="/create-application" matButton="filled" class="application-button">
-            <mat-icon>post_add</mat-icon>
-            Create Application
-        </button>
+        <div style="display: flex;align-items: center; justify-content: space-evenly; gap: 10px;">
+            <button mat-button color="warn" [routerLink]="['/admin-distributive']"
+                style="display: flex; border-radius: 5px; margin-left: 50px; height: 35px; color: rgba(255, 0, 0, 0.58);">
+                Cancel
+            </button>
+            <button routerLink="/create-application" matButton="filled" class="application-button">
+                <mat-icon>post_add</mat-icon>
+                Create Application
+            </button>
+        </div>
+
     </div>
 
     <div class="table-wrapper">

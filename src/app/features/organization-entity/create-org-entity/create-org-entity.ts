@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { OesService } from '../oes.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-create-org-entity',
@@ -21,7 +22,8 @@ import { ChangeDetectorRef } from '@angular/core';
     MatIconModule,
     NavBar,
     MatInputModule,
-    MatButton
+    MatButton,
+    RouterLink
   ],
   providers: [OesService],
   templateUrl: './create-org-entity.html',

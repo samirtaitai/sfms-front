@@ -6,7 +6,7 @@
                     style="display: flex; gap: 50px; margin-left: auto; margin-right: auto; align-items: center; justify-content: space-evenly; max-width: 1000px;">
                     <div class="field-label">
                         <mat-label>Customers</mat-label>
-                        <mat-form-field style="margin-left: 20px; height: 70px">
+                        <mat-form-field style="height: 70px">
                             <mat-select formControlName="customer" placeholder="Select Customer">
                                 @for (customer of customers; track customer) {
                                 <mat-option [value]="customer">{{customer.name}}</mat-option>
@@ -16,7 +16,7 @@
                     </div>
                     <div class="field-label">
                         <mat-label>Organization Entities</mat-label>
-                        <mat-form-field style="margin-left: 20px; height: 70px">
+                        <mat-form-field style="height: 70px">
                             <mat-select formControlName="OrgEntity" placeholder="Select OrgEntity">
                                 @for (oe of orgEntities; track oe) {
                                 <mat-option [value]="oe">{{oe.name}}</mat-option>
@@ -26,7 +26,7 @@
                     </div>
                     <div class="field-label">
                         <mat-label>Applications</mat-label>
-                        <mat-form-field style="margin-left: 20px; height: 70px">
+                        <mat-form-field style=" height: 70px">
                             <mat-select formControlName="application" placeholder="Select application">
                                 @for (application of applications; track application) {
                                 <mat-option [value]="application">{{application.name}}</mat-option>
@@ -39,7 +39,7 @@
                     style="display: flex; gap: 50px; margin-left: auto; margin-right: auto; align-items: center; justify-content: space-evenly; max-width: 1000px;">
                     <div class="field-label">
                         <mat-label>OIDC Providers</mat-label>
-                        <mat-form-field style="margin-left: 20px; height: 70px">
+                        <mat-form-field style="height: 70px">
                             <mat-select formControlName="oidcProviders" placeholder="Select oidcProvider">
                                 @for (oidcProvider of oidcProviders; track oidcProvider) {
                                 <mat-option [value]="oidcProvider">{{oidcProvider}}</mat-option>
@@ -50,7 +50,7 @@
 
                     <div class="field-label">
                         <mat-label>Introspection Endpoint</mat-label>
-                        <mat-form-field style="margin-left: 20px; height: 70px">
+                        <mat-form-field style=" height: 70px">
                             <mat-label>Introspection endpoint</mat-label>
                             <input [value]="instros" matInput placeholder="Introspection enpoints"
                                 formControlName="instrospecionEndpoint" required>
@@ -59,7 +59,7 @@
 
                     <div class="field-label">
                         <mat-label>Storege Region</mat-label>
-                        <mat-form-field style="margin-left: 20px; height: 70px">
+                        <mat-form-field style="height: 70px">
                             <mat-label>Storege region</mat-label>
                             <mat-select formControlName="storageRegion" placeholder="Storage region">
                                 @for (region of storegeRegions; track region) {
@@ -188,32 +188,32 @@
                 <mat-card-subtitle>Application Summary</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content style="padding: 20px;">
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <div style="display: flex; justify-content: space-around; ">
+                <div style="display: flex; flex-direction: column; gap: 10px;width: 300px; margin-left: auto; margin-right: auto;">
+                    <div style="display: flex; flex-direction: column;  justify-content: start;">
                         <span><strong>Customer:</strong></span>
                         <span>{{applicationConfigFormGroup.get('customer')?.value?.name}}</span>
                     </div>
-                    <div style="display: flex; justify-content:space-around; ">
+                    <div style="display: flex; flex-direction: column;  justify-content: start;">
                         <span><strong>OrgEntity:</strong></span>
                         <span>{{applicationConfigFormGroup.get('OrgEntity')?.value?.name}}</span>
                     </div>
-                    <div style="display: flex; justify-content:space-around; ">
+                    <div style="display: flex; flex-direction: column;  justify-content: start;">
                         <span><strong>Application:</strong></span>
                         <span>{{applicationConfigFormGroup.get('application')?.value?.name}}</span>
                     </div>
-                    <div style="display: flex; justify-content: space-around; ">
+                    <div style="display: flex; flex-direction: column;  justify-content: start; ">
                         <span><strong>OIDC Provider:</strong></span>
                         <span>{{applicationConfigFormGroup.get('oidcProviders')?.value}}</span>
                     </div>
-                    <div style="display: flex; justify-content: space-around; ">
+                    <div style="display: flex ; flex-direction: column; justify-content: flex-start;">
                         <span><strong>Introspection Endpoint:</strong></span>
                         <span>{{applicationConfigFormGroup.get('instrospecionEndpoint')?.value}}</span>
                     </div>
-                    <div style="display: flex; justify-content:space-around;">
+                    <div style="display: flex; flex-direction: column;  justify-content: flex-start">
                         <span><strong>Storage Region:</strong></span>
                         <span>{{applicationConfigFormGroup.get('storageRegion')?.value}}</span>
                     </div>
-                    <div style="display: flex;justify-content: space-around;">
+                    <div style="display: flex; flex-direction: column;  justify-content: flex-start;">
                         <span><strong>Status:</strong></span>
                         <span>{{applicationConfigFormGroup.get('status')?.value}}</span>
                     </div>
@@ -236,7 +236,7 @@
                     </div>
                 </div>
             </mat-card-content>
-            <button (click)="onboardApplication()" matButton="filled"
+            <button disabled="" (click)="onboardApplication()" matButton="filled"
                 style="display: flex; margin-left: auto; border-radius: 5px; height: 25px;">
                 <mat-icon>cloud_upload</mat-icon>
                 Confirm Onbording

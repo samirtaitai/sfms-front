@@ -10,6 +10,7 @@ import { MatButton } from '@angular/material/button';
 import { Application, ApplicationService } from '../application.service';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-create-application',
@@ -24,6 +25,7 @@ import { ChangeDetectorRef } from '@angular/core';
     MatCardModule,
     ReactiveFormsModule,
     MatButton,
+    RouterLink
   ],
   providers: [ApplicationService],
   templateUrl: './create-application.html',

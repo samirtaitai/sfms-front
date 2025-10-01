@@ -5,7 +5,6 @@
         <img src="https://ngx-ndbx.frameworks.allianz.io/assets/logos/allianz_logo_with_name.svg" alt="Allianz logo">
     </div>
     <div class="card-button">
-        <button *ngIf="!isHomeRoute" (click)="goBack()" class="nav-button back">← Back</button>
     </div>
 
     <button routerLink="/home" [ngClass]="{ 'active': isActive('/home') }" class="nav-button">

@@ -7,6 +7,12 @@
 </div>
 
 <div class="page-container" *ngIf="!loading">
+    <div style="display: flex;align-items: center; justify-content: space-evenly; gap: 10px;">
+        <button mat-button color="warn" [routerLink]="['/admin-distributive']"
+            style="display: flex; border-radius: 5px; margin-left: auto; height: 35px; color: rgba(255, 0, 0, 0.58);">
+            Cancel
+        </button>
+    </div>
     <mat-card class="application-card" appearance="outlined">
         <mat-card-header>
             <mat-icon mat-card-avatar>web</mat-icon>
