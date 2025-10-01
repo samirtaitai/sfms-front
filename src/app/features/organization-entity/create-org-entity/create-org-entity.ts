@@ -7,7 +7,8 @@ import { NavBar } from "../../../components/nav-bar/nav-bar";
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
-import { Customer } from '../../../../../__mocks__/customer/customer';
+import { OesService } from '../oes.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-create-org-entity',
@@ -22,13 +23,17 @@ import { Customer } from '../../../../../__mocks__/customer/customer';
     MatInputModule,
     MatButton
   ],
+  providers: [OesService],
   templateUrl: './create-org-entity.html',
   styleUrl: './create-org-entity.css'
 })
 export class CreateOrgEntity {
   private _formBuilder = inject(FormBuilder);
-  oeFormGroup: any
-  constructor(private customerSrv: Customer) {
+  oeFormGroup: any;
+  toastMessage = '';
+  showToast = false;
+  loading = false;
+  constructor(private oesSrv: OesService, private cdr: ChangeDetectorRef) {
     this.oeFormGroup = this._formBuilder.group({
       name: ['', Validators.required],
       code: ['', Validators.required],
@@ -36,14 +41,26 @@ export class CreateOrgEntity {
     });
   }
 
+  showSuccessToast(message: string): void {
+    this.toastMessage = message;
+    this.showToast = true;
+    setTimeout(() => {
+      this.showToast = false;
+    }, 10000);
+  }
+
   createOe() {
+    this.loading = true;
     const { name, code, debtor } = this.oeFormGroup.value;
     if (name && code && debtor) {
-      this.customerSrv.setOrgName(name);
-      this.customerSrv.setOrgCode(code);
-      this.customerSrv.setOrgDebtor(debtor);
-      this.customerSrv.createOe();
-      this.oeFormGroup.reset();
+      this.oesSrv.create({ name, code, debtor: Number(debtor) }).subscribe({
+        next: (response) => {
+          this.oeFormGroup.reset();
+          this.loading = false;
+          this.showSuccessToast('Organization Entity Created Successfully');
+          this.cdr.detectChanges();
+        }
+      })
     }
   }
 }

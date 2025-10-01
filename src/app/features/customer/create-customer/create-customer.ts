@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -8,11 +8,12 @@ import { CUSTOMER_TYPE } from '../customer-type';
 import { NavBar } from "../../../components/nav-bar/nav-bar";
 import { MatCard, MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
-import { Customer } from '../../../../../__mocks__/customer/customer';
-
+import { CustomerService } from '../customer.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-create-customer',
+  changeDetection: ChangeDetectionStrategy.Default,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -22,8 +23,9 @@ import { Customer } from '../../../../../__mocks__/customer/customer';
     NavBar,
     MatCard,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
   ],
+  providers: [CustomerService],
   standalone: true,
   templateUrl: './create-customer.html',
   styleUrl: './create-customer.css'
@@ -31,10 +33,16 @@ import { Customer } from '../../../../../__mocks__/customer/customer';
 export class CreateCustomer {
   private _formBuilder = inject(FormBuilder);
   customerFormGroup: any
+  loading: any;
+  toastMessage = '';
+  showToast = false;
   backHistory() {
     history.back();
   }
-  constructor(private customerSrv: Customer) {
+  constructor(
+    private customerSrv: CustomerService,
+    private cdr: ChangeDetectorRef
+  ) {
     this.customerFormGroup = this._formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
@@ -42,13 +50,27 @@ export class CreateCustomer {
     });
   }
 
+  showSuccessToast(message: string): void {
+    this.toastMessage = message;
+    this.showToast = true;
+
+    setTimeout(() => {
+      this.showToast = false;
+    }, 10000);
+  }
 
   createCustomer() {
+    this.loading = true;
     const { name, description, type } = this.customerFormGroup.value;
     if (name && description && type) {
-      this.customerSrv.setCustomerData(name, description, type)
-      this.customerSrv.createCustomer();
-      this.customerFormGroup.reset();
+      this.customerSrv.create({ name, description }).subscribe({
+        next: (response) => {
+          this.loading = false;
+          this.showSuccessToast('Customer Created Successfully');
+          this.customerFormGroup.reset();
+          this.cdr.detectChanges();
+        }
+      });
     }
   }
 }

@@ -52,9 +52,17 @@
 }
 
 .application-card {
+    background-color: white;
+    width: auto;
     color: #006192;
-    background-color: rgba(246, 246, 246, 0.429);
-    height: 400px;
+    height: auto;
+    max-height: 400px;
     padding: 10px;
-    margin-bottom: 10px;
+}
+
+.field-label {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 5px;
 }

@@ -1,13 +1,77 @@
-<div style="min-width: 100%; min-height: 100%; display: flex; flex-direction: column; position: relative;">
 <app-nav-bar></app-nav-bar>
 
-<mat-card class="presentation-card" appearance="outlined">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title class="tittle">SFMS</mat-card-title>
-    <mat-card-subtitle class="sub-tittle">Protencting Today, Securing Tomorrow...</mat-card-subtitle>
-  </mat-card-header>
-</mat-card>
+<div style="padding: 1rem;">
+  <h1>SFMS - Malware Scanning Service</h1>
+</div>
 
-<mat-icon class="icon">security</mat-icon>
+<div style=" display: flex; flex-direction: column; padding: 2rem;">
+  <section>
+    <p>
+      <strong>SFMS (Secure File Management System)</strong> offers a Class-2 standard global malware scanning service
+      hosted in Europe,
+      designed to provide an on-demand malware scanning solution accessible via both the internet and intranet.
+      Leveraging
+      a flexible REST API, SFMS seamlessly integrates with front-end and back-end systems, ensuring broad platform
+      compatibility. Operating within a secure, isolated environment in the Allianz Global Network (AGN), this
+      innovative
+      service offers robust protection against zero-day and advanced malware threats. SFMS not only detects and prevents
+      security breaches but also repairs infected files, delivering a comprehensive layer of security to users
+      worldwide.
+    </p>
+  </section>
+
+  <img style="width:500px; display: flex;margin-left: auto; margin-right: auto;" src="sfms-arch.webp" alt="Logo">
+
+  <section>
+    <p class="centred-text">
+      The diagram represents the high level architecture of the SFMS , which is hosted within an isolated infrastructure
+      in the Allianz Global Network (AGN). This strategic setup ensures that data remains securely within the
+      organization's network, preventing external exposure and enhancing data privacy. The service is accessible from
+      both
+      the internet and intranet, providing flexibility and broad accessibility to users.
+
+      The SFMS API employs the standard OAuth 2.0 specification, a widely recognized protocol for secure authentication
+      and authorization. By implementing OAuth 2.0, SFMS ensures that only authorized users can access the service,
+      maintaining the integrity and security of data transactions.
+    </p>
+  </section>
+
+  <section>
+    <h3>
+      Key Benefits :
+    </h3>
+    <strong>Enhanced Security Layer</strong>
+    <p>
+      SFMS acts as a robust barrier, effectively screening and sanitizing potentially harmful files prior to their
+      integration into the system, thus fortifying the overall security posture.
+    </p>
+    <strong>Cost Efficiency</strong>
+    <p>
+      Shared licensing costs translate to significant savings, offering an economical solution for file management
+      needs.
+    </p>
+    <strong>Vendor Independence</strong>
+    <p>
+      SFMS liberates users from vendor dependencies, providing autonomy and flexibility in choosing solutions.
+    </p>
+    <strong>Zero-Knowledge System</strong>
+    <p>
+      SFMS operates on a zero-knowledge principle, meaning it does not retain or have access to sensitive business data.
+      This ensures maximum confidentiality and privacy, instilling trust and confidence in users regarding the security
+      of their information.
+    </p>
+    <strong>Reusability Across Applications</strong>
+    <p>
+      SFMS provides reusable solutions that can be seamlessly integrated into diverse applications, offering consistency
+      and efficiency across the organizational ecosystem. This versatility ensures compatibility with various systems
+      and enhances operational agility
+    </p>
+    <strong>Extensible Design</strong>
+    <p>
+      SFMS features an extendable design architecture, allowing for scalability and customization to accommodate
+      evolving business needs and technological advancements. This adaptability future-proofs the system, ensuring
+      long-term viability and relevance.
+    </p>
+  </section>
+
 </div>

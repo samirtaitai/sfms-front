@@ -1,18 +1,21 @@
 .example-card {
-  max-width:200px;
+  max-width: 200px;
   height: 100px;
   background-color: white;
-    background-color: #006192;;
+  background-color: #006192;
+  ;
 
 }
+
 .application-card {
-  width:420px;
+  width: 600px;
   color: #006192;
   background-color: white;
 }
 
-.dist-button{
-  display: flex; justify-content: start;
+.dist-button {
+  display: flex;
+  justify-content: start;
 }
 
 
@@ -20,9 +23,85 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  
+
   align-items: center;
   justify-content: center;
   gap: 20px;
 }
 
+
+
+
+
+
+
+
+.select-container {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+}
+
+.select-label {
+  font-size: 1rem;
+  color: #1e3a8a;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.styled-select {
+  padding: 0.5rem 1rem;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #1e3a8a;
+  font-size: 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease;
+}
+
+.styled-select:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.tab-container {
+  margin: 2rem auto;
+  max-width: 800px;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.tab-menu {
+  display: flex;
+  border-bottom: 1px solid #d0d7de;
+  background-color: #f5f7fa;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1e3a8a;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.tab-button:hover {
+  background-color: #e5e7eb;
+}
+
+.tab-button.active {
+  background-color: #ffffff;
+  border-bottom: 2px solid #1e3a8a;
+}
+
+.tab-content {
+  padding: 2rem;
+}

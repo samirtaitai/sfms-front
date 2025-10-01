@@ -7,12 +7,12 @@ export interface Oes {
   id?: number;
   code: string;
   name: string;
-  debtor: string;
+  debtor: number;
 }
 
 @Injectable()
 export class OesService {
-  private readonly baseUrl = `${environment.baseUrl}/oes`;
+  private readonly baseUrl = `${environment.baseUrl}/admin/oes`;
 
   constructor(private http: HttpService) {}
 

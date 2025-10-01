@@ -7,11 +7,14 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatCard, MatCardModule } from "@angular/material/card";
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
-import { Application } from '../service/application'; // Adjust the path as needed
+import { Application, ApplicationService } from '../application.service';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-create-application',
   imports: [
+    CommonModule,
     MatListModule,
     MatButtonToggleModule,
     MatInputModule,
@@ -20,8 +23,9 @@ import { Application } from '../service/application'; // Adjust the path as need
     MatCard,
     MatCardModule,
     ReactiveFormsModule,
-    MatButton
+    MatButton,
   ],
+  providers: [ApplicationService],
   templateUrl: './create-application.html',
   styleUrl: './create-application.css'
 })
@@ -29,10 +33,17 @@ export class CreateApplication {
   applicationForm: any
   workflowForm: any;
   applicationFlows: any = [];
+  loading = false;
+  toastMessage = '';
+  showToast = false;
 
-  constructor(private _formBuilder: FormBuilder, private application: Application) {
+  constructor(
+    private _formBuilder: FormBuilder,
+    private applicationSrv: ApplicationService,
+    private cdr: ChangeDetectorRef
+  ) {
     this.workflowForm = this._formBuilder.group({
-      name: ['', Validators.required],
+      flowCode: ['', Validators.required],
       description: ['', Validators.required],
     });
     this.applicationForm = this._formBuilder.group({
@@ -62,19 +73,36 @@ export class CreateApplication {
     }
   }
 
+  showSuccessToast(message: string): void {
+    this.toastMessage = message;
+    this.showToast = true;
+
+    setTimeout(() => {
+      this.showToast = false;
+    }, 10000);
+  }
+
   createApplication() {
-    const application = {
+    this.loading = true;
+    const application: Application = {
       name: this.applicationForm.value.name,
       description: this.applicationForm.value.description,
-      flows: this.applicationFlows
+      applicationFlows: this.applicationFlows
     };
-    console.log('Creating application:', application);
-    if (application.flows.length > 0 && this.applicationForm.valid) {
-      this.application.createApplication(application.name, application.description, this.applicationFlows);
-      this.workflowForm.reset();
-      this.applicationForm.reset();
-      this.applicationFlows = [];
-      alert('Application created successfully!');
+    if (application.applicationFlows.length > 0 && this.applicationForm.valid) {
+      this.applicationSrv.create(application).subscribe({
+        next: () => {
+          this.workflowForm.reset();
+          this.applicationForm.reset();
+          this.applicationFlows = [];
+          this.loading = false;
+          this.showSuccessToast('Application Created Successfully');
+          this.cdr.detectChanges();
+        },
+        complete: () => {
+          this.loading = false;
+        }
+      })
     } else {
       alert('Please add at least one flow before creating the application.');
     }

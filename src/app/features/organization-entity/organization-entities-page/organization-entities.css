@@ -1,31 +1,98 @@
-#customers {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
+.oes-button {
+  border-radius: 3px;
+  height: 25px;
+  display: flex;
+  margin-left: auto;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.table-wrapper {
+  max-height: 400px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+/* Scroll moderno y fino */
+.table-wrapper::-webkit-scrollbar {
+  width: 3px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background-color: #065bb5;
+  border-radius: 1px;
+}
+
+.custom-table {
   width: 100%;
-  background-color: white;
-  margin-top: 10px;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
 }
 
-#customers td, #customers th {
-  border: 1px solid #ddd;
-  padding: 8px;
+.custom-table thead {
+  background-color: #065bb5;
+  color: white;
+  position: sticky;
+  top: 0;
 }
 
-#customers tr:nth-child(even){background-color: #f2f2f2;}
+.custom-table th,
+.custom-table td {
+  padding: 4px 8px;
+  font-size: 13px;
+}
 
-#customers tr:hover {background-color: #ddd;}
 
-#customers th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #006192;;
+.custom-table tr:hover {
+  background-color: #065bb529;
+}
+
+.btn {
+  padding: 6px 10px;
+  margin-right: 6px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
   color: white;
 }
 
-.actions-card{
-    border: none;
-    border-radius: 2px;
-    background-color: white;
-    box-shadow: none;
+.custom-table tbody tr:nth-child(even) {
+  background-color: #f2f6fc;
+}
+
+.custom-table tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.page-header {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #ddeaff; /* azul claro al hacer hover */
+  transition: background-color 0.1s ease-in-out;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 6px 10px;
+  font-size: 14px;
+  border-bottom: 1px solid #ddd;
+  text-align: start; /* ← centra el contenido */
 }

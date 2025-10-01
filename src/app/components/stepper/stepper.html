@@ -1,51 +1,81 @@
 <mat-stepper class="stepper" [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="applicationConfigFormGroup" label="Select Customer">
+    <mat-step label="Select Customer">
         <section>
             <form [formGroup]="applicationConfigFormGroup" style="display: flex; flex-direction: column;">
-                <div>
-                    <mat-form-field style="margin-left: 20px; height: 70px">
-                        <mat-select formControlName="customer" placeholder="Select Customer">
-                            @for (customer of customers; track customer) {
-                            <mat-option [value]="customer">{{customer.name}}</mat-option>
-                            }
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field style="margin-left: 20px; height: 70px">
-                        <mat-select formControlName="OrgEntity" placeholder="Select OrgEntity">
-                            @for (oe of orgEntities; track oe) {
-                            <mat-option [value]="oe">{{oe.name}}</mat-option>
-                            }
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field style="margin-left: 20px; height: 70px">
-                        <mat-select formControlName="application" placeholder="Select application">
-                            @for (application of applications; track application) {
-                            <mat-option [value]="application">{{application.name}}</mat-option>
-                            }
-                        </mat-select>
-                    </mat-form-field>
+                <div
+                    style="display: flex; gap: 50px; margin-left: auto; margin-right: auto; align-items: center; justify-content: space-evenly; max-width: 1000px;">
+                    <div class="field-label">
+                        <mat-label>Customers</mat-label>
+                        <mat-form-field style="margin-left: 20px; height: 70px">
+                            <mat-select formControlName="customer" placeholder="Select Customer">
+                                @for (customer of customers; track customer) {
+                                <mat-option [value]="customer">{{customer.name}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="field-label">
+                        <mat-label>Organization Entities</mat-label>
+                        <mat-form-field style="margin-left: 20px; height: 70px">
+                            <mat-select formControlName="OrgEntity" placeholder="Select OrgEntity">
+                                @for (oe of orgEntities; track oe) {
+                                <mat-option [value]="oe">{{oe.name}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="field-label">
+                        <mat-label>Applications</mat-label>
+                        <mat-form-field style="margin-left: 20px; height: 70px">
+                            <mat-select formControlName="application" placeholder="Select application">
+                                @for (application of applications; track application) {
+                                <mat-option [value]="application">{{application.name}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
                 </div>
-                <div style="display:flex;">
-                    <mat-form-field style="margin-left: 20px; height: 70px">
-                        <mat-select formControlName="oidcProviders" placeholder="Select oidcProvider">
-                            @for (oidcProvider of oidcProviders; track oidcProvider) {
-                            <mat-option [value]="oidcProvider">{{oidcProvider}}</mat-option>
-                            }
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field style="margin-left: 20px; height: 70px">
-                        <mat-label>Introspection endpoint</mat-label>
-                        <input [value]="instros" matInput placeholder="Introspection enpoints"
-                            formControlName="instrospecionEndpoint" required>
-                    </mat-form-field>
-                    <mat-form-field style="margin-left: 20px; height: 70px">
-                        <mat-label>Storege region</mat-label>
-                        <input matInput placeholder="storage region" formControlName="storageRegion" required>
-                    </mat-form-field>
+                <div
+                    style="display: flex; gap: 50px; margin-left: auto; margin-right: auto; align-items: center; justify-content: space-evenly; max-width: 1000px;">
+                    <div class="field-label">
+                        <mat-label>OIDC Providers</mat-label>
+                        <mat-form-field style="margin-left: 20px; height: 70px">
+                            <mat-select formControlName="oidcProviders" placeholder="Select oidcProvider">
+                                @for (oidcProvider of oidcProviders; track oidcProvider) {
+                                <mat-option [value]="oidcProvider">{{oidcProvider}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="field-label">
+                        <mat-label>Introspection Endpoint</mat-label>
+                        <mat-form-field style="margin-left: 20px; height: 70px">
+                            <mat-label>Introspection endpoint</mat-label>
+                            <input [value]="instros" matInput placeholder="Introspection enpoints"
+                                formControlName="instrospecionEndpoint" required>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="field-label">
+                        <mat-label>Storege Region</mat-label>
+                        <mat-form-field style="margin-left: 20px; height: 70px">
+                            <mat-label>Storege region</mat-label>
+                            <mat-select formControlName="storageRegion" placeholder="Storage region">
+                                @for (region of storegeRegions; track region) {
+                                <mat-option [value]="region">{{region}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
                 </div>
-                <div style="display:flex; gap: 20px; margin-left: 20px; align-items: center;">
-                    <p>Active <mat-slide-toggle [checked]="true" formControlName="status" labelPosition="before"></mat-slide-toggle></p>
-                    <p>Enabled<mat-slide-toggle formControlName="enabled" labelPosition="before"></mat-slide-toggle></p>
+                <div
+                    style="display:flex; gap: 50px; margin-left:auto; margin-right: auto; align-items: start; width:800px;">
+                    <p>Active <mat-slide-toggle [checked]="true" formControlName="status"
+                            labelPosition="before"></mat-slide-toggle></p>
+                    <p>Locked<mat-slide-toggle formControlName="enabled" labelPosition="before"></mat-slide-toggle>
+                    </p>
                 </div>
             </form>
 
@@ -57,16 +87,21 @@
 
     <mat-step label="Role Configuration" style="display: flex;">
         <div style="display: flex; flex-direction: column; width: 500px; margin-left: auto; margin-right: auto;">
-            @for (flow of selectedApplication?.flows; track flow) {
-            <mat-form-field>
-                <mat-label>Roles config {{flow.name}}</mat-label>
-                <mat-select>
-                    @for (food of roles; track food) {
-                    <mat-option [value]="food.value">{{food.viewValue}}</mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
-            }
+            <form [formGroup]="roleConfigFormGroup" style="display: flex; flex-direction: column;">
+                @for (flow of selectedApplication?.applicationFlows; track flow) {
+                <div class="field-label">
+                    <mat-label>Select role for flow {{flow.flowCode}}</mat-label>
+                    <mat-form-field style="width: 400px;">
+                        <mat-label>Roles config {{flow.flowCode}}</mat-label>
+                        <mat-select formControlName="roles" (selectionChange)="addRole(flow.id)">
+                            @for (role of roles; track role) {
+                            <mat-option [value]="role.name">{{role.name}}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                }
+            </form>
         </div>
         <div class="stepper-footer">
             <button matButton matStepperPrevious>Back</button>
@@ -75,29 +110,29 @@
     </mat-step>
 
     <mat-step label="Configure flows" style="display: flex;">
-        @for (flow of selectedApplication.flows; track flow) {
+        @for (flow of selectedApplication.applicationFlows; track flow) {
 
-        <div style="display: flex; justify-content: space-evenly; align-items: center;">
+        <div style="display: flex; justify-content: center; align-items: center;">
             <mat-card class="application-card" appearance="filled">
                 <mat-card-header style="display: flex; align-items: center;justify-content: center;padding: 5px;">
-                    <mat-card-subtitle>{{flow.code}} Configuration</mat-card-subtitle>
+                    <mat-card-subtitle>{{flow.flowCode}} Flow Configuration</mat-card-subtitle>
                 </mat-card-header>
-                <mat-card-content style="padding: 20px; display:flex;flex-direction: column; height: 400px;">
+                <mat-card-content style=" display:flex;flex-direction: column;">
                     <div>
                         <form [formGroup]="fileTypesForm" style="display:flex; gap: 10px;">
-                            <mat-form-field style=" height: 70px">
+                            <mat-form-field style=" height: 70px; width: 250px;">
                                 <mat-label>Action</mat-label>
                                 <mat-select formControlName="action" required>
                                     @for (food of action; track food) {
-                                    <mat-option [value]="food.value">{{food.viewValue}}</mat-option>
+                                    <mat-option [value]="food.name">{{food.name}}</mat-option>
                                     }
                                 </mat-select>
                             </mat-form-field>
                             <mat-form-field style="height: 70px">
                                 <mat-label>Type</mat-label>
                                 <mat-select formControlName="type" required>
-                                    @for (food of foods; track food) {
-                                    <mat-option [value]="food.value">{{food.viewValue}}</mat-option>
+                                    @for (file of fileTypes; track file) {
+                                    <mat-option [value]="file">{{file}}</mat-option>
                                     }
                                 </mat-select>
                             </mat-form-field>
@@ -107,12 +142,12 @@
                             </mat-form-field>
                         </form>
                         <div style="display: flex; gap: 10px; justify-content: flex-end;">
-                            <button [disabled]="!selectedConfiguration" (click)="copyConfiguration(flow.code)"
+                            <button [disabled]="!selectedConfiguration" (click)="copyConfiguration(flow.id)"
                                 matButton="outlined" style="display: flex;; border-radius: 5px; height: 25px;">
                                 <mat-icon>content_copy</mat-icon>
                                 Clone
                             </button>
-                            <button [disabled]="addButonDisabled" (click)="addConfiguration(flow.code)" matButton="filled"
+                            <button [disabled]="addButonDisabled" (click)="addConfiguration(flow)" matButton="filled"
                                 style="display: flex; border-radius: 5px; height: 25px;">
                                 <mat-icon>playlist_add</mat-icon>
                                 Add
@@ -121,9 +156,9 @@
                         <div
                             style="margin-top: 10px; height: 200px; overflow-y: auto; display: flex; flex-direction: column;">
                             @for (config of configurations; track config) {
-                            @if (config.flowName === flow.code) {
+                            @if (config.flowId === flow.id) {
                             <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Cutest dog breeds">
-                                <mat-chip-option color="primary" [selected]="consfigurationSelected(config.id)"
+                                <mat-chip-option color="primary" [selected]="consfigurationSelected(config.flowId)"
                                     (click)="selectConfiguration(config)">
                                     Type: {{config.type}} | Action: {{config.action}} | Size: {{config.size}}MB
                                     <button matChipRemove (click)="deleteConfiguration(configurations.indexOf(config))">
@@ -132,13 +167,6 @@
                                 </mat-chip-option>
                             </mat-chip-listbox>
                             }}
-                        </div>
-
-                        <div *ngIf="!hasConfiguration(flow.code)"
-                            style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
-                            No configuration added yet. Please add configuration.
-
-                            <mat-icon style="color: rgba(161, 211, 255, 0.61);">settings_b_roll</mat-icon>
                         </div>
                     </div>
                 </mat-card-content>
@@ -154,41 +182,38 @@
     </mat-step>
 
     <mat-step label="Onboard Application">
-
-        <h3 style="text-align: center; margin-bottom: 20px;">Review Application Configuration</h3>
-        <mat-card class="application-card" appearance="outlined"
-            style="width: 600px; margin-left: auto; margin-right: auto; height: auto;">
-            <mat-card-header
-                style="background-color: aliceblue; border-radius: 10px 10px 0 0; display: flex; align-items: center;justify-content: center;padding: 5px;">
+        <mat-card class="application-card"
+            style=" margin-left: auto; margin-right: auto; height: auto; box-shadow: none;">
+            <mat-card-header style="display: flex; align-items: center; justify-content: center;">
                 <mat-card-subtitle>Application Summary</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content style="padding: 20px;">
                 <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <div style="display: flex; justify-content: space-between;">
+                    <div style="display: flex; justify-content: space-around; ">
                         <span><strong>Customer:</strong></span>
                         <span>{{applicationConfigFormGroup.get('customer')?.value?.name}}</span>
                     </div>
-                    <div style="display: flex; justify-content: space-between;">
+                    <div style="display: flex; justify-content:space-around; ">
                         <span><strong>OrgEntity:</strong></span>
                         <span>{{applicationConfigFormGroup.get('OrgEntity')?.value?.name}}</span>
                     </div>
-                    <div style="display: flex; justify-content: space-between;">
+                    <div style="display: flex; justify-content:space-around; ">
                         <span><strong>Application:</strong></span>
                         <span>{{applicationConfigFormGroup.get('application')?.value?.name}}</span>
                     </div>
-                    <div style="display: flex; justify-content: space-between;">
+                    <div style="display: flex; justify-content: space-around; ">
                         <span><strong>OIDC Provider:</strong></span>
                         <span>{{applicationConfigFormGroup.get('oidcProviders')?.value}}</span>
                     </div>
-                    <div style="display: flex; justify-content: space-between;">
+                    <div style="display: flex; justify-content: space-around; ">
                         <span><strong>Introspection Endpoint:</strong></span>
                         <span>{{applicationConfigFormGroup.get('instrospecionEndpoint')?.value}}</span>
                     </div>
-                    <div style="display: flex; justify-content: space-between;">
+                    <div style="display: flex; justify-content:space-around;">
                         <span><strong>Storage Region:</strong></span>
                         <span>{{applicationConfigFormGroup.get('storageRegion')?.value}}</span>
                     </div>
-                    <div style="display: flex; justify-content: space-between;">
+                    <div style="display: flex;justify-content: space-around;">
                         <span><strong>Status:</strong></span>
                         <span>{{applicationConfigFormGroup.get('status')?.value}}</span>
                     </div>
@@ -208,13 +233,11 @@
                             </mat-chip-option>
                         </mat-chip-listbox>
                         }
-                        @if (configurations.length === 0) {
-                        <span style="font-size: 14px; color: gray;">No configurations added.</span>
-                        }
                     </div>
                 </div>
             </mat-card-content>
-            <button matButton="filled" style="display: flex; margin-left: auto; border-radius: 5px; height: 25px;">
+            <button (click)="onboardApplication()" matButton="filled"
+                style="display: flex; margin-left: auto; border-radius: 5px; height: 25px;">
                 <mat-icon>cloud_upload</mat-icon>
                 Confirm Onbording
             </button>

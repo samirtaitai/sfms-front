@@ -1,0 +1,10 @@
+<div class="filter-container">
+  <input
+    type="text"
+    [(ngModel)]="filterText"
+    (input)="onFilterChange()"
+    [placeholder]="placeHolder"
+    class="filter-input"
+    [disabled]="loading"
+  />
+</div>

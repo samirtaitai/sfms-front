@@ -1,30 +1,37 @@
 <app-nav-bar></app-nav-bar>
-<button matIconButton class="user-button" aria-label="Back History button" (click)="backHistory()">
-    <mat-icon>keyboard_backspace</mat-icon>
-</button>
-<div style=" padding: 100px;">
-    <mat-card class="actions-card">
-        <mat-card-header>
-            <mat-card-subtitle class="sub-tittle">All Customers Table</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
+<div *ngIf="customers && !loading">
+    <div class="page-header">
+        <app-filter (filterChanged)="onFilterChanged($event)" [loading]="loading"
+            placeHolder="Filter Customers..."></app-filter>
+        <button routerLink="/create-customer" matButton="filled" class="customer-button">
+            <mat-icon>post_add</mat-icon>
+            Create Customer
+        </button>
+    </div>
 
-        </mat-card-content>
-        <mat-card-actions>
-            <button style="margin-left: auto;" matButton routerLink="/create-customer">Create New Customer</button>
-        </mat-card-actions>
-    </mat-card>
-    <table id="customers">
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-        </tr>
+    <div class="table-wrapper">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let customer of filteredCustomers; trackBy: trackCustomer">
+                    <td>{{ customer.name }}</td>
+                    <td>{{ customer.description }}</td>
+                    <td>
+                        <button matIconButton aria-label="Example icon button with a vertical three dot icon">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-        @for (customer of customers; track customer) {
-        <tr>
-            <td>{{customer.name}}</td>
-            <td>{{customer.description}}</td>
-        </tr>
-        }
-    </table>
 </div>
+
+<app-loader-component [loading]="loading"></app-loader-component>

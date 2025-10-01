@@ -1,6 +1,11 @@
 <app-nav-bar></app-nav-bar>
-
-<div class="page-container">
+<div *ngIf="showToast" class="toast success-toast">
+    {{ toastMessage }}
+</div>
+<div *ngIf="loading" class="spinner-overlay">
+    <div class="spinner"></div>
+</div>
+<div class="page-container" *ngIf="!loading">
     <mat-card class="application-card" appearance="outlined">
         <mat-card-header>
             <mat-icon mat-card-avatar>web</mat-icon>
@@ -20,12 +25,13 @@
                 </mat-form-field>
                 <mat-form-field appearance="fill" class="full-width">
                     <mat-label>ORG Entity debtor</mat-label>
-                    <input formControlName="debtor" matInput placeholder="Enter ORG Entity debtor">
+                    <input type="number" formControlName="debtor" matInput placeholder="Enter ORG Entity debtor">
                 </mat-form-field>
             </form>
-            <button matButton="filled" style="display: flex; margin-left: auto; border-radius: 5px; height: 25px;"(click)="createOe()">
+            <button [disabled]="oeFormGroup.invalid" matButton="filled" style="display: flex; margin-left: auto; border-radius: 5px; height: 25px;"
+                (click)="createOe()">
                 <mat-icon>post_add</mat-icon>
-                Add Flow
+                Create Organization Entity
             </button>
         </mat-card-content>
     </mat-card>

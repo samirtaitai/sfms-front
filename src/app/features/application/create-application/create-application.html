@@ -1,13 +1,18 @@
 <app-nav-bar></app-nav-bar>
-<button [disabled]="workflowForm.invalid" matIconButton aria-label="Back History button" (click)="backHistory()">
-    <mat-icon>keyboard_backspace</mat-icon>
-</button>
-<button matButton style="display: flex; margin-left: auto; border-radius: 5px; height: 35px;"
-    (click)="createApplication()">
-    <mat-icon>save</mat-icon>
-    Create Application
-</button>
-<div class="page-container">
+<div *ngIf="showToast" class="toast success-toast">
+    {{ toastMessage }}
+</div>
+
+<div *ngIf="loading" class="spinner-overlay">
+    <div class="spinner"></div>
+</div>
+
+<div class="page-container" *ngIf="!loading">
+    <button matButton style="display: flex; margin-left: auto; border-radius: 5px; height: 35px;"
+        (click)="createApplication()">
+        <mat-icon>save</mat-icon>
+        Create Application
+    </button>
     <mat-card class="application-card" appearance="outlined">
         <mat-card-header>
             <mat-icon mat-card-avatar>web</mat-icon>
@@ -17,11 +22,11 @@
         <mat-card-content style="padding: 20px; display:flex; flex-direction: column;">
             <p>To create a new application, please provide the following details:</p>
             <form [formGroup]="applicationForm" style="padding: 20px; display:flex; flex-direction: column;">
-                <mat-form-field  appearance="fill" class="full-width">
+                <mat-form-field appearance="fill" class="full-width">
                     <mat-label>Application Name</mat-label>
                     <input formControlName="name" matInput placeholder="Enter the application name">
                 </mat-form-field>
-                <mat-form-field  appearance="fill" class="full-width">
+                <mat-form-field appearance="fill" class="full-width">
                     <mat-label>Application Description</mat-label>
                     <input formControlName="description" matInput placeholder="Enter the application descripton">
                 </mat-form-field>
@@ -40,7 +45,7 @@
                 <div style="display: flex; align-items: center; ">
                     <mat-form-field style=" height: 70px;">
                         <mat-label>Code</mat-label>
-                        <input matInput placeholder="Flow Code" formControlName="name" required>
+                        <input matInput placeholder="Flow Code" formControlName="flowCode" required>
                     </mat-form-field>
                     <mat-form-field style="margin-left: 10px; height: 70px">
                         <mat-label>Description</mat-label>
@@ -59,7 +64,7 @@
                 <div
                     style="padding: 5px; display: flex; justify-content: space-between; align-items: center; height: 20px; margin-top: 5px; background-color: rgba(103, 117, 143, 0.08); min-width: 100%;">
                     <div style="display: flex; align-items: centery;width: 50%;">
-                        <h5 style="margin-right: auto;">{{flow.name}}</h5>
+                        <h5 style="margin-right: auto;">{{flow.flowCode}}</h5>
                         <h5 style="margin-left: auto;">{{flow.description}}</h5>
                     </div>
                     <button style="color: rgb(148, 49, 49);" matButton matMiniFab (click)="deleteAction(flow)">

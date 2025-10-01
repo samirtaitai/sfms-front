@@ -13,11 +13,13 @@ import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from "@angular/material/icon";
-import { Application } from '../../features/application/service/application';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Customer } from '../../../../__mocks__/customer/customer';
+import { CustomerService } from '../../features/customer/customer.service';
+import { OesService } from '../../features/organization-entity/oes.service';
+import { ApplicationService } from '../../features/application/application.service';
 
 @Component({
   selector: 'app-stepper',
@@ -41,6 +43,11 @@ import { Customer } from '../../../../__mocks__/customer/customer';
     MatButtonModule,
     MatChipsModule,
     MatSlideToggleModule
+  ],
+  providers: [
+    CustomerService,
+    OesService,
+    ApplicationService
   ],
   standalone: true,
   templateUrl: './stepper.html',
@@ -130,7 +137,8 @@ export class Stepper implements OnInit {
   applications: any[] = [];
   oidcProviders: any[] = ['IDP', 'CUSTOM']
   loading = false;
-  configurations: any = []
+  configurations: any = [];
+  selectedRoles: any = [];
   creatingApplication = false;
   selectedApplication: any = { name: '', description: '' };
   selected = 'CUSTOM';
@@ -149,17 +157,64 @@ export class Stepper implements OnInit {
     { value: 'SCAN AND REPAIR', viewValue: 'Scan and repair' },
   ];
 
-  foods: any[] = [
-    { value: 'ALL', viewValue: 'All File Types' },
-    { value: 'CSV', viewValue: 'CSV File' },
-    { value: 'PDF', viewValue: 'PDF File' },
-    { value: 'TXT', viewValue: 'TXT File' },
+  storegeRegions = ['eu-central-1', 'eu-west-3', 'ap-east-1', 'ap-southeast-2']
+
+
+  addRole(id: any) {
+    this.selectedRoles.push({ flowId: id, role: this.roleConfigFormGroup.value.roles });
+  }
+
+  fileTypes: any[] = [
+    'doc',
+    'docx',
+    'pdf',
+    'rtf',
+    'dot',
+    'dotx',
+    'xls',
+    'pdf',
+    'csv',
+    'xlt',
+    'pdf',
+    'png',
+    'ppt',
+    'pdf',
+    'pot',
+    'pdf',
+    'png'
+
   ];
 
-  constructor(private customerSrv: Customer, private applicationSrv: Application) {
-    this.orgEntities = this.customerSrv.getAllOe();
-    this.customers = this.customerSrv.getAllCustomers();
-    this.applications = this.applicationSrv.getapplications();
+  constructor(
+    private customersSrv: CustomerService,
+    private oesSrv: OesService,
+    private applicationsSrv: ApplicationService
+  ) {
+    this.customersSrv.getAll().subscribe({
+      next: (response) => {
+        this.customers = response;
+      }
+    });
+    this.oesSrv.getAll().subscribe({
+      next: (response) => {
+        this.orgEntities = response;
+      }
+    });
+    this.applicationsSrv.getAll().subscribe({
+      next: (response) => {
+        this.applications = response;
+      }
+    });
+    this.applicationsSrv.getRoles().subscribe({
+      next: (response) => {
+        this.roles = response;
+      }
+    });
+    this.applicationsSrv.getServiceActions().subscribe({
+      next: (resopnse) => {
+        this.action = resopnse;
+      }
+    })
     this.fileTypesForm = this._formBuilder.group({
       action: ['', Validators.required],
       type: ['', Validators.required],
@@ -167,28 +222,11 @@ export class Stepper implements OnInit {
     });
   }
 
+  addConfiguration(flow: any) {
+    const config = { ...this.fileTypesForm.value, flowId: flow.id }
+    this.configurations.push(config);
+    this.fileTypesForm.reset();
 
-  addConfiguration(flowName: any) {
-    if (this.fileTypesForm.value.type === 'ALL') {
-      this.configurationId = 1
-      const config = { ...this.fileTypesForm.value, id: this.configurationId, flowName, }
-      this.configurations = [config]
-      this.fileTypesForm.reset();
-      this.addButonDisabled = true;
-      return;
-    } else {
-
-      const hasAllTypes = this.configurations.some((config: any) => config.type === 'ALL');
-      if (hasAllTypes) {
-        this.configurationId = 1
-        this.configurations = [];
-      }
-
-      const config = { ...this.fileTypesForm.value, id: this.configurationId, flowName, }
-      this.configurations.push(config);
-      this.configurationId++;
-      this.fileTypesForm.reset();
-    }
   }
 
   deleteConfiguration(index: number) {
@@ -196,7 +234,7 @@ export class Stepper implements OnInit {
   }
 
   consfigurationSelected(configurationId: any) {
-    return this.selectedConfiguration && this.selectedConfiguration.id === configurationId;
+    return this.selectedConfiguration && this.selectedConfiguration.flowId === configurationId;
   }
 
   selectConfiguration(config: any) {
@@ -215,16 +253,13 @@ export class Stepper implements OnInit {
     return this.configurations.some((config: any) => config.flowName === flowName);
   }
 
-  copyConfiguration(flowName: string) {
+  copyConfiguration(flowId: string) {
     if (this.selectedConfiguration) {
       const config = { ...this.selectedConfiguration };
-      config.flowName = flowName;
-      config.id = this.configurationId;
+      config.flowId = flowId;
       this.configurations.push(config);
-      this.configurationId++;
     }
   }
-
 
   applicationConfigFormGroup = this._formBuilder.group({
     customer: ['' as any, Validators.required],
@@ -235,7 +270,7 @@ export class Stepper implements OnInit {
     storageRegion: [{ value: '', disabled: true }, Validators.required],
     status: [{ value: true, disabled: true }, Validators.required],
     enabled: [{ value: false, disabled: true }, Validators.required],
-  })
+  });
 
   roleConfigFormGroup = this._formBuilder.group({
     roles: ['', Validators.required],
@@ -251,6 +286,40 @@ export class Stepper implements OnInit {
     } else if (value === 'CUSTOM') {
       this.instros = '';
     }
+  }
+
+  onboardApplication() {
+    const { OrgEntity, customer, application, status, enabled, oidcProviders, storageRegion, instrospecionEndpoint } = this.applicationConfigFormGroup.value;
+    const consumer = {
+      customerId: customer.id,
+      orgEntityId: OrgEntity.id,
+      applicationId: application.id,
+      status,
+      enabled,
+      oidcProviders,
+      storageRegion,
+      instrospecionEndpoint,
+      flowRoles: this.selectedRoles,
+      flowsConfig: this.consfigFlows()
+    }
+    console.log(consumer);
+    /*this.applicationsSrv.createConsumer(consumer).subscribe({
+       next: (response) => {
+         console.log(response);
+         
+       }
+     })*/
+  }
+
+  consfigFlows() {
+    return this.configurations.map((config: { flowId: any; action: any; type: any; size: any; }) => {
+      return {
+        flowId: config.flowId,
+        action: config.action,
+        type: config.type,
+        fileSize: config.size
+      }
+    })
   }
 
 }

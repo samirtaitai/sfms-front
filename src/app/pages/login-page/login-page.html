@@ -1,8 +1,9 @@
-<div style="min-width: 100%; min-height: 100%; display: flex;">
+<div *ngIf="loading" class="spinner-overlay">
+    <div class="spinner"></div>
+</div>
+
+<div style="min-width: 100%; min-height: 100%; display: flex;" *ngIf="!loading">
     <mat-card class="example-card">
-        <div style="height: 10px;">
-            <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
-        </div>
         <mat-card-header>
             <div class="example-header-image">
                 <img src="https://ngx-ndbx.frameworks.allianz.io/assets/logos/allianz_logo_with_name.svg"

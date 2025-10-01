@@ -1,45 +1,75 @@
-.example-spacer {
-  flex: 1 1 auto;
+/* nav-bar.component.css */
+.nav-bar {
+  display: flex;
+  gap: 10px;
+  background-color: #ffffff;
+  padding: 10px;
 }
 
-.nav {
+.card-button {
   background-color: white;
-  border-bottom: 1px solid rgb(198, 198, 198);
+  width: 70px;
+  color: #007BFF;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .nav-button {
-  background-color: transparent;
+  background-color: white;
+  color: #007BFF;
   border: none;
-  margin: 15px;
-  margin-bottom: 0px;
-  font-size: 15px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  border-bottom: 4px transparent solid;
-  padding: 15px;
-  transition: 0.2s;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .nav-button:hover {
-  color: #006192;
-  border-bottom: 4px #006192 solid;
+  background-color: #007bff60;
 }
 
-.user-button {
-  background-color: transparent;
-  color: #b7b7b7;
-  border: none;
-  transition: 0.9s;
+.nav-button.active {
+  background-color: #007bff60;
+  /* verde para botón activo */
+  font-weight: bold;
 }
 
-.user-button:hover {
-  color: #006192;
+.nav-button.back {
+  padding: 2px 8px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  border: #007BFF solid 1px;
+  color: #007BFF;
 }
 
 .example-header-image {
-  width: 100px;
+  width: 70px;
 }
 
-.active-link {
-  color: #006192;
-  border-bottom: 4px #006192 solid;
+.user-button {
+  margin-left: auto;
+  background-color: white;
+  color: #007BFF;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-disabled {
+  background-color: #ffffff;     /* gris claro */
+  color: #888888;                /* texto gris medio */
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: not-allowed;
+  opacity: 0.7;
+  pointer-events: none;         /* evita clics */
 }

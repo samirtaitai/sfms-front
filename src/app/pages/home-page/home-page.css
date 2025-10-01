@@ -29,3 +29,11 @@
     color: #00619222;
 
 }
+
+.centred-text {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+}
+

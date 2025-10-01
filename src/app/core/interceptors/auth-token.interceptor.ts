@@ -15,7 +15,6 @@ export class AuthTokenInterceptor implements HttpInterceptor {
   constructor(private authTokenService: AuthTokenService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // Solo interceptar si la URL contiene "/admin"
     if (!req.url.includes('/admin')) {
       return next.handle(req);
     }
@@ -25,7 +24,9 @@ export class AuthTokenInterceptor implements HttpInterceptor {
         const cloned = req.clone({
           setHeaders: {
             Authorization: `Bearer ${token}`,
-          },
+            flowcode: 'ADMIN_UI_READ_SERVICE',
+            'Content-Type': 'application/json'
+          }
         });
         return next.handle(cloned);
       })

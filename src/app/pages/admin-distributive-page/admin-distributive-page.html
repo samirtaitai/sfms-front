@@ -1,44 +1,60 @@
 <app-nav-bar></app-nav-bar>
 
 <div class="page-container">
-    <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: start;">
+    <div style="display: flex; flex-direction: column; gap: 20px; flex-wrap: wrap; justify-content: start;">
         <mat-card class="application-card" appearance="outlined">
             <mat-card-header>
-                <mat-card-title>Applications/Services</mat-card-title>
-                <mat-card-subtitle>Manage your Applications/Services</mat-card-subtitle>
+                <mat-card-title>Client Configurations</mat-card-title>
+                <mat-card-subtitle style="margin-top: 15px;">Manage your Applications/Services</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content style="display: flex; flex-direction: column;">
                 <button matButton class="dist-button" routerLink="/configured-applications">
-                    <mat-icon>cloud_done</mat-icon>
-                    Existing Applications/Services
+                    <mat-icon>dataset</mat-icon>
+                    Applications/Services
                 </button>
-            </mat-card-content>
-        </mat-card>
-    </div>
-
-    <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: start;">
-        <mat-card class="application-card" appearance="outlined">
-            <mat-card-header>
-                <mat-card-title>Configuration</mat-card-title>
-                <mat-card-subtitle>Manage your core components</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content style="display: flex; flex-direction: column;">
+                <mat-card-subtitle style="margin-top: 15px;">Manage Client Entities</mat-card-subtitle>
                 <button matButton class="dist-button" routerLink="/customers">
                     <mat-icon>person</mat-icon>
                     Customers
                 </button>
                 <button matButton class="dist-button" routerLink="/organization-entities">
                     <mat-icon>apartment</mat-icon>
-
-                    Organization Entities</button>
+                    Organization Entities </button>
                 <button matButton class="dist-button" routerLink="/applications">
-                    <mat-icon>web</mat-icon>
-
-                    <p>
-                        Applications
-                    </p>
+                    <mat-icon>apps</mat-icon>
+                    Applications
                 </button>
             </mat-card-content>
         </mat-card>
+
+        <mat-card class="application-card" appearance="outlined">
+            <mat-card-header>
+                <mat-card-title>SFMS Configurations</mat-card-title>
+                <mat-card-subtitle style="margin-top: 15px;">Manage Core Entities</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content style="display: flex; flex-direction: column;">
+                <button [disabled]="true" matButton class="dist-button" routerLink="/customers">
+                    <mat-icon>linked_services</mat-icon>
+                    Services
+                </button>
+                <button [disabled]="true" matButton class="dist-button" routerLink="/organization-entities">
+                    <mat-icon>assignment_ind</mat-icon>
+                    Roles </button>
+                <button [disabled]="true" matButton class="dist-button" routerLink="/applications">
+                    <mat-icon>public</mat-icon>
+                    Storages Region
+                </button>
+                <button [disabled]="true" matButton class="dist-button" routerLink="/applications">
+                    <mat-icon>list_alt</mat-icon>
+                    File Types
+                </button>
+                <button [disabled]="true" matButton class="dist-button" routerLink="/applications">
+                    <mat-icon>settings_applications</mat-icon>
+                    Settings
+                </button>
+            </mat-card-content>
+        </mat-card>
+
     </div>
+
 </div>

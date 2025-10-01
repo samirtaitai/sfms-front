@@ -1,19 +1,26 @@
-<mat-toolbar class="nav">
+<!-- nav-bar.component.html -->
+<nav class="nav-bar">
+
     <div class="example-header-image">
         <img src="https://ngx-ndbx.frameworks.allianz.io/assets/logos/allianz_logo_with_name.svg" alt="Allianz logo">
     </div>
-    <button matButton class="nav-button" aria-label="Home button" routerLink="/home" routerLinkActive="active-link">
+    <div class="card-button">
+        <button *ngIf="!isHomeRoute" (click)="goBack()" class="nav-button back">← Back</button>
+    </div>
+
+    <button routerLink="/home" [ngClass]="{ 'active': isActive('/home') }" class="nav-button">
         Home
     </button>
-    <button matButton class="nav-button" aria-label="Administrator button" routerLink="/admin-distributive"
-        *ngIf="isAdminUser()">
+
+    <button routerLink="/admin-distributive" [ngClass]="{ 'active': isActive('/admin-distributive') }"
+        class="nav-button" *ngIf="isAdminUser()">
         Administrator
     </button>
-    <button matButton class="nav-button" aria-label="Billing button" routerLink="/billing">
-        Billing account
+
+    <button disabled routerLink="/billing" class="nav-button btn-disabled">
+        Billing Account
     </button>
-    <span class="example-spacer"></span>
-    <button matIconButton class="user-button" aria-label="User button" (click)="logOut()">
+    <button matIconButton class="user-button " aria-label="User button" (click)="logOut()">
         <mat-icon>logout</mat-icon>
     </button>
-</mat-toolbar>
+</nav>

@@ -1,32 +1,54 @@
 <app-nav-bar></app-nav-bar>
+<div *ngIf="allConsumers && !loading">
+    <div class="page-header">
+        <app-filter (filterChanged)="onFilterChanged($event)" [loading]="loading"
+            placeHolder="Filter Consumers..."></app-filter>
+        <button routerLink="/onboard-application" matButton="filled" class="onboard-button">
+            <mat-icon>post_add</mat-icon>
+            Configure Application
+        </button>
+    </div>
 
-<div class="page-container">
-    <h1>Configured Applications/Services</h1>
-
-    <div style=" padding: 100px;">
-        <mat-card class="actions-card">
-            <mat-card-header>
-                <mat-card-subtitle class="sub-tittle">All Applications Table</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-actions>
-                <button matButton class="dist-button" routerLink="/onboard-application">
-                    <mat-icon>cloud_upload</mat-icon>
-                    Onboard Application/Service
-                </button>
-            </mat-card-actions>
-        </mat-card>
-        <table id="customers">
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-            </tr>
-
-            @for (application of configuredApps; track application) {
-            <tr>
-                <td>{{application.name}}</td>
-                <td>{{application.description}}</td>
-            </tr>
-            }
+    <div class="table-wrapper">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Organization Entity</th>
+                    <th>Application</th>
+                    <th>OIDC Provider</th>
+                    <th>Compliance Region</th>
+                    <th>Status</th>
+                    <th>Locked</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let consumer of filtredConsumers; trackBy: trackConsumer">
+                    <td>{{ consumer.customer.name }}</td>
+                    <td>{{ consumer.orgEntity.name }}</td>
+                    <td>{{consumer.application.name}}</td>
+                    <td>{{consumer.oidcProvider}}</td>
+                    <td>{{consumer.complianceRegion}}</td>
+                    <td>
+                        <span [ngClass]="consumer.active ? 'chip active' : 'chip inactive'">
+                            {{ consumer.active ? 'Active' : 'Not Active' }}
+                        </span>
+                    </td>
+                    <td>
+                        <span [ngClass]="consumer.locked ? 'chip inactive': 'chip active'">
+                            {{ consumer.locked ? 'Locked' : 'Unlocked' }}
+                        </span>
+                    </td>
+                    <td>
+                        <button matIconButton aria-label="Example icon button with a vertical three dot icon">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </div>
+
+<app-loader-component [loading]="loading"></app-loader-component>

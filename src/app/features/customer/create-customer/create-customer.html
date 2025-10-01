@@ -1,6 +1,12 @@
 <app-nav-bar></app-nav-bar>
+<div *ngIf="showToast" class="toast success-toast">
+    {{ toastMessage }}
+</div>
+<div *ngIf="loading" class="spinner-overlay">
+    <div class="spinner"></div>
+</div>
 
-<div class="page-container">
+<div class="page-container" *ngIf="!loading">
     <mat-card class="application-card" appearance="outlined">
         <mat-card-header>
             <mat-icon mat-card-avatar>web</mat-icon>
@@ -23,11 +29,11 @@
                     <mat-button-toggle value="ORG ENTITY">Org Entity</mat-button-toggle>
                 </mat-button-toggle-group>
             </form>
-                    <button matButton="filled" style="display: flex; margin-left: auto; border-radius: 5px; height: 25px;"
-            (click)="createCustomer()">
-            <mat-icon>post_add</mat-icon>
-            Add Flow
-        </button>
+            <button [disabled]="customerFormGroup.invalid" matButton="filled"
+                style="display: flex; margin-left: auto; border-radius: 5px; height: 25px;" (click)="createCustomer()">
+                <mat-icon>post_add</mat-icon>
+                Create Customer
+            </button>
         </mat-card-content>
 
     </mat-card>

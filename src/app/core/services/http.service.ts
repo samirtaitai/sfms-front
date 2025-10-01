@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -13,9 +13,13 @@ export class HttpService {
     return this.http.get<T>(url);
   }
 
-  post<T>(url: string, body: any): Observable<T> {
-    return this.http.post<T>(url, body).pipe(catchError(this.handleError));
-  }
+post<T>(url: string, body: any, headers?: HttpHeaders): Observable<T> {
+  const options = headers ? { headers } : {};
+  return this.http.post<T>(url, body, options).pipe(
+    catchError(this.handleError)
+  );
+}
+
 
   put<T>(url: string, body: any): Observable<T> {
     return this.http.put<T>(url, body).pipe(catchError(this.handleError));
