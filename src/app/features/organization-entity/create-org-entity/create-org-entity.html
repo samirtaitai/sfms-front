@@ -28,16 +28,16 @@
                     <input type="number" formControlName="debtor" matInput placeholder="Enter ORG Entity debtor">
                 </mat-form-field>
             </form>
-                        <div style="display: flex; align-items: center; justify-content: end; gap: 10px;">
+            <div style="display: flex; align-items: center; justify-content: end; gap: 10px;">
                 <button matButton="filled" [routerLink]="['/admin-distributive']"
                     style="display: flex; margin-left: auto; border-radius: 5px; height: 25px; background-color: rgb(205, 75, 75);">
                     Cancel
                 </button>
-                        <button [disabled]="oeFormGroup.invalid" matButton="filled"
-                style="display: flex; border-radius: 5px; height: 25px;" (click)="createOe()">
-                <mat-icon>post_add</mat-icon>
-                Create Organization Entity
-            </button>
+                <button [disabled]="oeFormGroup.invalid" matButton="filled"
+                    style="display: flex; border-radius: 5px; height: 25px;" (click)="createOe()">
+                    <mat-icon>post_add</mat-icon>
+                    Create Organization Entity
+                </button>
             </div>
 
         </mat-card-content>
