@@ -6,12 +6,6 @@
     <div class="spinner"></div>
 </div>
 <div class="page-container" *ngIf="!loading">
-        <div style="display: flex;align-items: center; justify-content: space-evenly; gap: 10px;">
-        <button mat-button color="warn" [routerLink]="['/admin-distributive']"
-            style="display: flex; border-radius: 5px; margin-left: auto; height: 35px; color: rgba(255, 0, 0, 0.58);">
-            Cancel
-        </button>
-    </div>
     <mat-card class="application-card" appearance="outlined">
         <mat-card-header>
             <mat-icon mat-card-avatar>web</mat-icon>
@@ -34,11 +28,18 @@
                     <input type="number" formControlName="debtor" matInput placeholder="Enter ORG Entity debtor">
                 </mat-form-field>
             </form>
-            <button [disabled]="oeFormGroup.invalid" matButton="filled" style="display: flex; margin-left: auto; border-radius: 5px; height: 25px;"
-                (click)="createOe()">
+                        <div style="display: flex; align-items: center; justify-content: end; gap: 10px;">
+                <button matButton="filled" [routerLink]="['/admin-distributive']"
+                    style="display: flex; margin-left: auto; border-radius: 5px; height: 25px; background-color: rgb(205, 75, 75);">
+                    Cancel
+                </button>
+                        <button [disabled]="oeFormGroup.invalid" matButton="filled"
+                style="display: flex; border-radius: 5px; height: 25px;" (click)="createOe()">
                 <mat-icon>post_add</mat-icon>
                 Create Organization Entity
             </button>
+            </div>
+
         </mat-card-content>
     </mat-card>
 </div>

@@ -7,12 +7,6 @@
 </div>
 
 <div class="page-container" *ngIf="!loading">
-    <div style="display: flex;align-items: center; justify-content: space-evenly; gap: 10px;">
-        <button mat-button color="warn" [routerLink]="['/admin-distributive']"
-            style="display: flex; border-radius: 5px; margin-left: auto; height: 35px; color: rgba(255, 0, 0, 0.58);">
-            Cancel
-        </button>
-    </div>
     <mat-card class="application-card" appearance="outlined">
         <mat-card-header>
             <mat-icon mat-card-avatar>web</mat-icon>
@@ -35,11 +29,19 @@
                     <mat-button-toggle value="ORG ENTITY">Org Entity</mat-button-toggle>
                 </mat-button-toggle-group>
             </form>
-            <button [disabled]="customerFormGroup.invalid" matButton="filled"
-                style="display: flex; margin-left: auto; border-radius: 5px; height: 25px;" (click)="createCustomer()">
-                <mat-icon>post_add</mat-icon>
-                Create Customer
-            </button>
+            <div style="display: flex; align-items: center; justify-content: end; gap: 10px;">
+                <button matButton="filled" [routerLink]="['/admin-distributive']"
+                    style="display: flex; margin-left: auto; border-radius: 5px; height: 25px; background-color: rgb(205, 75, 75);">
+                    Cancel
+                </button>
+                <button [disabled]="customerFormGroup.invalid" matButton="filled"
+                    style="display: flex;  border-radius: 5px; height: 25px;"
+                    (click)="createCustomer()">
+                    <mat-icon>post_add</mat-icon>
+                    Create Customer
+                </button>
+            </div>
+
         </mat-card-content>
 
     </mat-card>
