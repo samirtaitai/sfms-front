@@ -2,15 +2,18 @@
 
 <div *ngIf="oes && !loading">
     <div class="page-header">
-        <app-filter 
-        (filterChanged)="onFilterChanged($event)" 
-        [loading]="loading"
-        placeHolder="Filter Organization Entities..."
-        ></app-filter>
-        <button routerLink="/create-org-entity" matButton="filled" class="oes-button">
-            <mat-icon>post_add</mat-icon>
-            Create Organization Entity
-        </button>
+        <div style="display: flex;align-items: center; justify-content: space-around; gap: 10px;">
+            <app-filter (filterChanged)="onFilterChanged($event)" [loading]="loading"
+                placeHolder="Filter Organization Entities..."></app-filter>
+            <button mat-button [routerLink]="['/admin-distributive']"
+                style="display: flex; margin-left: 50px; border-radius: 5px; height: 25px; background-color: rgb(205, 75, 75); color: white;">
+                Cancel
+            </button>
+            <button routerLink="/create-org-entity" matButton="filled" style="display: flex; margin-left: auto; border-radius: 5px; height: 25px; background-color:#065bb5; color: white;">
+                <mat-icon>post_add</mat-icon>
+                Create Organization Entity
+            </button>
+        </div>
     </div>
 
     <div class="table-wrapper">
