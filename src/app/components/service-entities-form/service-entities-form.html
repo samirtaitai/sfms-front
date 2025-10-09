@@ -1,0 +1,76 @@
+<form [formGroup]="applicationConfigFormGroup" style="display: flex; flex-direction: column;">
+    <div
+        style="display: flex; gap: 50px; margin-left: auto; margin-right: auto; align-items: center; justify-content: space-evenly; max-width: 1000px;">
+        <div class="field-label">
+            <mat-label>Customers</mat-label>
+            <mat-form-field style="height: 70px">
+                <mat-select formControlName="customer" placeholder="Select Customer">
+                    @for (customer of customers; track customer) {
+                    <mat-option [value]="customer">{{customer.name}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="field-label">
+            <mat-label>Organization Entities</mat-label>
+            <mat-form-field style="height: 70px">
+                <mat-select formControlName="OrgEntity" placeholder="Select OrgEntity">
+                    @for (oe of orgEntities; track oe) {
+                    <mat-option [value]="oe">{{oe.name}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="field-label">
+            <mat-label>Applications</mat-label>
+            <mat-form-field style=" height: 70px">
+                <mat-select formControlName="application" placeholder="Select application">
+                    @for (application of applications; track application) {
+                    <mat-option [value]="application">{{application.name}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div
+        style="display: flex; gap: 50px; margin-left: auto; margin-right: auto; align-items: center; justify-content: space-evenly; max-width: 1000px;">
+        <div class="field-label">
+            <mat-label>OIDC Providers</mat-label>
+            <mat-form-field style="height: 70px">
+                <mat-select formControlName="oidcProviders" placeholder="Select oidcProvider">
+                    @for (oidcProvider of oidcProviders; track oidcProvider) {
+                    <mat-option [value]="oidcProvider">{{oidcProvider}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="field-label">
+            <mat-label>Introspection Endpoint</mat-label>
+            <mat-form-field style=" height: 70px">
+                <mat-label>Introspection endpoint</mat-label>
+                <input [value]="instros" matInput placeholder="Introspection enpoints"
+                    formControlName="instrospecionEndpoint" required>
+            </mat-form-field>
+        </div>
+
+        <div class="field-label">
+            <mat-label>Storege Region</mat-label>
+            <mat-form-field style="height: 70px">
+                <mat-label>Storege region</mat-label>
+                <mat-select formControlName="storageRegion" placeholder="Storage region">
+                    @for (region of storegeRegions; track region) {
+                    <mat-option [value]="region">{{region}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+    </div>
+    <div style="display:flex; gap: 50px; margin-left:auto; margin-right: auto; align-items: start; width:800px;">
+        <p>Active <mat-slide-toggle [checked]="true" formControlName="status" labelPosition="before"></mat-slide-toggle>
+        </p>
+        <p>Locked<mat-slide-toggle formControlName="enabled" labelPosition="before"></mat-slide-toggle>
+        </p>
+    </div>
+</form>

@@ -16,10 +16,21 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { Customer } from '../../../../__mocks__/customer/customer';
-import { CustomerService } from '../../features/customer/customer.service';
-import { OesService } from '../../features/organization-entity/oes.service';
-import { ApplicationService } from '../../features/application/application.service';
+import { Customer, CustomerService } from '../../features/customer/customer.service';
+import { Oes, OesService } from '../../features/organization-entity/oes.service';
+import { Application, ApplicationService } from '../../features/application/application.service';
+import { ServiceEntitiesForm } from "../service-entities-form/service-entities-form";
+
+interface IServiceEntitiesForm {
+  customer: Customer,
+  orgEntity: Oes,
+  application: Application,
+  oidcProviders: string,
+  instrospecionEndpoint: String,
+  storageRegion: string,
+  status: boolean,
+  enabled: boolean
+}
 
 @Component({
   selector: 'app-stepper',
@@ -42,7 +53,8 @@ import { ApplicationService } from '../../features/application/application.servi
     MatSelectModule,
     MatButtonModule,
     MatChipsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    ServiceEntitiesForm
   ],
   providers: [
     CustomerService,
@@ -56,76 +68,6 @@ import { ApplicationService } from '../../features/application/application.servi
 export class Stepper implements OnInit {
   allTypesSelected = false;
   addButonDisabled = false;
-  ngOnInit(): void {
-
-    this.applicationConfigFormGroup.get('customer')?.valueChanges.subscribe(value => {
-      const orgEntityControl = this.applicationConfigFormGroup.get('OrgEntity');
-      if (value) {
-        orgEntityControl?.enable();
-      } else {
-        orgEntityControl?.disable();
-      }
-    });
-
-    this.applicationConfigFormGroup.get('OrgEntity')?.valueChanges.subscribe(value => {
-      const applicationControl = this.applicationConfigFormGroup.get('application');
-      if (value) {
-        applicationControl?.enable();
-      } else {
-        applicationControl?.disable();
-      }
-    });
-
-    this.applicationConfigFormGroup.get('application')?.valueChanges.subscribe(value => {
-      const oidcProvidersnControl = this.applicationConfigFormGroup.get('oidcProviders');
-      if (value) {
-        this.selectedApplication = value;
-        oidcProvidersnControl?.enable();
-      } else {
-        oidcProvidersnControl?.disable();
-      }
-    });
-
-    this.applicationConfigFormGroup.get('oidcProviders')?.valueChanges.subscribe(value => {
-      const oidcProvidersnControl = this.applicationConfigFormGroup.get('instrospecionEndpoint');
-      if (value) {
-        this.getIntrospecionEndpoint(value);
-        oidcProvidersnControl?.enable();
-      } else {
-        oidcProvidersnControl?.disable();
-      }
-    });
-
-    this.applicationConfigFormGroup.get('instrospecionEndpoint')?.valueChanges.subscribe(value => {
-      const oidcProvidersnControl = this.applicationConfigFormGroup.get('storageRegion');
-      if (value) {
-        this.getIntrospecionEndpoint(value);
-        oidcProvidersnControl?.enable();
-      } else {
-        oidcProvidersnControl?.disable();
-      }
-    });
-
-    this.applicationConfigFormGroup.get('storageRegion')?.valueChanges.subscribe(value => {
-      const oidcProvidersnControl = this.applicationConfigFormGroup.get('status');
-      const enabled = this.applicationConfigFormGroup.get('enabled');
-      if (value) {
-        this.getIntrospecionEndpoint(value);
-        oidcProvidersnControl?.enable();
-        enabled?.enable();
-      } else {
-        oidcProvidersnControl?.disable();
-        enabled?.disable();
-      }
-    });
-
-    this.fileTypesForm.get('type')?.valueChanges.subscribe(value => {
-      if (value !== 'ALL') {
-        this.addButonDisabled = false;
-      }
-    })
-
-  }
 
   childrenAccessor = (node: any) => node.children ?? [];
 
@@ -141,10 +83,10 @@ export class Stepper implements OnInit {
   selectedRoles: any = [];
   creatingApplication = false;
   selectedApplication: any = { name: '', description: '' };
-  selected = 'CUSTOM';
   fileTypesForm!: FormGroup;
   selectedConfiguration: any = null;
   configurationId = 1;
+  serviceEntities!: IServiceEntitiesForm;
   private _formBuilder = inject(FormBuilder);
 
   roles: any[] = [
@@ -157,8 +99,57 @@ export class Stepper implements OnInit {
     { value: 'SCAN AND REPAIR', viewValue: 'Scan and repair' },
   ];
 
-  storegeRegions = ['eu-central-1', 'eu-west-3', 'ap-east-1', 'ap-southeast-2']
 
+  ngOnInit(): void {
+    this.serviceEntities = {
+      customer: {
+        name: '',
+        description: ''
+      },
+      orgEntity: {
+        code: '',
+        name: '',
+        debtor: 0
+      },
+      application: {
+        name: '',
+        description: '',
+        applicationFlows: []
+      },
+      oidcProviders: '',
+      instrospecionEndpoint: '',
+      storageRegion: '',
+      status: false,
+      enabled: false
+    }
+  }
+
+
+  selectCustomer(value: Customer) {
+    this.serviceEntities.customer = value;
+    console.log(value)
+  }
+
+  selectOe(value: Oes) {
+    this.serviceEntities.orgEntity = value;
+  }
+
+  selectApplication(value: Application) {
+    this.serviceEntities.application = value
+  }
+
+  selectIntrospection(value: String) {
+    this.serviceEntities.instrospecionEndpoint = value;
+  }
+
+  selectOidcProvider(value: string) {
+    this.serviceEntities.oidcProviders = value;
+  }
+
+  selectStorageRegion(value: string) {
+    this.serviceEntities.storageRegion = value;
+    console.log(this.serviceEntities)
+  }
 
   addRole(id: any) {
     this.selectedRoles.push({ flowId: id, role: this.roleConfigFormGroup.value.roles });
@@ -261,38 +252,15 @@ export class Stepper implements OnInit {
     }
   }
 
-  applicationConfigFormGroup = this._formBuilder.group({
-    customer: ['' as any, Validators.required],
-    OrgEntity: [{ value: '', disabled: true } as any, Validators.required],
-    application: [{ value: '', disabled: true } as any, Validators.required],
-    oidcProviders: [{ value: '', disabled: true }, Validators.required],
-    instrospecionEndpoint: [{ value: '', disabled: true }, Validators.required],
-    storageRegion: [{ value: '', disabled: true }, Validators.required],
-    status: [{ value: true, disabled: true }, Validators.required],
-    enabled: [{ value: false, disabled: true }, Validators.required],
-  });
-
   roleConfigFormGroup = this._formBuilder.group({
     roles: ['', Validators.required],
   });
 
-  instros = ''
-
-  getIntrospecionEndpoint(value: string) {
-    this.selected = value;
-    if (value === 'IDP') {
-      this.instros = 'https://OIDC.AZ/instrospect';
-      this.applicationConfigFormGroup.patchValue({ instrospecionEndpoint: this.instros });
-    } else if (value === 'CUSTOM') {
-      this.instros = '';
-    }
-  }
-
   onboardApplication() {
-    const { OrgEntity, customer, application, status, enabled, oidcProviders, storageRegion, instrospecionEndpoint } = this.applicationConfigFormGroup.value;
+    const { orgEntity, customer, application, status, enabled, oidcProviders, storageRegion, instrospecionEndpoint } = this.serviceEntities;
     const consumer = {
       customerId: customer.id,
-      orgEntityId: OrgEntity.id,
+      orgEntityId: orgEntity.id,
       applicationId: application.id,
       status,
       enabled,

@@ -1,6 +1,6 @@
 <app-nav-bar></app-nav-bar>
 
-<div *ngIf="oes && !loading">
+<div class="container" *ngIf="oes && !loading">
     <div class="page-header">
         <div style="display: flex;align-items: center; justify-content: space-around; gap: 10px;">
             <app-filter (filterChanged)="onFilterChanged($event)" [loading]="loading"
@@ -9,7 +9,8 @@
                 style="display: flex; margin-left: 50px; border-radius: 5px; height: 25px; background-color: rgb(205, 75, 75); color: white;">
                 Cancel
             </button>
-            <button routerLink="/create-org-entity" matButton="filled" style="display: flex; margin-left: auto; border-radius: 5px; height: 25px; background-color:#065bb5; color: white;">
+            <button routerLink="/create-org-entity" matButton="filled"
+                style="display: flex; margin-left: auto; border-radius: 5px; height: 25px; background-color:#065bb5; color: white;">
                 <mat-icon>post_add</mat-icon>
                 Create Organization Entity
             </button>
@@ -32,9 +33,15 @@
                     <td>{{ customer.code }}</td>
                     <td>{{ customer.debtor }}</td>
                     <td>
-                        <button matIconButton aria-label="Example icon button with a vertical three dot icon">
+                        <button matIconButton [matMenuTriggerFor]="menu"
+                            aria-label="Example icon button with a vertical three dot icon">
                             <mat-icon>more_vert</mat-icon>
                         </button>
+                        <mat-menu #menu="matMenu">
+                            <mat-label style="padding: 10px; display: flex;margin-left: auto; margin-right: auto; color: #065bb5;">{{ customer.name }}</mat-label>
+                            <button mat-menu-item> <mat-icon>delete</mat-icon> Delete</button>
+                            <button mat-menu-item disabled><mat-icon>notes</mat-icon> Details</button>
+                        </mat-menu>
                     </td>
                 </tr>
             </tbody>

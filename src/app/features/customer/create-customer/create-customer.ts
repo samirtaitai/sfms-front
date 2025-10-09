@@ -4,13 +4,19 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatInputModule } from '@angular/material/input';
-import { CUSTOMER_TYPE } from '../customer-type';
 import { NavBar } from "../../../components/nav-bar/nav-bar";
 import { MatCard, MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { CustomerService } from '../customer.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Spinner } from "../../../components/spinner/spinner";
+import { Toast } from "../../../components/toast/toast";
+
+enum CUSTOMER_TYPE {
+  productOwner = 'PRODUCT_OWNER',
+  orgEntity = 'ORG_ENTITY'
+}
 
 @Component({
   selector: 'app-create-customer',
@@ -25,7 +31,9 @@ import { RouterLink } from '@angular/router';
     MatCard,
     MatCardModule,
     MatIconModule,
-    RouterLink
+    RouterLink,
+    Spinner,
+    Toast
   ],
   providers: [CustomerService],
   standalone: true,
@@ -55,7 +63,6 @@ export class CreateCustomer {
   showSuccessToast(message: string): void {
     this.toastMessage = message;
     this.showToast = true;
-
     setTimeout(() => {
       this.showToast = false;
     }, 10000);

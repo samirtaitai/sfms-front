@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { Auth } from '../../core/services/auth';
+import { Spinner } from "../../components/spinner/spinner";
 
 @Component({
   selector: 'app-login-page',
@@ -21,8 +22,9 @@ import { Auth } from '../../core/services/auth';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule,
+    Spinner
+],
   templateUrl: './login-page.html',
   styleUrl: './login-page.css'
 })

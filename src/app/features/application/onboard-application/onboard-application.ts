@@ -3,7 +3,6 @@ import { Stepper } from "../../../components/stepper/stepper";
 import { NavBar } from "../../../components/nav-bar/nav-bar";
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-onboard-application',
@@ -12,7 +11,6 @@ import { RouterLink } from '@angular/router';
     NavBar,
     MatIconModule,
     MatButtonModule,
-    RouterLink
   ],
   standalone: true,
   templateUrl: './onboard-application.html',

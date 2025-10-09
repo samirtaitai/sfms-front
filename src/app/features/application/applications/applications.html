@@ -1,5 +1,5 @@
 <app-nav-bar></app-nav-bar>
-<div *ngIf="applications && !loading">
+<div class="container" *ngIf="applications && !loading">
     <div class="page-header">
         <div style="display: flex;align-items: center; justify-content: space-around; gap: 10px;">
             <app-filter (filterChanged)="onFilterChanged($event)" [loading]="loading"
@@ -39,5 +39,7 @@
         </table>
     </div>
 </div>
+
+
 
 <app-loader-component [loading]="loading"></app-loader-component>

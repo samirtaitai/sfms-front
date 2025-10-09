@@ -1,10 +1,6 @@
 <app-nav-bar></app-nav-bar>
-<div *ngIf="showToast" class="toast success-toast">
-    {{ toastMessage }}
-</div>
-<div *ngIf="loading" class="spinner-overlay">
-    <div class="spinner"></div>
-</div>
+<app-toast [showToast]="showToast" [toastText]="toastMessage" type="success"></app-toast>
+<app-spinner [loading]="loading"></app-spinner>
 
 <div class="page-container" *ngIf="!loading">
     <mat-card class="application-card" appearance="outlined">
@@ -35,8 +31,7 @@
                     Cancel
                 </button>
                 <button [disabled]="customerFormGroup.invalid" matButton="filled"
-                    style="display: flex;  border-radius: 5px; height: 25px;"
-                    (click)="createCustomer()">
+                    style="display: flex;  border-radius: 5px; height: 25px;" (click)="createCustomer()">
                     <mat-icon>post_add</mat-icon>
                     Create Customer
                 </button>

@@ -9,6 +9,8 @@ import { LoaderComponent } from "../../../components/loader-component/loader-com
 import { Filter } from '../../../components/filter/filter';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
+import { MatMenuModule, MatMenu } from '@angular/material/menu';
+import { MatLabel } from '@angular/material/input';
 
 @Component({
   selector: 'app-organization-entities',
@@ -20,7 +22,10 @@ import { ChangeDetectorRef } from '@angular/core';
     RouterLink,
     LoaderComponent,
     Filter,
-    NavBar
+    NavBar,
+    MatMenu,
+    MatMenuModule,
+    MatLabel
 ],
   providers: [OesService],
   standalone: true,

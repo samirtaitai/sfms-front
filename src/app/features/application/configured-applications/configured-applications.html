@@ -1,5 +1,6 @@
 <app-nav-bar></app-nav-bar>
-<div *ngIf="allConsumers && !loading">
+
+<div class="container" *ngIf="allConsumers && !loading">
     <div class="page-header">
         <div style="display: flex;align-items: center; justify-content: space-around; gap: 10px;">
             <app-filter (filterChanged)="onFilterChanged($event)" [loading]="loading"

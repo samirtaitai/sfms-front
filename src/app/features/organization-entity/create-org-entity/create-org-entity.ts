@@ -10,6 +10,8 @@ import { MatButton } from '@angular/material/button';
 import { OesService } from '../oes.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Spinner } from "../../../components/spinner/spinner";
+import { Toast } from "../../../components/toast/toast";
 
 @Component({
   selector: 'app-create-org-entity',
@@ -23,8 +25,10 @@ import { RouterLink } from '@angular/router';
     NavBar,
     MatInputModule,
     MatButton,
-    RouterLink
-  ],
+    RouterLink,
+    Spinner,
+    Toast
+],
   providers: [OesService],
   templateUrl: './create-org-entity.html',
   styleUrl: './create-org-entity.css'

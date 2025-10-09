@@ -1,11 +1,6 @@
 <app-nav-bar></app-nav-bar>
-<div *ngIf="showToast" class="toast success-toast">
-    {{ toastMessage }}
-</div>
-
-<div *ngIf="loading" class="spinner-overlay">
-    <div class="spinner"></div>
-</div>
+<app-toast [showToast]="showToast" [toastText]="toastMessage" type="success"></app-toast>
+<app-spinner [loading]="loading"></app-spinner>
 
 <div class="page-container" *ngIf="!loading">
     <div style="display: flex;align-items: center; justify-content: end; gap: 50px;">
@@ -60,8 +55,7 @@
                         style="display: flex; margin-left: auto; border-radius: 5px; height: 25px; background-color: rgb(205, 75, 75);">
                         Cancel
                     </button>
-                    <button matButton="filled"
-                        style="display: flex; border-radius: 5px; height: 25px;"
+                    <button matButton="filled" style="display: flex; border-radius: 5px; height: 25px;"
                         (click)="addAcction()">
                         <mat-icon>post_add</mat-icon>
                         Add Flow

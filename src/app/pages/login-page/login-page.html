@@ -1,6 +1,4 @@
-<div *ngIf="loading" class="spinner-overlay">
-    <div class="spinner"></div>
-</div>
+<app-spinner [loading]="loading"></app-spinner>
 
 <div style="min-width: 100%; min-height: 100%; display: flex;" *ngIf="!loading">
     <mat-card class="example-card">

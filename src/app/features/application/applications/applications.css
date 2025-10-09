@@ -1,3 +1,8 @@
+.container {
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
+
 .application-button {
   border-radius: 3px;
   height: 25px;
@@ -8,13 +13,11 @@
 }
 
 .table-wrapper {
-  max-height: 400px;
-  max-width: 900px;
+  max-height: 900px;
+  max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
   overflow-y: auto;
-  border: 1px solid #ccc;
-  border-radius: 6px;
   background-color: #fff;
 }
 
@@ -39,9 +42,10 @@
 }
 
 .custom-table thead {
-  background-color: #065bb5;
-  color: white;
+  background-color: #ddeaff;
+  color: #065bb5;
   position: sticky;
+  padding: 20px;
   top: 0;
 }
 
@@ -50,7 +54,6 @@
   padding: 4px 8px;
   font-size: 13px;
 }
-
 
 .custom-table tr:hover {
   background-color: #065bb529;
@@ -66,9 +69,6 @@
   color: white;
 }
 
-.custom-table tbody tr:nth-child(even) {
-  background-color: #f2f6fc;
-}
 
 .custom-table tbody tr:nth-child(odd) {
   background-color: #ffffff;
@@ -85,7 +85,8 @@
 }
 
 .custom-table tbody tr:hover {
-  background-color: #ddeaff; /* azul claro al hacer hover */
+  background-color: #fafafa;
+  /* azul claro al hacer hover */
   transition: background-color 0.1s ease-in-out;
 }
 
@@ -94,5 +95,6 @@
   padding: 6px 10px;
   font-size: 14px;
   border-bottom: 1px solid #ddd;
-  text-align: start; /* ← centra el contenido */
+  text-align: start;
+  /* ← centra el contenido */
 }

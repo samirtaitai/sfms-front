@@ -11,6 +11,8 @@ import { Application, ApplicationService } from '../application.service';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Spinner } from "../../../components/spinner/spinner";
+import { Toast } from "../../../components/toast/toast";
 
 @Component({
   selector: 'app-create-application',
@@ -25,8 +27,10 @@ import { RouterLink } from '@angular/router';
     MatCardModule,
     ReactiveFormsModule,
     MatButton,
-    RouterLink
-  ],
+    RouterLink,
+    Spinner,
+    Toast
+],
   providers: [ApplicationService],
   templateUrl: './create-application.html',
   styleUrl: './create-application.css'

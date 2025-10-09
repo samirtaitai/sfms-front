@@ -24,7 +24,15 @@
     margin-right: auto;
     margin-top: 50px;
     max-width: 90%;
-    background: white;
+    background: transparent;
+}
+
+::ng-deep .mat-step-header {
+  background-color: #ffffff;
+  border-radius: 8px;
+  width: 150px;
+  max-height: 50px;
+  font-size: 12px !important;
 }
 
 .stepper-footer {

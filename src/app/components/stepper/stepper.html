@@ -1,90 +1,13 @@
 <mat-stepper class="stepper" [linear]="isLinear" #stepper>
     <mat-step label="Select Customer">
-        <section>
-            <form [formGroup]="applicationConfigFormGroup" style="display: flex; flex-direction: column;">
-                <div
-                    style="display: flex; gap: 50px; margin-left: auto; margin-right: auto; align-items: center; justify-content: space-evenly; max-width: 1000px;">
-                    <div class="field-label">
-                        <mat-label>Customers</mat-label>
-                        <mat-form-field style="height: 70px">
-                            <mat-select formControlName="customer" placeholder="Select Customer">
-                                @for (customer of customers; track customer) {
-                                <mat-option [value]="customer">{{customer.name}}</mat-option>
-                                }
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="field-label">
-                        <mat-label>Organization Entities</mat-label>
-                        <mat-form-field style="height: 70px">
-                            <mat-select formControlName="OrgEntity" placeholder="Select OrgEntity">
-                                @for (oe of orgEntities; track oe) {
-                                <mat-option [value]="oe">{{oe.name}}</mat-option>
-                                }
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="field-label">
-                        <mat-label>Applications</mat-label>
-                        <mat-form-field style=" height: 70px">
-                            <mat-select formControlName="application" placeholder="Select application">
-                                @for (application of applications; track application) {
-                                <mat-option [value]="application">{{application.name}}</mat-option>
-                                }
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div
-                    style="display: flex; gap: 50px; margin-left: auto; margin-right: auto; align-items: center; justify-content: space-evenly; max-width: 1000px;">
-                    <div class="field-label">
-                        <mat-label>OIDC Providers</mat-label>
-                        <mat-form-field style="height: 70px">
-                            <mat-select formControlName="oidcProviders" placeholder="Select oidcProvider">
-                                @for (oidcProvider of oidcProviders; track oidcProvider) {
-                                <mat-option [value]="oidcProvider">{{oidcProvider}}</mat-option>
-                                }
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="field-label">
-                        <mat-label>Introspection Endpoint</mat-label>
-                        <mat-form-field style=" height: 70px">
-                            <mat-label>Introspection endpoint</mat-label>
-                            <input [value]="instros" matInput placeholder="Introspection enpoints"
-                                formControlName="instrospecionEndpoint" required>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="field-label">
-                        <mat-label>Storege Region</mat-label>
-                        <mat-form-field style="height: 70px">
-                            <mat-label>Storege region</mat-label>
-                            <mat-select formControlName="storageRegion" placeholder="Storage region">
-                                @for (region of storegeRegions; track region) {
-                                <mat-option [value]="region">{{region}}</mat-option>
-                                }
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-
-                </div>
-                <div
-                    style="display:flex; gap: 50px; margin-left:auto; margin-right: auto; align-items: start; width:800px;">
-                    <p>Active <mat-slide-toggle [checked]="true" formControlName="status"
-                            labelPosition="before"></mat-slide-toggle></p>
-                    <p>Locked<mat-slide-toggle formControlName="enabled" labelPosition="before"></mat-slide-toggle>
-                    </p>
-                </div>
-            </form>
-
-        </section>
-        <div class="stepper-footer">
-            <button matButton matStepperNext class="no-radius">Next</button>
-        </div>
+        <app-service-entities-form [customers]="customers" [orgEntities]="orgEntities" [applications]="applications"
+            [oidcProviders]="oidcProviders" (customerChanged)="selectCustomer($event)" (oesChanged)="selectOe($event)"
+            (applicationChanged)="selectapplication($event)"
+            (instrospecionEndpointChanged)="selectIntrospection($event)"
+            (storageRegionChanged)="selectStorageRegion($event)" 
+            (oidcProvidersChanged)="selectOidcProvider($event)">
+        </app-service-entities-form>
     </mat-step>
-
     <mat-step label="Role Configuration" style="display: flex;">
         <div style="display: flex; flex-direction: column; width: 500px; margin-left: auto; margin-right: auto;">
             <form [formGroup]="roleConfigFormGroup" style="display: flex; flex-direction: column;">
@@ -102,10 +25,6 @@
                 </div>
                 }
             </form>
-        </div>
-        <div class="stepper-footer">
-            <button matButton matStepperPrevious>Back</button>
-            <button matButton matStepperNext class="no-radius">Next</button>
         </div>
     </mat-step>
 
@@ -175,10 +94,6 @@
         </div>
         <hr>
         }
-        <div class="stepper-footer">
-            <button matButton matStepperPrevious>Back</button>
-            <button matButton matStepperNext class="no-radius">Next</button>
-        </div>
     </mat-step>
 
     <mat-step label="Onboard Application">
@@ -188,34 +103,35 @@
                 <mat-card-subtitle>Application Summary</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content style="padding: 20px;">
-                <div style="display: flex; flex-direction: column; gap: 10px;width: 300px; margin-left: auto; margin-right: auto;">
+                <div
+                    style="display: flex; flex-direction: column; gap: 10px;width: 300px; margin-left: auto; margin-right: auto;">
                     <div style="display: flex; flex-direction: column;  justify-content: start;">
                         <span><strong>Customer:</strong></span>
-                        <span>{{applicationConfigFormGroup.get('customer')?.value?.name}}</span>
+                        <span>{{serviceEntities.customer.name}}</span>
                     </div>
                     <div style="display: flex; flex-direction: column;  justify-content: start;">
                         <span><strong>OrgEntity:</strong></span>
-                        <span>{{applicationConfigFormGroup.get('OrgEntity')?.value?.name}}</span>
+                        <span>{{serviceEntities.orgEntity.name}}</span>
                     </div>
                     <div style="display: flex; flex-direction: column;  justify-content: start;">
                         <span><strong>Application:</strong></span>
-                        <span>{{applicationConfigFormGroup.get('application')?.value?.name}}</span>
+                        <span>{{serviceEntities.application.name}}</span>
                     </div>
                     <div style="display: flex; flex-direction: column;  justify-content: start; ">
                         <span><strong>OIDC Provider:</strong></span>
-                        <span>{{applicationConfigFormGroup.get('oidcProviders')?.value}}</span>
+                        <span>{{serviceEntities.oidcProviders}}</span>
                     </div>
                     <div style="display: flex ; flex-direction: column; justify-content: flex-start;">
                         <span><strong>Introspection Endpoint:</strong></span>
-                        <span>{{applicationConfigFormGroup.get('instrospecionEndpoint')?.value}}</span>
+                        <span>{{serviceEntities.instrospecionEndpoint}}</span>
                     </div>
                     <div style="display: flex; flex-direction: column;  justify-content: flex-start">
                         <span><strong>Storage Region:</strong></span>
-                        <span>{{applicationConfigFormGroup.get('storageRegion')?.value}}</span>
+                        <span>{{serviceEntities.storageRegion}}</span>
                     </div>
                     <div style="display: flex; flex-direction: column;  justify-content: flex-start;">
                         <span><strong>Status:</strong></span>
-                        <span>{{applicationConfigFormGroup.get('status')?.value}}</span>
+                        <span>{{serviceEntities.status}}</span>
                     </div>
                 </div>
                 <div
@@ -242,8 +158,5 @@
                 Confirm Onbording
             </button>
         </mat-card>
-        <div class="stepper-footer">
-            <button matButton matStepperPrevious>Back</button>
-        </div>
     </mat-step>
 </mat-stepper>

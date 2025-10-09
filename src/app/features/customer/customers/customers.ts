@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from "@angular/material/icon";
 import { RouterLink } from '@angular/router';
@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
 import { LoaderComponent } from "../../../components/loader-component/loader-component";
 import { NavBar } from "../../../components/nav-bar/nav-bar";
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialog } from '../../../components/confirmation-dialog/confirmation-dialog';
 
 @Component({
   selector: 'app-customers',
@@ -23,7 +25,7 @@ import { NavBar } from "../../../components/nav-bar/nav-bar";
     LoaderComponent,
     NavBar,
     MatButton
-],
+  ],
   providers: [CustomerService],
   templateUrl: './customers.html',
   styleUrl: './customers.css'
@@ -60,5 +62,25 @@ export class Customers implements OnInit {
 
   trackCustomer(index: number, customer: any): string {
     return customer.id || customer.name;
+  }
+  readonly dialog = inject(MatDialog);
+
+  deleteConfirm(customerName: string, customerId: any): void {
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: { tittle: 'Delete customer', text: `are you sure you want to delete ${customerName} ?` },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (result === true) {
+        this.loading = true;
+        this.customerSrv.delete(customerId).subscribe({
+          next: (response) => {
+            this.loading = false
+            console.log(response)
+          }
+        })
+      }
+    });
   }
 }
