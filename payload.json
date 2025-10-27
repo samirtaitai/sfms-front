@@ -1,0 +1,40 @@
+{
+    "customerId": "0aa91d2c-f248-41b4-bd1a-3903fbb68b4a",
+    "orgEntityId": "6e625079-7c22-42dd-962a-cf88019c9737",
+    "applicationId": "7e18fcbb-c4a0-4776-a0dc-d1a0e5ef5b1e",
+    "locked": false,
+    "activated": false,
+    "oidcProvider": "IDP",
+    "storageRegion": "eu-central-1",
+    "introspectionUrl": "https://OIDC.AZ/instrospect",
+    "flowRoles": [
+        {
+            "flowId": "fe9b6a30-eb2a-40c8-b5d3-ffe551cac20f",
+            "roleId": "48839cd3-bb11-478c-9670-03d9cf71eb55"
+        },
+        {
+            "flowId": "5613d8e1-43f8-4901-bf4b-bedff6062d11",
+            "roleId": "3c8fca56-1958-4544-9f4a-6f17abe16332"
+        }
+    ],
+    "fileFlowsConfig": [
+        {
+            "flowId": "fe9b6a30-eb2a-40c8-b5d3-ffe551cac20f",
+            "actionId": "2d59c7e0-50bd-4889-97a0-eb998557d5e7",
+            "type": "All Types",
+            "fileSize": "3"
+        },
+        {
+            "flowId": "5613d8e1-43f8-4901-bf4b-bedff6062d11",
+            "actionId": "2d59c7e0-50bd-4889-97a0-eb998557d5e7",
+            "type": "doc",
+            "fileSize": "5"
+        },
+        {
+            "flowId": "5613d8e1-43f8-4901-bf4b-bedff6062d11",
+            "actionId": "5c9cb470-0fc5-41e3-9b28-90931c9bf19e",
+            "type": "pdf",
+            "fileSize": "13"
+        }
+    ]
+}

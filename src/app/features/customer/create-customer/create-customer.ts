@@ -12,6 +12,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Spinner } from "../../../components/spinner/spinner";
 import { Toast } from "../../../components/toast/toast";
+import { Router } from '@angular/router';
 
 enum CUSTOMER_TYPE {
   productOwner = 'PRODUCT_OWNER',
@@ -41,6 +42,7 @@ enum CUSTOMER_TYPE {
   styleUrl: './create-customer.css'
 })
 export class CreateCustomer {
+  private router = inject(Router);
   private _formBuilder = inject(FormBuilder);
   customerFormGroup: any
   loading: any;
@@ -78,6 +80,7 @@ export class CreateCustomer {
           this.showSuccessToast('Customer Created Successfully');
           this.customerFormGroup.reset();
           this.cdr.detectChanges();
+          this.router.navigate(['/customers']);
         }
       });
     }

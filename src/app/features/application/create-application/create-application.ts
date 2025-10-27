@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatListModule } from "@angular/material/list";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatInputModule } from "@angular/material/input";
@@ -10,7 +10,7 @@ import { MatButton } from '@angular/material/button';
 import { Application, ApplicationService } from '../application.service';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Spinner } from "../../../components/spinner/spinner";
 import { Toast } from "../../../components/toast/toast";
 
@@ -30,7 +30,7 @@ import { Toast } from "../../../components/toast/toast";
     RouterLink,
     Spinner,
     Toast
-],
+  ],
   providers: [ApplicationService],
   templateUrl: './create-application.html',
   styleUrl: './create-application.css'
@@ -42,6 +42,7 @@ export class CreateApplication {
   loading = false;
   toastMessage = '';
   showToast = false;
+  private router = inject(Router);
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -104,6 +105,7 @@ export class CreateApplication {
           this.loading = false;
           this.showSuccessToast('Application Created Successfully');
           this.cdr.detectChanges();
+          this.router.navigate(['/applications']);
         },
         complete: () => {
           this.loading = false;

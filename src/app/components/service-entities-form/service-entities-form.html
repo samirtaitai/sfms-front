@@ -1,76 +1,77 @@
-<form [formGroup]="applicationConfigFormGroup" style="display: flex; flex-direction: column;">
-    <div
-        style="display: flex; gap: 50px; margin-left: auto; margin-right: auto; align-items: center; justify-content: space-evenly; max-width: 1000px;">
-        <div class="field-label">
-            <mat-label>Customers</mat-label>
-            <mat-form-field style="height: 70px">
-                <mat-select formControlName="customer" placeholder="Select Customer">
-                    @for (customer of customers; track customer) {
-                    <mat-option [value]="customer">{{customer.name}}</mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
+<form [formGroup]="applicationConfigFormGroup" class="form">
+    <div class="section">
+        <div class="select-wrapper">
+            <label class="select-label">Select customer</label>
+            <select formControlName="customer" class="modern-select">
+                <option value="">Select an customer</option>
+                @for (option of customers; track option) {
+                <option [ngValue]="option">{{ option.name }}</option>
+                }
+            </select>
         </div>
-        <div class="field-label">
-            <mat-label>Organization Entities</mat-label>
-            <mat-form-field style="height: 70px">
-                <mat-select formControlName="OrgEntity" placeholder="Select OrgEntity">
-                    @for (oe of orgEntities; track oe) {
-                    <mat-option [value]="oe">{{oe.name}}</mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
+        <div class="select-wrapper">
+            <label class="select-label">Organization Entities</label>
+            <select formControlName="OrgEntity" class="modern-select">
+                <option value="">Select an oe</option>
+                @for (option of orgEntities; track option) {
+                <option [ngValue]="option">{{ option.name }}</option>
+                }
+            </select>
         </div>
-        <div class="field-label">
-            <mat-label>Applications</mat-label>
-            <mat-form-field style=" height: 70px">
-                <mat-select formControlName="application" placeholder="Select application">
-                    @for (application of applications; track application) {
-                    <mat-option [value]="application">{{application.name}}</mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
+        <div class="select-wrapper">
+            <label class="select-label">Applications</label>
+            <select formControlName="application" class="modern-select">
+                <option value="">Select an application</option>
+                @for (application of applications; track application) {
+                <option [ngValue]="application">{{ application.name }}</option>
+                }
+            </select>
         </div>
     </div>
-    <div
-        style="display: flex; gap: 50px; margin-left: auto; margin-right: auto; align-items: center; justify-content: space-evenly; max-width: 1000px;">
-        <div class="field-label">
-            <mat-label>OIDC Providers</mat-label>
-            <mat-form-field style="height: 70px">
-                <mat-select formControlName="oidcProviders" placeholder="Select oidcProvider">
-                    @for (oidcProvider of oidcProviders; track oidcProvider) {
-                    <mat-option [value]="oidcProvider">{{oidcProvider}}</mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
+    <div class="section">
+        <div class="select-wrapper">
+            <label class="select-label">OIDC Providers</label>
+            <select formControlName="oidcProviders" class="modern-select">
+                <option value="">Select an oidcProvider</option>
+                @for (oidcProvider of oidcProviders; track oidcProvider) {
+                <option [ngValue]="oidcProvider">{{ oidcProvider }}</option>
+                }
+            </select>
         </div>
 
-        <div class="field-label">
-            <mat-label>Introspection Endpoint</mat-label>
-            <mat-form-field style=" height: 70px">
-                <mat-label>Introspection endpoint</mat-label>
-                <input [value]="instros" matInput placeholder="Introspection enpoints"
-                    formControlName="instrospecionEndpoint" required>
-            </mat-form-field>
+        <div class="input-wrapper">
+            <label class="input-label">Client Id</label>
+            <input formControlName="clientId" type="text" class="modern-input" placeholder="Enter Client Id" />
         </div>
 
-        <div class="field-label">
-            <mat-label>Storege Region</mat-label>
-            <mat-form-field style="height: 70px">
-                <mat-label>Storege region</mat-label>
-                <mat-select formControlName="storageRegion" placeholder="Storage region">
-                    @for (region of storegeRegions; track region) {
-                    <mat-option [value]="region">{{region}}</mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
+        @if (isIdpSelected) {
+        <div class="input-wrapper">
+            <label class="input-label">Client Secret</label>
+            <input formControlName="clientSecret" type="text" class="modern-input" placeholder="Enter Client Secret" />
         </div>
-
+        }
     </div>
-    <div style="display:flex; gap: 50px; margin-left:auto; margin-right: auto; align-items: start; width:800px;">
+
+    <div class="section">
+        <div class="input-wrapper">
+            <label class="input-label">Introspection Endpoint</label>
+            <input [value]="instros" formControlName="instrospecionEndpoint" type="text" class="modern-input"
+                placeholder="Introspection enpoints" />
+        </div>
+
+        <div class="select-wrapper">
+            <label class="select-label">Storege Region</label>
+            <select formControlName="storageRegion" class="modern-select">
+                <option value="">Select storage region</option>
+                @for (region of storegeRegions; track region) {
+                <option [ngValue]="region">{{ region }}</option>
+                }
+            </select>
+        </div>
         <p>Active <mat-slide-toggle [checked]="true" formControlName="status" labelPosition="before"></mat-slide-toggle>
         </p>
         <p>Locked<mat-slide-toggle formControlName="enabled" labelPosition="before"></mat-slide-toggle>
         </p>
     </div>
+
 </form>

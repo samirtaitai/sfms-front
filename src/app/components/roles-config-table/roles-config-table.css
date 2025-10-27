@@ -1,0 +1,50 @@
+/* === Contenedor general === */
+.responsive-form {
+  padding: 1.5rem;
+  background-color: #f9fafc;
+  border-radius: 12px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* === Tabla moderna === */
+.modern-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 0.85rem;
+}
+
+/* === Encabezado compacto === */
+.header-row {
+  background-color: #f0f2f5;
+  font-weight: 600;
+  color: #333;
+  height: 30px;
+}
+
+.key-color {
+  background-color: #f0f2f5;
+
+}
+
+.header-cell {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* === Filas de datos compactas === */
+.data-row {
+  height: 40px;
+  transition: background-color 0.2s ease;
+}
+
+.data-cell {
+  padding: 0.4rem 0.75rem;
+  border-bottom: 1px solid #eaeaea;
+  border-left: 1px solid #eaeaea;
+  vertical-align: middle;
+}

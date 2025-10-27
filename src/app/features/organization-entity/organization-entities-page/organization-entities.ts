@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NavBar } from "../../../components/nav-bar/nav-bar";
 import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from '@angular/material/button';
@@ -9,8 +9,10 @@ import { LoaderComponent } from "../../../components/loader-component/loader-com
 import { Filter } from '../../../components/filter/filter';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
-import { MatMenuModule, MatMenu } from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatLabel } from '@angular/material/input';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteOrg } from '../delete-org/delete-org';
 
 @Component({
   selector: 'app-organization-entities',
@@ -23,10 +25,8 @@ import { MatLabel } from '@angular/material/input';
     LoaderComponent,
     Filter,
     NavBar,
-    MatMenu,
     MatMenuModule,
-    MatLabel
-],
+  ],
   providers: [OesService],
   standalone: true,
   templateUrl: './organization-entities.html',
@@ -36,6 +36,8 @@ export class OrganizationEntities implements OnInit {
   oes: Oes[] = [];
   filtredOes: Oes[] = [];
   loading = false;
+
+  readonly dialog = inject(MatDialog);
 
   constructor(
     private oesSrv: OesService,
@@ -64,4 +66,25 @@ export class OrganizationEntities implements OnInit {
   trackCustomer(index: number, customer: any): string {
     return customer.id || customer.name;
   }
+
+  deleteConfirm(oeName: string, oeId: any): void {
+    const dialogRef = this.dialog.open(DeleteOrg, {
+      data: { tittle: 'Delete OE', text: `are you sure you want to delete ${oeName} ?`, oeId },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.loading = true;
+        this.oesSrv.getAll().subscribe({
+          next: (value) => {
+            this.oes = value;
+            this.filtredOes = value;
+            this.loading = false;
+            this.cdr.detectChanges();
+          },
+        });
+      }
+    });
+  }
+
 }

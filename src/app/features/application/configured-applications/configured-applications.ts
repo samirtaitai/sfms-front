@@ -20,7 +20,7 @@ import { NavBar } from "../../../components/nav-bar/nav-bar";
     LoaderComponent,
     Filter,
     NavBar
-],
+  ],
   providers: [ApplicationService],
   templateUrl: './configured-applications.html',
   styleUrl: './configured-applications.css'
@@ -57,5 +57,13 @@ export class ConfiguredApplications implements OnInit {
 
   trackConsumer(index: number, consumer: any): string {
     return consumer.id || consumer.name;
+  }
+
+  deleteConsumer(id: any) {
+    this.consumersSrv.deleteConsumer(id).subscribe({
+      next: (response) => {
+        console.log(response);
+      }
+    })
   }
 }

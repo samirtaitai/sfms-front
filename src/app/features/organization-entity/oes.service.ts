@@ -32,7 +32,7 @@ export class OesService {
     return this.http.put<Oes>(`${this.baseUrl}/${id}`, oes);
   }
 
-  delete(id: number): Observable<void> {
+  delete(id: any): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 }

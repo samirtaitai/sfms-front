@@ -1,0 +1,10 @@
+<div class="bar-container">
+  <div
+    class="bar-fill"
+    [ngStyle]="{
+      width: percentage + '%',
+      backgroundColor: barColor
+    }"
+  ></div>
+</div>
+<p>{{ loaded }} / {{ total }} {{label}} </p>

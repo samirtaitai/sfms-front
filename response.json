@@ -1,0 +1,307 @@
+{
+    //dont display
+    "flowRoles": [
+        {
+            "id": "4d1c7d25-1f20-4e82-9364-f9eb04030292",
+            "consumer": {
+                "id": "b37fbff5-7288-4838-b8eb-7172c370d00b",
+                "orgEntity": {
+                    "id": "6e625079-7c22-42dd-962a-cf88019c9737",
+                    "code": "test ui",
+                    "name": "test 10 16 2025",
+                    "debtor": 100,
+                    "createdAt": "2025-10-16T09:18:33.975065Z",
+                    "updatedAt": "2025-10-16T09:18:33.975069Z"
+                },
+                "customer": {
+                    "id": "07a7e25b-d2ff-49d5-ba8d-05cdf19d364e",
+                    "name": "TEST SAMIR",
+                    "description": "TEST FRONT SAMIR",
+                    "createdAt": "2025-10-16T07:17:46.588661Z",
+                    "updatedAt": "2025-10-16T07:17:46.588669Z"
+                },
+                "application": {
+                    "id": "7e18fcbb-c4a0-4776-a0dc-d1a0e5ef5b1e",
+                    "name": "test ui 10 16 2025",
+                    "description": "test",
+                    "applicationFlows": [
+                        {
+                            "id": "5613d8e1-43f8-4901-bf4b-bedff6062d11",
+                            "flowCode": "flow ",
+                            "description": "dur"
+                        },
+                        {
+                            "id": "fe9b6a30-eb2a-40c8-b5d3-ffe551cac20f",
+                            "flowCode": "one",
+                            "description": "any"
+                        }
+                    ],
+                    "createdAt": "2025-10-16T09:19:21.802237Z",
+                    "updatedAt": "2025-10-16T09:19:21.802241Z"
+                },
+                "consumerKey": "-BqV9AZHW48kHDym-hsCXbPNVvbUtC0WtD3CRnVRs90",
+                "oidcIntrospectUri": "https://OIDC.AZ/instrospect",
+                "complianceRegion": "eu-central-1",
+                "oidcProvider": "IDP",
+                "active": false,
+                "locked": false,
+                "createdAt": "2025-10-17T12:03:39.949104941Z",
+                "updatedAt": "2025-10-17T12:03:39.949105936Z"
+            },
+            "role": {
+                "id": "48839cd3-bb11-478c-9670-03d9cf71eb55",
+                "name": "AMS_INTERNET_TU",
+                "serviceActions": [
+                    {
+                        "id": "5c9cb470-0fc5-41e3-9b28-90931c9bf19e",
+                        "name": "ANTI_MALWARE_SCAN_SYNC"
+                    },
+                    {
+                        "id": "47551c50-119e-43a7-83cc-e1ec7adb994c",
+                        "name": "ANTI_MALWARE_SCAN_ASYNC"
+                    }
+                ]
+            },
+            "applicationFlow": {
+                "id": "5613d8e1-43f8-4901-bf4b-bedff6062d11",
+                "flowCode": "flow ",
+                "description": "dur"
+            }
+        },
+        {
+            "id": "38524afb-d3c3-46e7-8384-fc372fde29fa",
+            "consumer": {
+                "id": "b37fbff5-7288-4838-b8eb-7172c370d00b",
+                "orgEntity": {
+                    "id": "6e625079-7c22-42dd-962a-cf88019c9737",
+                    "code": "test ui",
+                    "name": "test 10 16 2025",
+                    "debtor": 100,
+                    "createdAt": "2025-10-16T09:18:33.975065Z",
+                    "updatedAt": "2025-10-16T09:18:33.975069Z"
+                },
+                "customer": {
+                    "id": "07a7e25b-d2ff-49d5-ba8d-05cdf19d364e",
+                    "name": "TEST SAMIR",
+                    "description": "TEST FRONT SAMIR",
+                    "createdAt": "2025-10-16T07:17:46.588661Z",
+                    "updatedAt": "2025-10-16T07:17:46.588669Z"
+                },
+                "application": {
+                    "id": "7e18fcbb-c4a0-4776-a0dc-d1a0e5ef5b1e",
+                    "name": "test ui 10 16 2025",
+                    "description": "test",
+                    "applicationFlows": [
+                        {
+                            "id": "5613d8e1-43f8-4901-bf4b-bedff6062d11",
+                            "flowCode": "flow ",
+                            "description": "dur"
+                        },
+                        {
+                            "id": "fe9b6a30-eb2a-40c8-b5d3-ffe551cac20f",
+                            "flowCode": "one",
+                            "description": "any"
+                        }
+                    ],
+                    "createdAt": "2025-10-16T09:19:21.802237Z",
+                    "updatedAt": "2025-10-16T09:19:21.802241Z"
+                },
+                "consumerKey": "-BqV9AZHW48kHDym-hsCXbPNVvbUtC0WtD3CRnVRs90",
+                "oidcIntrospectUri": "https://OIDC.AZ/instrospect",
+                "complianceRegion": "eu-central-1",
+                "oidcProvider": "IDP",
+                "active": false,
+                "locked": false,
+                "createdAt": "2025-10-17T12:03:39.949104941Z",
+                "updatedAt": "2025-10-17T12:03:39.949105936Z"
+            },
+            "role": {
+                "id": "48839cd3-bb11-478c-9670-03d9cf71eb55",
+                "name": "AMS_INTERNET_TU",
+                "serviceActions": [
+                    {
+                        "id": "5c9cb470-0fc5-41e3-9b28-90931c9bf19e",
+                        "name": "ANTI_MALWARE_SCAN_SYNC"
+                    },
+                    {
+                        "id": "47551c50-119e-43a7-83cc-e1ec7adb994c",
+                        "name": "ANTI_MALWARE_SCAN_ASYNC"
+                    }
+                ]
+            },
+            "applicationFlow": {
+                "id": "fe9b6a30-eb2a-40c8-b5d3-ffe551cac20f",
+                "flowCode": "one",
+                "description": "any"
+            }
+        }
+    ],
+    // use this one
+    "fileConfigurations": [
+        {
+            "id": "d33b030e-226f-47a4-8a71-7c4a9fda3695",
+            "consumer": {
+                "id": "b37fbff5-7288-4838-b8eb-7172c370d00b",
+                "orgEntity": {
+                    "id": "6e625079-7c22-42dd-962a-cf88019c9737",
+                    "code": "test ui",
+                    "name": "test 10 16 2025",
+                    "debtor": 100,
+                    "createdAt": "2025-10-16T09:18:33.975065Z",
+                    "updatedAt": "2025-10-16T09:18:33.975069Z"
+                },
+                "customer": {
+                    "id": "07a7e25b-d2ff-49d5-ba8d-05cdf19d364e",
+                    "name": "TEST SAMIR",
+                    "description": "TEST FRONT SAMIR",
+                    "createdAt": "2025-10-16T07:17:46.588661Z",
+                    "updatedAt": "2025-10-16T07:17:46.588669Z"
+                },
+                "application": {
+                    "id": "7e18fcbb-c4a0-4776-a0dc-d1a0e5ef5b1e",
+                    "name": "test ui 10 16 2025",// diplay not from app
+                    "description": "test",
+                    "applicationFlows": [
+                        {
+                            "id": "5613d8e1-43f8-4901-bf4b-bedff6062d11",
+                            "flowCode": "flow ",// map and display
+                            "description": "dur"
+                        },
+                        {
+                            "id": "fe9b6a30-eb2a-40c8-b5d3-ffe551cac20f",
+                            "flowCode": "one",
+                            "description": "any"
+                        }
+                    ],
+                    "createdAt": "2025-10-16T09:19:21.802237Z",
+                    "updatedAt": "2025-10-16T09:19:21.802241Z"
+                },
+                "consumerKey": "-BqV9AZHW48kHDym-hsCXbPNVvbUtC0WtD3CRnVRs90",
+                "oidcIntrospectUri": "https://OIDC.AZ/instrospect",
+                "complianceRegion": "eu-central-1",
+                "oidcProvider": "IDP",
+                "active": false,
+                "locked": false,
+                "createdAt": "2025-10-17T12:03:39.949104941Z",
+                "updatedAt": "2025-10-17T12:03:39.949105936Z"
+            },
+            "applicationFlow": {
+                "id": "5613d8e1-43f8-4901-bf4b-bedff6062d11",
+                "flowCode": "flow ",
+                "description": "dur"
+            },
+            "serviceAction": {
+                "id": "5c9cb470-0fc5-41e3-9b28-90931c9bf19e",
+                "name": "ANTI_MALWARE_SCAN_SYNC"
+            },
+            "fileType": "doc",
+            "maxSize": 10
+        },
+        {
+            "id": "a2a957c1-c745-4155-a2ec-18afd3ebecb1",
+            "consumer": {
+                "id": "b37fbff5-7288-4838-b8eb-7172c370d00b",
+                "orgEntity": {
+                    "id": "6e625079-7c22-42dd-962a-cf88019c9737",
+                    "code": "test ui",
+                    "name": "test 10 16 2025",
+                    "debtor": 100,
+                    "createdAt": "2025-10-16T09:18:33.975065Z",
+                    "updatedAt": "2025-10-16T09:18:33.975069Z"
+                },
+                "customer": {
+                    "id": "07a7e25b-d2ff-49d5-ba8d-05cdf19d364e",
+                    "name": "TEST SAMIR",
+                    "description": "TEST FRONT SAMIR",
+                    "createdAt": "2025-10-16T07:17:46.588661Z",
+                    "updatedAt": "2025-10-16T07:17:46.588669Z"
+                },
+                "application": {
+                    "id": "7e18fcbb-c4a0-4776-a0dc-d1a0e5ef5b1e",
+                    "name": "test ui 10 16 2025",
+                    "description": "test",
+                    "applicationFlows": [
+                        {
+                            "id": "5613d8e1-43f8-4901-bf4b-bedff6062d11",
+                            "flowCode": "flow ",
+                            "description": "dur"
+                        },
+                        {
+                            "id": "fe9b6a30-eb2a-40c8-b5d3-ffe551cac20f",
+                            "flowCode": "one",
+                            "description": "any"
+                        }
+                    ],
+                    "createdAt": "2025-10-16T09:19:21.802237Z",
+                    "updatedAt": "2025-10-16T09:19:21.802241Z"
+                },
+                "consumerKey": "-BqV9AZHW48kHDym-hsCXbPNVvbUtC0WtD3CRnVRs90",
+                "oidcIntrospectUri": "https://OIDC.AZ/instrospect",
+                "complianceRegion": "eu-central-1",
+                "oidcProvider": "IDP",
+                "active": false,
+                "locked": false,
+                "createdAt": "2025-10-17T12:03:39.949104941Z",
+                "updatedAt": "2025-10-17T12:03:39.949105936Z"
+            },
+            "applicationFlow": {
+                "id": "fe9b6a30-eb2a-40c8-b5d3-ffe551cac20f",
+                "flowCode": "one",
+                "description": "any"
+            },
+            "serviceAction": {
+                "id": "5c9cb470-0fc5-41e3-9b28-90931c9bf19e",
+                "name": "ANTI_MALWARE_SCAN_SYNC"
+            },
+            "fileType": "doc",
+            "maxSize": 10
+        }
+    ],
+    "consumer": {
+        //consumer details
+        "id": "b37fbff5-7288-4838-b8eb-7172c370d00b",//display
+        "orgEntity": {
+            "id": "6e625079-7c22-42dd-962a-cf88019c9737",
+            "code": "test ui",
+            "name": "test 10 16 2025", // display
+            "debtor": 100,
+            "createdAt": "2025-10-16T09:18:33.975065Z",
+            "updatedAt": "2025-10-16T09:18:33.975069Z"
+        },
+        "customer": {
+            "id": "07a7e25b-d2ff-49d5-ba8d-05cdf19d364e",
+            "name": "TEST SAMIR", // display
+            "description": "TEST FRONT SAMIR",
+            "createdAt": "2025-10-16T07:17:46.588661Z",
+            "updatedAt": "2025-10-16T07:17:46.588669Z"
+        },
+        "application": {
+            "id": "7e18fcbb-c4a0-4776-a0dc-d1a0e5ef5b1e",
+            "name": "test ui 10 16 2025",// display
+            "description": "test",
+            "applicationFlows": [
+                {
+                    "id": "5613d8e1-43f8-4901-bf4b-bedff6062d11",
+                    "flowCode": "flow ",
+                    "description": "dur"
+                },
+                {
+                    "id": "fe9b6a30-eb2a-40c8-b5d3-ffe551cac20f",
+                    "flowCode": "one",
+                    "description": "any"
+                }
+            ],
+            "createdAt": "2025-10-16T09:19:21.802237Z",
+            "updatedAt": "2025-10-16T09:19:21.802241Z"
+        },
+        //flow configs after app
+        "consumerKey": "-BqV9AZHW48kHDym-hsCXbPNVvbUtC0WtD3CRnVRs90",// diplay
+        "oidcIntrospectUri": "https://OIDC.AZ/instrospect", // display
+        "complianceRegion": "eu-central-1",// display
+        "oidcProvider": "IDP",// display
+        "active": false,// display
+        "locked": false,// display
+        "createdAt": "2025-10-17T12:03:39.949104941Z",
+        "updatedAt": "2025-10-17T12:03:39.949105936Z"
+    }
+}

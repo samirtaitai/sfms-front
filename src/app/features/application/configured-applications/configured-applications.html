@@ -11,7 +11,7 @@
             </button>
             <button routerLink="/onboard-application" matButton="filled" style="display: flex; margin-left: auto; border-radius: 5px; height: 25px; background-color:#065bb5; color: white;">
                 <mat-icon>post_add</mat-icon>
-                Configure Application
+                Configure Application/Service
             </button>
         </div>
     </div>
@@ -48,8 +48,8 @@
                         </span>
                     </td>
                     <td>
-                        <button matIconButton aria-label="Example icon button with a vertical three dot icon">
-                            <mat-icon>more_vert</mat-icon>
+                        <button (click)="deleteConsumer(consumer.id)" matIconButton aria-label="Example icon button with a vertical three dot icon">
+                            <mat-icon>delete</mat-icon>
                         </button>
                     </td>
                 </tr>

@@ -8,7 +8,8 @@
                 style="display: flex; margin-left: 50px; border-radius: 5px; height: 25px; background-color: rgb(205, 75, 75); color: white;">
                 Cancel
             </button>
-            <button routerLink="/create-application" matButton="filled" style="display: flex; margin-left: auto; border-radius: 5px; height: 25px; background-color:#065bb5; color: white;">
+            <button routerLink="/create-application" matButton="filled"
+                style="display: flex; margin-left: auto; border-radius: 5px; height: 25px; background-color:#065bb5; color: white;">
                 <mat-icon>post_add</mat-icon>
                 Create Application
             </button>
@@ -30,8 +31,9 @@
                     <td>{{ application.name }}</td>
                     <td>{{ application.description }}</td>
                     <td>
-                        <button matIconButton aria-label="Example icon button with a vertical three dot icon">
-                            <mat-icon>more_vert</mat-icon>
+                        <button matIconButton (click)="deleteConfirm(application.name,application.id)"
+                            aria-label="Example icon button with a vertical three dot icon">
+                            <mat-icon style="font-size: medium; color: rgba(208, 10, 10, 0.523);">delete</mat-icon>
                         </button>
                     </td>
                 </tr>

@@ -14,6 +14,7 @@ export interface Customer {
 export class CustomerService {
     constructor(private http: HttpService) { }
 
+
     getAll(): Observable<Customer[]> {
         return this.http.get<Customer[]>(environment.baseUrl + '/admin/customers');
     }
@@ -30,7 +31,7 @@ export class CustomerService {
         return this.http.put<Customer>(`${environment.baseUrl + '/admin/customers'}/${id}`, customer);
     }
 
-    delete(id: number): Observable<void> {
+    delete(id: string): Observable<void> {
         return this.http.delete<void>(`${environment.baseUrl + '/admin/customers'}/${id}`);
     }
 }

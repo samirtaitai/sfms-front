@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatCard, MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from "@angular/material/icon";
@@ -9,6 +9,8 @@ import { LoaderComponent } from "../../../components/loader-component/loader-com
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
 import { NavBar } from "../../../components/nav-bar/nav-bar";
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteAplication } from '../delete-aplication/delete-aplication';
 
 @Component({
   selector: 'app-applications',
@@ -21,7 +23,7 @@ import { NavBar } from "../../../components/nav-bar/nav-bar";
     Filter,
     LoaderComponent,
     NavBar
-],
+  ],
   providers: [ApplicationService],
   standalone: true,
   templateUrl: './applications.html',
@@ -31,6 +33,8 @@ export class Applications implements OnInit {
   applications: Application[] = [];
   filtredApplications: Application[] = [];
   loading: any;
+  readonly dialog = inject(MatDialog);
+
   constructor(
     private applicationSrv: ApplicationService,
     private cdr: ChangeDetectorRef
@@ -42,7 +46,7 @@ export class Applications implements OnInit {
       next: (response) => {
         this.applications = response;
         this.filtredApplications = [...this.applications];
-                this.loading = false;
+        this.loading = false;
         this.cdr.detectChanges();
       }
     })
@@ -58,5 +62,25 @@ export class Applications implements OnInit {
 
   trackApplication(index: number, application: any): string {
     return application.id || application.name;
+  }
+
+  deleteConfirm(applicationName: string, applicationId: any): void {
+    const dialogRef = this.dialog.open(DeleteAplication, {
+      data: { tittle: 'Delete application', text: `are you sure you want to delete ${applicationName} ?`, applicationId },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.loading = true;
+        this.applicationSrv.getAll().subscribe({
+          next: (response) => {
+            this.applications = response;
+            this.filtredApplications = [...this.applications];
+            this.loading = false;
+            this.cdr.detectChanges();
+          }
+        })
+      }
+    });
   }
 }

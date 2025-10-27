@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { OesService } from '../oes.service';
 import { ChangeDetectorRef } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Spinner } from "../../../components/spinner/spinner";
 import { Toast } from "../../../components/toast/toast";
 
@@ -28,7 +28,7 @@ import { Toast } from "../../../components/toast/toast";
     RouterLink,
     Spinner,
     Toast
-],
+  ],
   providers: [OesService],
   templateUrl: './create-org-entity.html',
   styleUrl: './create-org-entity.css'
@@ -39,6 +39,8 @@ export class CreateOrgEntity {
   toastMessage = '';
   showToast = false;
   loading = false;
+  private router = inject(Router);
+
   constructor(private oesSrv: OesService, private cdr: ChangeDetectorRef) {
     this.oeFormGroup = this._formBuilder.group({
       name: ['', Validators.required],
@@ -65,6 +67,7 @@ export class CreateOrgEntity {
           this.loading = false;
           this.showSuccessToast('Organization Entity Created Successfully');
           this.cdr.detectChanges();
+          this.router.navigate(['/organization-entities']);
         }
       })
     }

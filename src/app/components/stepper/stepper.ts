@@ -20,16 +20,18 @@ import { Customer, CustomerService } from '../../features/customer/customer.serv
 import { Oes, OesService } from '../../features/organization-entity/oes.service';
 import { Application, ApplicationService } from '../../features/application/application.service';
 import { ServiceEntitiesForm } from "../service-entities-form/service-entities-form";
+import { LoadedElementsComponent } from "../loaded-elements/loaded-elements";
+import { RolesConfigTable } from "../roles-config-table/roles-config-table";
 
 interface IServiceEntitiesForm {
   customer: Customer,
   orgEntity: Oes,
   application: Application,
-  oidcProviders: string,
-  instrospecionEndpoint: String,
+  oidcProvider: string,
+  introspectionUrl: String,
   storageRegion: string,
-  status: boolean,
-  enabled: boolean
+  locked: boolean,
+  activated: boolean
 }
 
 @Component({
@@ -54,7 +56,9 @@ interface IServiceEntitiesForm {
     MatButtonModule,
     MatChipsModule,
     MatSlideToggleModule,
-    ServiceEntitiesForm
+    ServiceEntitiesForm,
+    LoadedElementsComponent,
+    RolesConfigTable
   ],
   providers: [
     CustomerService,
@@ -66,6 +70,13 @@ interface IServiceEntitiesForm {
   styleUrl: './stepper.css'
 })
 export class Stepper implements OnInit {
+
+  selectFlow(flow: any) {
+    this.selectedFlow = flow;
+    this.groupConfigurations()
+  }
+
+
   allTypesSelected = false;
   addButonDisabled = false;
 
@@ -77,7 +88,7 @@ export class Stepper implements OnInit {
   orgEntities: any[] = [];
   customers: any[] = [];
   applications: any[] = [];
-  oidcProviders: any[] = ['IDP', 'CUSTOM']
+  oidcProvider: any[] = ['IDP', 'CUSTOM']
   loading = false;
   configurations: any = [];
   selectedRoles: any = [];
@@ -85,19 +96,14 @@ export class Stepper implements OnInit {
   selectedApplication: any = { name: '', description: '' };
   fileTypesForm!: FormGroup;
   selectedConfiguration: any = null;
+  clipBoard: any;
+  selectedFlow: any;
   configurationId = 1;
   serviceEntities!: IServiceEntitiesForm;
   private _formBuilder = inject(FormBuilder);
-
-  roles: any[] = [
-    { value: 'Role 1', viewValue: 'Role 1' },
-    { value: 'Role 2', viewValue: 'Role 2' },
-  ];
-
-  action: any[] = [
-    { value: 'SCAN', viewValue: 'Scan' },
-    { value: 'SCAN AND REPAIR', viewValue: 'Scan and repair' },
-  ];
+  groupedConfigurations: { flowName: string; configs: any[] }[] = [];
+  roles: any[] = [];
+  action: any[] = [];
 
 
   ngOnInit(): void {
@@ -116,18 +122,17 @@ export class Stepper implements OnInit {
         description: '',
         applicationFlows: []
       },
-      oidcProviders: '',
-      instrospecionEndpoint: '',
+      oidcProvider: '',
+      introspectionUrl: '',
       storageRegion: '',
-      status: false,
-      enabled: false
+      locked: false,
+      activated: false
     }
   }
 
 
   selectCustomer(value: Customer) {
     this.serviceEntities.customer = value;
-    console.log(value)
   }
 
   selectOe(value: Oes) {
@@ -135,27 +140,33 @@ export class Stepper implements OnInit {
   }
 
   selectApplication(value: Application) {
+    this.selectedApplication = value;
     this.serviceEntities.application = value
   }
 
   selectIntrospection(value: String) {
-    this.serviceEntities.instrospecionEndpoint = value;
+    this.serviceEntities.introspectionUrl = value;
   }
 
   selectOidcProvider(value: string) {
-    this.serviceEntities.oidcProviders = value;
+    this.serviceEntities.oidcProvider = value;
   }
 
   selectStorageRegion(value: string) {
     this.serviceEntities.storageRegion = value;
-    console.log(this.serviceEntities)
   }
 
-  addRole(id: any) {
-    this.selectedRoles.push({ flowId: id, role: this.roleConfigFormGroup.value.roles });
+  addRole(role: any): void {
+    const index = this.selectedRoles.findIndex((r: { flowId: string; }) => r.flowId === role.flowId);
+    if (index !== -1) {
+      this.selectedRoles[index].roleId = role.roleId;
+    } else {
+      this.selectedRoles.push(role);
+    }
   }
 
   fileTypes: any[] = [
+    'All Types',
     'doc',
     'docx',
     'pdf',
@@ -207,21 +218,30 @@ export class Stepper implements OnInit {
       }
     })
     this.fileTypesForm = this._formBuilder.group({
-      action: ['', Validators.required],
+      actionId: ['', Validators.required],
       type: ['', Validators.required],
       size: ['', Validators.required]
     });
   }
 
-  addConfiguration(flow: any) {
-    const config = { ...this.fileTypesForm.value, flowId: flow.id }
+  addConfiguration() {
+    const config = { ...this.fileTypesForm.value, flowId: this.selectedFlow.id, flowName: this.selectedFlow.flowCode }
+    if (this.fileTypesForm.value.type === "All Types")
+      this.configurations = this.configurations.filter((conf: { flowId: any; }) => conf.flowId !== this.selectedFlow.id);
+    else
+      this.configurations = this.configurations.filter(
+        (conf: { flowId: any; type: any }) =>
+          !(conf.flowId === config.flowId && conf.type === "All Types")
+      );
+
     this.configurations.push(config);
     this.fileTypesForm.reset();
-
+    this.groupConfigurations();
   }
 
   deleteConfiguration(index: number) {
     this.configurations.splice(index, 1);
+    this.groupConfigurations();
   }
 
   consfigurationSelected(configurationId: any) {
@@ -229,26 +249,51 @@ export class Stepper implements OnInit {
   }
 
   selectConfiguration(config: any) {
-    this.selectedConfiguration = config;
+    this.selectedConfiguration = { ...config, flowId: this.selectedFlow.id, flowName: this.selectedFlow.flowCode };
+    this.groupConfigurations();
   }
 
   filterConfigurations(flowName: any) {
     return this.configurations.filter((config: any) => config.flowName === flowName);
   }
 
-  selectapplication(app: any) {
-    this.selectedApplication = app;
-  }
-
   hasConfiguration(flowName: string) {
     return this.configurations.some((config: any) => config.flowName === flowName);
   }
 
-  copyConfiguration(flowId: string) {
-    if (this.selectedConfiguration) {
-      const config = { ...this.selectedConfiguration };
-      config.flowId = flowId;
-      this.configurations.push(config);
+  copyConfiguration(conf: any) {
+    const config = { ...conf, flowId: this.selectedFlow.id, flowName: this.selectedFlow.flowCode };
+    this.clipBoard = config;
+  }
+
+  groupConfigurations() {
+    const map = new Map<string, any[]>();
+    for (const config of this.configurations) {
+      if (!map.has(config.flowName)) {
+        map.set(config.flowName, []);
+      }
+      map.get(config.flowName)!.push(config);
+    }
+    this.groupedConfigurations = Array.from(map.entries()).map(([flowName, configs]) => ({
+      flowName,
+      configs
+    }));
+  }
+
+
+  duplicateConfig(conf: any) {
+    const config = { ...conf, flowId: this.selectedFlow.id, flowName: this.selectedFlow.flowCode };
+    this.configurations.push(config);
+    this.groupConfigurations();
+  }
+
+  paste() {
+    if (this.clipBoard) {
+      this.clipBoard.flowId = this.selectedFlow.id;
+      this.clipBoard.flowName = this.selectedFlow.flowCode;
+      this.configurations.push(this.clipBoard);
+      this.groupConfigurations();
+      this.clipBoard = null;
     }
   }
 
@@ -257,33 +302,33 @@ export class Stepper implements OnInit {
   });
 
   onboardApplication() {
-    const { orgEntity, customer, application, status, enabled, oidcProviders, storageRegion, instrospecionEndpoint } = this.serviceEntities;
+    const { orgEntity, customer, application, locked, activated, oidcProvider, storageRegion, introspectionUrl } = this.serviceEntities;
     const consumer = {
       customerId: customer.id,
       orgEntityId: orgEntity.id,
       applicationId: application.id,
-      status,
-      enabled,
-      oidcProviders,
+      locked,
+      activated,
+      oidcProvider,
       storageRegion,
-      instrospecionEndpoint,
-      flowRoles: this.selectedRoles,
-      flowsConfig: this.consfigFlows()
+      introspectionUrl,
+      flowRoles: this.selectedRoles,// pass the role id and not the name roleId 
+      fileFlowsConfig: this.consfigFlows()
     }
-    console.log(consumer);
-    /*this.applicationsSrv.createConsumer(consumer).subscribe({
-       next: (response) => {
-         console.log(response);
-         
-       }
-     })*/
+    //  console.log(consumer);
+    this.applicationsSrv.createConsumer(consumer).subscribe({
+      next: (response) => {
+        console.log(response);
+
+      }
+    })
   }
 
   consfigFlows() {
-    return this.configurations.map((config: { flowId: any; action: any; type: any; size: any; }) => {
+    return this.configurations.map((config: { flowId: any; actionId: any; type: any; size: any; }) => {
       return {
         flowId: config.flowId,
-        action: config.action,
+        actionId: config.actionId,
         type: config.type,
         fileSize: config.size
       }

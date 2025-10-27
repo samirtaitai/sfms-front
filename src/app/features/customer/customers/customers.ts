@@ -10,7 +10,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { LoaderComponent } from "../../../components/loader-component/loader-component";
 import { NavBar } from "../../../components/nav-bar/nav-bar";
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationDialog } from '../../../components/confirmation-dialog/confirmation-dialog';
+import { ConfirmationDialog } from '../confirmation-dialog/confirmation-dialog';
 
 @Component({
   selector: 'app-customers',
@@ -65,21 +65,22 @@ export class Customers implements OnInit {
   }
   readonly dialog = inject(MatDialog);
 
-  deleteConfirm(customerName: string, customerId: any): void {
+  deleteConfirm(customerName: string, customerId: string): void {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
-      data: { tittle: 'Delete customer', text: `are you sure you want to delete ${customerName} ?` },
+      data: { tittle: 'Delete customer', text: `are you sure you want to delete ${customerName} ?`, customerId },
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
       if (result === true) {
         this.loading = true;
-        this.customerSrv.delete(customerId).subscribe({
-          next: (response) => {
-            this.loading = false
-            console.log(response)
-          }
-        })
+        this.customerSrv.getAll().subscribe({
+          next: (value) => {
+            this.customers = value;
+            this.filteredCustomers = value;
+            this.loading = false;
+            this.cdr.detectChanges();
+          },
+        });
       }
     });
   }

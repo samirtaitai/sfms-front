@@ -8,6 +8,11 @@ import { Oes } from '../../features/organization-entity/oes.service';
 import { Application } from '../../features/application/application.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
+interface CustomerSelect {
+  id: string,
+  name: string
+}
+
 @Component({
   selector: 'app-service-entities-form',
   standalone: true,
@@ -16,7 +21,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
     MatInputModule,
     MatSelectModule,
     MatSlideToggle,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   templateUrl: './service-entities-form.html',
   styleUrl: './service-entities-form.css'
@@ -41,6 +46,7 @@ export class ServiceEntitiesForm implements OnInit {
   selectedApplication: any = { name: '', description: '' };
   selected = 'CUSTOM';
   instros = '';
+  customersSelect: CustomerSelect[] = [];
 
   applicationConfigFormGroup = this._formBuilder.group({
     customer: ['' as any, Validators.required],
@@ -51,9 +57,16 @@ export class ServiceEntitiesForm implements OnInit {
     storageRegion: [{ value: '', disabled: true }, Validators.required],
     status: [{ value: true, disabled: true }, Validators.required],
     enabled: [{ value: false, disabled: true }, Validators.required],
+    clientId: [{ value: '', disabled: true }, Validators.required],
+    clientSecret: ['', Validators.required],
   });
 
   ngOnInit(): void {
+    this.customersSelect = this.customers.map<CustomerSelect>((customer) => ({
+      id: String(customer.id),
+      name: customer.name
+    }));
+
     this.applicationConfigFormGroup.get('customer')?.valueChanges.subscribe(value => {
       const orgEntityControl = this.applicationConfigFormGroup.get('OrgEntity');
       if (value) {
@@ -76,10 +89,11 @@ export class ServiceEntitiesForm implements OnInit {
 
     this.applicationConfigFormGroup.get('application')?.valueChanges.subscribe(value => {
       const oidcProvidersnControl = this.applicationConfigFormGroup.get('oidcProviders');
+      console.log(value);
       if (value) {
-        this.selectedApplication = value;
         oidcProvidersnControl?.enable();
         this.applicationChanged.emit(value);
+        this.selectedApplication = value;
       } else {
         oidcProvidersnControl?.disable();
       }
@@ -87,9 +101,11 @@ export class ServiceEntitiesForm implements OnInit {
 
     this.applicationConfigFormGroup.get('oidcProviders')?.valueChanges.subscribe(value => {
       const oidcProvidersnControl = this.applicationConfigFormGroup.get('instrospecionEndpoint');
+      const clientIdControl = this.applicationConfigFormGroup.get('clientId');
       if (value) {
         this.getIntrospecionEndpoint(value);
         oidcProvidersnControl?.enable();
+        clientIdControl?.enable();
         this.oidcProvidersChanged.emit(value);
       } else {
         oidcProvidersnControl?.disable();
@@ -132,4 +148,15 @@ export class ServiceEntitiesForm implements OnInit {
     }
   }
 
+  getCustomersForSeletc(): any[] {
+    return this.customers.map(customer => { customer.name, customer.id });
+  }
+
+  get isIdpSelected(): boolean {
+    return this.applicationConfigFormGroup.get('oidcProviders')?.value === 'IDP';
+  }
+  setCustomer(event:any){
+
+    console.log(event)
+  }
 }

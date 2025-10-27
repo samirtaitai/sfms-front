@@ -11,7 +11,7 @@ export interface ApplicationFlow {
 }
 
 export interface Application {
-  id?: number;
+  id?: any;
   name: string;
   description: string;
   applicationFlows: ApplicationFlow[];
@@ -56,7 +56,11 @@ export class ApplicationService {
     return this.http.put<Application>(`${this.baseUrl}/${id}`, application);
   }
 
-  delete(id: number): Observable<void> {
+  delete(id: any): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+  deleteConsumer(id: any): Observable<any> {
+    return this.http.delete<void>(`${environment.baseUrl}/admin/consumers/${id}`);
   }
 }
