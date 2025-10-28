@@ -27,8 +27,7 @@
                 }
             </select>
         </div>
-    </div>
-    <div class="section">
+
         <div class="select-wrapper">
             <label class="select-label">OIDC Providers</label>
             <select formControlName="oidcProviders" class="modern-select">
@@ -50,9 +49,7 @@
             <input formControlName="clientSecret" type="text" class="modern-input" placeholder="Enter Client Secret" />
         </div>
         }
-    </div>
 
-    <div class="section">
         <div class="input-wrapper">
             <label class="input-label">Introspection Endpoint</label>
             <input [value]="instros" formControlName="instrospecionEndpoint" type="text" class="modern-input"
@@ -64,14 +61,17 @@
             <select formControlName="storageRegion" class="modern-select">
                 <option value="">Select storage region</option>
                 @for (region of storegeRegions; track region) {
-                <option [ngValue]="region">{{ region }}</option>
+                <option [ngValue]="region.regionCode">{{ region.name }}</option>
                 }
             </select>
         </div>
-        <p>Active <mat-slide-toggle [checked]="true" formControlName="status" labelPosition="before"></mat-slide-toggle>
-        </p>
-        <p>Locked<mat-slide-toggle formControlName="enabled" labelPosition="before"></mat-slide-toggle>
-        </p>
+        <div style="display: flex; gap: 20px;">
+            <p>Active <mat-slide-toggle [checked]="true" formControlName="status"
+                    labelPosition="before"></mat-slide-toggle>
+            </p>
+            <p>Locked<mat-slide-toggle formControlName="enabled" labelPosition="before"></mat-slide-toggle>
+            </p>
+        </div>
     </div>
 
 </form>

@@ -1,89 +1,96 @@
-.form{
+.form {
     display: flex;
-    flex-direction: column;
-    padding: 20px;
-    background-color: white;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
     border-radius: 5px;
     margin: 10px;
 }
-.section{
-    display:flex; 
-    gap: 50px; 
-    margin-left:auto; 
-    margin-right: auto; 
-    align-items: start; 
-    width:800px;
+
+.section {
+    display: flex;
+    padding: 1.5rem;
+    background-color: #f9fafc;
+    border-radius: 12px;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 800px;
+      border: 1px solid #e0e0e0;
+
 }
 
-.field-label{
+.field-label {
     display: flex;
     flex-direction: column;
 }
 
 .select-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  width: 400px;
-  font-family: 'Inter', 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 400px;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
 .select-label {
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: #666;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #666;
 }
 
 .modern-select {
-  height: 36px;
-  padding: 6px 10px;
-  font-size: 0.85rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #fff;
-  color: #333;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  appearance: none;
+    height: 36px;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #333;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    appearance: none;
 }
 
 .modern-select:focus {
-  border-color: #3f51b5;
-  box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
-  outline: none;
+    border-color: #3f51b5;
+    box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
+    outline: none;
 }
 
 .modern-select option {
-  font-size: 0.85rem;
+    font-size: 0.85rem;
 }
 
 
 .input-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  width: 400px;
-  font-family: 'Inter', 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 400px;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
 .input-label {
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: #666;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #666;
 }
 
 .modern-input {
-  height: 36px;
-  padding: 6px 10px;
-  font-size: 0.85rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #fff;
-  color: #333;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    height: 36px;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #333;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .modern-input:focus {
-  border-color: #3f51b5;
-  box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
-  outline: none;
+    border-color: #3f51b5;
+    box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
+    outline: none;
 }

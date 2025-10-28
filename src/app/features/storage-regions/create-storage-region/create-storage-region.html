@@ -1,0 +1,39 @@
+<app-nav-bar></app-nav-bar>
+<app-toast [showToast]="showToast" [toastText]="toastMessage" type="success"></app-toast>
+<app-spinner [loading]="loading"></app-spinner>
+
+@if (!loading) {
+<div class="page-container">
+    <mat-card class="application-card" appearance="outlined">
+        <mat-card-header>
+            <mat-icon mat-card-avatar>web</mat-icon>
+            <mat-card-title>Create Storage Region</mat-card-title>
+            <mat-card-subtitle>Create a new storage region</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content style="padding: 20px; display:flex; flex-direction: column;">
+            <p>To create a new storage region, please provide the following details:</p>
+            <form [formGroup]="regionFormGroup" style="padding: 20px; display:flex; flex-direction: column;">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Storage Region Name</mat-label>
+                    <input formControlName="name" matInput placeholder="Enter the Storage Segion name">
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Storage Region Code</mat-label>
+                    <input formControlName="regionCode" matInput placeholder="Enter the storage region code">
+                </mat-form-field>
+            </form>
+            <div style="display: flex; align-items: center; justify-content: end; gap: 10px;">
+                <button matButton="filled" [routerLink]="['/admin-distributive']"
+                    style="display: flex; margin-left: auto; border-radius: 5px; height: 25px; background-color: rgb(205, 75, 75);">
+                    Cancel
+                </button>
+                <button [disabled]="regionFormGroup.invalid" matButton="filled"
+                    style="display: flex;  border-radius: 5px; height: 25px;" (click)="createStorageRegion()">
+                    <mat-icon>post_add</mat-icon>
+                    Create Storage Region
+                </button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
+}

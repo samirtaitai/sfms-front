@@ -44,6 +44,10 @@ export class ApplicationService {
     return this.http.get<any[]>(`${environment.baseUrl}/admin/services/85651521-f722-4822-bdf0-c1bd4e4fad1d/servicesActions`);
   }
 
+  getRegions(): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.baseUrl}/admin/api/regions`);
+  }
+
   getById(id: number): Observable<Application> {
     return this.http.get<Application>(`${this.baseUrl}/${id}`);
   }

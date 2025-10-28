@@ -13,5 +13,7 @@ export const routes: Routes = [
     { path: 'create-application', loadComponent: () => import('./features/application/create-application/create-application').then(c => c.CreateApplication) },
     { path: 'create-org-entity', loadComponent: () => import('./features/organization-entity/create-org-entity/create-org-entity').then(c => c.CreateOrgEntity) },
     { path: 'configured-applications', loadComponent: () => import('./features/application/configured-applications/configured-applications').then(c => c.ConfiguredApplications) },
+    { path: 'storage-regions', loadComponent: () => import('./features/storage-regions/storage-regions-page/storage-regions-page').then(c => c.StorageRegionsPage) },
+    { path: 'create-storage-region', loadComponent: () => import('./features/storage-regions/create-storage-region/create-storage-region').then(c => c.CreateStorageRegion) },
     { path: '**', redirectTo: 'login' }
 ];

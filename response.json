@@ -1,5 +1,4 @@
 {
-    //dont display
     "flowRoles": [
         {
             "id": "4d1c7d25-1f20-4e82-9364-f9eb04030292",
@@ -145,43 +144,43 @@
                 "orgEntity": {
                     "id": "6e625079-7c22-42dd-962a-cf88019c9737",
                     "code": "test ui",
-                    "name": "test 10 16 2025",
+                    "name": "test 10 16 2025",//display
                     "debtor": 100,
                     "createdAt": "2025-10-16T09:18:33.975065Z",
                     "updatedAt": "2025-10-16T09:18:33.975069Z"
                 },
                 "customer": {
                     "id": "07a7e25b-d2ff-49d5-ba8d-05cdf19d364e",
-                    "name": "TEST SAMIR",
+                    "name": "TEST SAMIR",//display
                     "description": "TEST FRONT SAMIR",
                     "createdAt": "2025-10-16T07:17:46.588661Z",
                     "updatedAt": "2025-10-16T07:17:46.588669Z"
                 },
                 "application": {
                     "id": "7e18fcbb-c4a0-4776-a0dc-d1a0e5ef5b1e",
-                    "name": "test ui 10 16 2025",// diplay not from app
+                    "name": "test ui 10 16 2025",// diplay
                     "description": "test",
                     "applicationFlows": [
                         {
                             "id": "5613d8e1-43f8-4901-bf4b-bedff6062d11",
-                            "flowCode": "flow ",// map and display
+                            "flowCode": "flow ",// display
                             "description": "dur"
                         },
                         {
                             "id": "fe9b6a30-eb2a-40c8-b5d3-ffe551cac20f",
-                            "flowCode": "one",
+                            "flowCode": "one",// display
                             "description": "any"
                         }
                     ],
                     "createdAt": "2025-10-16T09:19:21.802237Z",
                     "updatedAt": "2025-10-16T09:19:21.802241Z"
                 },
-                "consumerKey": "-BqV9AZHW48kHDym-hsCXbPNVvbUtC0WtD3CRnVRs90",
-                "oidcIntrospectUri": "https://OIDC.AZ/instrospect",
-                "complianceRegion": "eu-central-1",
-                "oidcProvider": "IDP",
-                "active": false,
-                "locked": false,
+                "consumerKey": "-BqV9AZHW48kHDym-hsCXbPNVvbUtC0WtD3CRnVRs90",//display
+                "oidcIntrospectUri": "https://OIDC.AZ/instrospect",//display
+                "complianceRegion": "eu-central-1",//display
+                "oidcProvider": "IDP",//display
+                "active": false,//display
+                "locked": false,//display
                 "createdAt": "2025-10-17T12:03:39.949104941Z",
                 "updatedAt": "2025-10-17T12:03:39.949105936Z"
             },
@@ -258,19 +257,18 @@
         }
     ],
     "consumer": {
-        //consumer details
-        "id": "b37fbff5-7288-4838-b8eb-7172c370d00b",//display
+        "id": "b37fbff5-7288-4838-b8eb-7172c370d00b",
         "orgEntity": {
             "id": "6e625079-7c22-42dd-962a-cf88019c9737",
             "code": "test ui",
-            "name": "test 10 16 2025", // display
+            "name": "test 10 16 2025",
             "debtor": 100,
             "createdAt": "2025-10-16T09:18:33.975065Z",
             "updatedAt": "2025-10-16T09:18:33.975069Z"
         },
         "customer": {
             "id": "07a7e25b-d2ff-49d5-ba8d-05cdf19d364e",
-            "name": "TEST SAMIR", // display
+            "name": "TEST SAMIR", 
             "description": "TEST FRONT SAMIR",
             "createdAt": "2025-10-16T07:17:46.588661Z",
             "updatedAt": "2025-10-16T07:17:46.588669Z"
@@ -294,13 +292,12 @@
             "createdAt": "2025-10-16T09:19:21.802237Z",
             "updatedAt": "2025-10-16T09:19:21.802241Z"
         },
-        //flow configs after app
-        "consumerKey": "-BqV9AZHW48kHDym-hsCXbPNVvbUtC0WtD3CRnVRs90",// diplay
-        "oidcIntrospectUri": "https://OIDC.AZ/instrospect", // display
-        "complianceRegion": "eu-central-1",// display
-        "oidcProvider": "IDP",// display
-        "active": false,// display
-        "locked": false,// display
+        "consumerKey": "-BqV9AZHW48kHDym-hsCXbPNVvbUtC0WtD3CRnVRs90",
+        "oidcIntrospectUri": "https://OIDC.AZ/instrospect", 
+        "complianceRegion": "eu-central-1",
+        "oidcProvider": "IDP",
+        "active": false,
+        "locked": false,
         "createdAt": "2025-10-17T12:03:39.949104941Z",
         "updatedAt": "2025-10-17T12:03:39.949105936Z"
     }

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,6 +22,9 @@ import { Application, ApplicationService } from '../../features/application/appl
 import { ServiceEntitiesForm } from "../service-entities-form/service-entities-form";
 import { LoadedElementsComponent } from "../loaded-elements/loaded-elements";
 import { RolesConfigTable } from "../roles-config-table/roles-config-table";
+import { Spinner } from "../spinner/spinner";
+import { Router } from '@angular/router';
+import { FileTypes } from '../../services/file-types';
 
 interface IServiceEntitiesForm {
   customer: Customer,
@@ -58,18 +61,21 @@ interface IServiceEntitiesForm {
     MatSlideToggleModule,
     ServiceEntitiesForm,
     LoadedElementsComponent,
-    RolesConfigTable
+    RolesConfigTable,
+    Spinner
   ],
   providers: [
     CustomerService,
     OesService,
-    ApplicationService
+    ApplicationService,
+    FileTypes
   ],
   standalone: true,
   templateUrl: './stepper.html',
   styleUrl: './stepper.css'
 })
 export class Stepper implements OnInit {
+  private router = inject(Router);
 
   selectFlow(flow: any) {
     this.selectedFlow = flow;
@@ -104,7 +110,10 @@ export class Stepper implements OnInit {
   groupedConfigurations: { flowName: string; configs: any[] }[] = [];
   roles: any[] = [];
   action: any[] = [];
+  filterText = '';
 
+  summary: any;
+  displaySummay = false;
 
   ngOnInit(): void {
     this.serviceEntities = {
@@ -187,16 +196,39 @@ export class Stepper implements OnInit {
 
   ];
 
+  get filteredFiles() {
+    const text = this.filterText.toLowerCase();
+    return this.fileTypes.filter(
+      file =>
+        file.description.toLowerCase().includes(text) ||
+        file.extension.toLowerCase().includes(text)
+    );
+  }
+
+
   constructor(
     private customersSrv: CustomerService,
     private oesSrv: OesService,
-    private applicationsSrv: ApplicationService
+    private applicationsSrv: ApplicationService,
+    private fileTypesSrv: FileTypes,
+    private cdr: ChangeDetectorRef,
   ) {
+    this.loading = true;
     this.customersSrv.getAll().subscribe({
       next: (response) => {
         this.customers = response;
+        this.loading = false;
+        this.cdr.detectChanges();
       }
     });
+    this.fileTypesSrv.getAll().subscribe({
+      next: (response) => {
+        this.fileTypes = response;
+        this.loading = false;
+        this.cdr.detectChanges();
+        console.log(this.fileTypes);
+      }
+    })
     this.oesSrv.getAll().subscribe({
       next: (response) => {
         this.orgEntities = response;
@@ -302,6 +334,7 @@ export class Stepper implements OnInit {
   });
 
   onboardApplication() {
+    this.loading = true;
     const { orgEntity, customer, application, locked, activated, oidcProvider, storageRegion, introspectionUrl } = this.serviceEntities;
     const consumer = {
       customerId: customer.id,
@@ -312,14 +345,17 @@ export class Stepper implements OnInit {
       oidcProvider,
       storageRegion,
       introspectionUrl,
-      flowRoles: this.selectedRoles,// pass the role id and not the name roleId 
+      flowRoles: this.selectedRoles,
       fileFlowsConfig: this.consfigFlows()
     }
-    //  console.log(consumer);
     this.applicationsSrv.createConsumer(consumer).subscribe({
       next: (response) => {
-        console.log(response);
-
+        this.summary = response.fileConfigurations[0]?.consumer;
+        this.displaySummay = true;
+      },
+      complete: () => {
+        this.loading = false;
+        this.cdr.detectChanges();
       }
     })
   }
@@ -333,6 +369,10 @@ export class Stepper implements OnInit {
         fileSize: config.size
       }
     })
+  }
+
+  navigateToAdmin() {
+    this.router.navigate(['/admin-distributive'])
   }
 
 }

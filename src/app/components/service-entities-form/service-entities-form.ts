@@ -5,7 +5,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatSlideToggle } from "@angular/material/slide-toggle";
 import { Customer } from '../../features/customer/customer.service';
 import { Oes } from '../../features/organization-entity/oes.service';
-import { Application } from '../../features/application/application.service';
+import { Application, ApplicationService } from '../../features/application/application.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 interface CustomerSelect {
@@ -42,7 +42,7 @@ export class ServiceEntitiesForm implements OnInit {
   @Output() instrospecionEndpointChanged = new EventEmitter<any>();
   @Output() storageRegionChanged = new EventEmitter<any>();
 
-  storegeRegions = ['eu-central-1', 'eu-west-3', 'ap-east-1', 'ap-southeast-2'];
+  storegeRegions:any = [];
   selectedApplication: any = { name: '', description: '' };
   selected = 'CUSTOM';
   instros = '';
@@ -61,7 +61,16 @@ export class ServiceEntitiesForm implements OnInit {
     clientSecret: ['', Validators.required],
   });
 
+  constructor(private applicationsSrv: ApplicationService){}
+
   ngOnInit(): void {
+
+    this.applicationsSrv.getRegions().subscribe({
+      next:(respose) =>{
+        this.storegeRegions = respose;
+      }
+    })
+
     this.customersSelect = this.customers.map<CustomerSelect>((customer) => ({
       id: String(customer.id),
       name: customer.name
@@ -89,7 +98,6 @@ export class ServiceEntitiesForm implements OnInit {
 
     this.applicationConfigFormGroup.get('application')?.valueChanges.subscribe(value => {
       const oidcProvidersnControl = this.applicationConfigFormGroup.get('oidcProviders');
-      console.log(value);
       if (value) {
         oidcProvidersnControl?.enable();
         this.applicationChanged.emit(value);

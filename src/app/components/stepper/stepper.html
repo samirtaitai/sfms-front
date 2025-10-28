@@ -1,7 +1,8 @@
-<mat-stepper class="stepper" [linear]="isLinear" #stepper>
+<app-spinner [loading]="loading"></app-spinner>
 
+@if(!loading && !displaySummay){
+<mat-stepper class="stepper" [linear]="isLinear" #stepper>
     <mat-step label="Select Entities">
-        
         @if (customers.length) {
         <app-service-entities-form [customers]="customers" [orgEntities]="orgEntities" [applications]="applications"
             [oidcProviders]="oidcProvider" (customerChanged)="selectCustomer($event)" (oesChanged)="selectOe($event)"
@@ -10,7 +11,6 @@
             (storageRegionChanged)="selectStorageRegion($event)" (oidcProvidersChanged)="selectOidcProvider($event)">
         </app-service-entities-form>
         }
-
     </mat-step>
 
     <mat-step label="Role Configuration" style="display: flex;">
@@ -44,6 +44,7 @@
 
                 <div class="form-header">
                     <form [formGroup]="fileTypesForm" class="file-form">
+
                         <mat-form-field appearance="outline">
                             <mat-label>Action</mat-label>
                             <mat-select formControlName="actionId" required>
@@ -57,7 +58,7 @@
                             <mat-label>Type</mat-label>
                             <mat-select formControlName="type" required>
                                 @for (file of fileTypes; track file) {
-                                <mat-option [value]="file">{{ file }}</mat-option>
+                                <mat-option [value]="file">{{ file.description }}</mat-option>
                                 }
                             </mat-select>
                         </mat-form-field>
@@ -93,14 +94,11 @@
                             @if (config.flowId === selectedFlow.id) {
                             <tr>
                                 <td>{{ config.action }}</td>
-                                <td>{{ config.type }}</td>
+                                <td>{{ config.type.description }}</td>
                                 <td>{{ config.size }}</td>
                                 <td class="actions">
                                     <button mat-icon-button color="primary" (click)="copyConfiguration(config)">
                                         <mat-icon>content_copy</mat-icon>
-                                    </button>
-                                    <button mat-icon-button color="primary" (click)="duplicateConfig(config)">
-                                        <mat-icon>control_point_duplicate</mat-icon>
                                     </button>
                                     <button mat-icon-button color="warn"
                                         (click)="deleteConfiguration(configurations.indexOf(config))">
@@ -119,6 +117,13 @@
     </mat-step>
 
     <mat-step label="Onboard Application">
+        <button matButton="filled"
+            style="display: flex; margin-left: auto; margin-top: 10px;  border-radius: 5px; height: 25px;"
+            (click)="onboardApplication()">
+            <mat-icon>post_add</mat-icon>
+            Onboard Application
+        </button>
+
         <h2 class="section-title">Entities Sumary</h2>
         <div class="entity-card-grid">
             <div class="entity-card">
@@ -147,29 +152,59 @@
             </div>
         </div>
         <h2 class="section-title">Flows Configuration</h2>
-        <div class="config-card-grid">
-            <ng-container *ngFor="let group of groupedConfigurations">
-                <h3 class="group-title">{{ group.flowName }}</h3>
 
-                <div class="card-row">
-                    <div class="mini-config-card" *ngFor="let config of group.configs">
-                        <div class="card-content">
-                            <p><strong>Action:</strong> {{ config.action }}</p>
-                            <p><strong>Type:</strong> {{ config.type }}</p>
-                            <p><strong>Size:</strong> {{ config.size }}</p>
-                        </div>
-                        <div class="card-actions">
-                            <button mat-icon-button color="warn"
-                                (click)="deleteConfiguration(configurations.indexOf(config))">
-                                <mat-icon>delete</mat-icon>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </ng-container>
-        </div>
-        <button mat-button color="warn" (click)="onboardApplication()">
-            <mat-icon>Onboard Application</mat-icon>
-        </button>
+        <table class="file-table">
+            <thead>
+                <tr>
+                    <th>Flow</th>
+                    <th>Type</th>
+                    <th>File Size</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (group of groupedConfigurations; track group) {
+                @for (config of group.configs; track config) {
+                <tr>
+                    <td>{{ group.flowName }}</td>
+                    <td>{{ config.type }}</td>
+                    <td>{{ config.size }}</td>
+                    <td class="actions">
+                        <button mat-icon-button (click)="deleteConfiguration(configurations.indexOf(config))">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+                }}
+            </tbody>
+        </table>
+
     </mat-step>
 </mat-stepper>
+}
+
+@if(displaySummay && !loading){
+<div class="summary-wrapper">
+    <label class="summary-label">Consumer Summary</label>
+    <div class="summary-box">
+        <p><strong>Org Entity Name:</strong> {{summary.orgEntity.name}}</p>
+        <p><strong>Customer Name:</strong> {{summary.customer.name}}</p>
+        <p><strong>Application Name:</strong>{{summary.application.name}}5</p>
+        <p><strong>Consumer Key:</strong>{{summary.consumerKey}}</p>
+        <p><strong>OIDC Introspect URI:</strong> {{summary.oidcIntrospectUri}}</p>
+        <p><strong>Compliance Region:</strong> {{summary.complianceRegion}}</p>
+        <p><strong>OIDC Provider:</strong> {{summary.oidcProvider}}</p>
+        <p><strong>Active:</strong> {{summary.active}}</p>
+        <p><strong>Locked:</strong> {{summary.locked}}</p>
+        <p><strong>Application Flows:</strong>
+            @for (flow of summary.application.applicationFlows; track flow) {
+            {{flow.flowCode}}
+            }
+        </p>
+    </div>
+    <button matButton style="display: flex; margin-left: auto; margin-top: 10px;  border-radius: 5px; height: 25px;"
+        (click)="navigateToAdmin()">
+        Go to admin page
+    </button>
+</div>
+}
