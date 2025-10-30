@@ -8,11 +8,6 @@ import { Oes } from '../../features/organization-entity/oes.service';
 import { Application, ApplicationService } from '../../features/application/application.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
-interface CustomerSelect {
-  id: string,
-  name: string
-}
-
 @Component({
   selector: 'app-service-entities-form',
   standalone: true,
@@ -35,114 +30,97 @@ export class ServiceEntitiesForm implements OnInit {
   @Input() applications!: Application[];
   @Input() oidcProviders!: any;
 
-  @Output() customerChanged = new EventEmitter<Customer>();
-  @Output() oesChanged = new EventEmitter<any>();
-  @Output() applicationChanged = new EventEmitter<any>();
-  @Output() oidcProvidersChanged = new EventEmitter<any>();
-  @Output() instrospecionEndpointChanged = new EventEmitter<any>();
-  @Output() storageRegionChanged = new EventEmitter<any>();
+  @Output() formData = new EventEmitter<any>();
 
-  storegeRegions:any = [];
-  selectedApplication: any = { name: '', description: '' };
+  storegeRegions: any = [];
   selected = 'CUSTOM';
   instros = '';
-  customersSelect: CustomerSelect[] = [];
 
   applicationConfigFormGroup = this._formBuilder.group({
-    customer: ['' as any, Validators.required],
-    OrgEntity: [{ value: '', disabled: true } as any, Validators.required],
+    customer: [{ value: '' }, Validators.required],
+    orgEntity: [{ value: '', disabled: true } as any, Validators.required],
     application: [{ value: '', disabled: true } as any, Validators.required],
-    oidcProviders: [{ value: '', disabled: true }, Validators.required],
-    instrospecionEndpoint: [{ value: '', disabled: true }, Validators.required],
+    oidcProvider: [{ value: '', disabled: true }, Validators.required],
+    introspectionUrl: [{ value: '', disabled: true }, Validators.required],
     storageRegion: [{ value: '', disabled: true }, Validators.required],
-    status: [{ value: true, disabled: true }, Validators.required],
-    enabled: [{ value: false, disabled: true }, Validators.required],
-    clientId: [{ value: '', disabled: true }, Validators.required],
-    clientSecret: ['', Validators.required],
+    activated: [{ value: true, disabled: true }, Validators.required],
+    locked: [{ value: false, disabled: true }, Validators.required],
+    clientId: [{ value: '', disabled: true }],
+    clientSecret: [''],
   });
 
-  constructor(private applicationsSrv: ApplicationService){}
+  constructor(private applicationsSrv: ApplicationService) { }
 
   ngOnInit(): void {
-
     this.applicationsSrv.getRegions().subscribe({
-      next:(respose) =>{
+      next: (respose) => {
         this.storegeRegions = respose;
-      }
-    })
-
-    this.customersSelect = this.customers.map<CustomerSelect>((customer) => ({
-      id: String(customer.id),
-      name: customer.name
-    }));
-
-    this.applicationConfigFormGroup.get('customer')?.valueChanges.subscribe(value => {
-      const orgEntityControl = this.applicationConfigFormGroup.get('OrgEntity');
-      if (value) {
-        orgEntityControl?.enable();
-        this.customerChanged.emit(value);
-      } else {
-        orgEntityControl?.disable();
       }
     });
 
-    this.applicationConfigFormGroup.get('OrgEntity')?.valueChanges.subscribe(value => {
+    this.applicationConfigFormGroup.get('customer')?.valueChanges.subscribe(value => {
+      const orgEntityControl = this.applicationConfigFormGroup.get('orgEntity');
+      if (value) {
+        orgEntityControl?.enable();
+        this.formData.emit(this.applicationConfigFormGroup);
+      }
+    });
+
+    this.applicationConfigFormGroup.get('orgEntity')?.valueChanges.subscribe(value => {
       const applicationControl = this.applicationConfigFormGroup.get('application');
       if (value) {
         applicationControl?.enable();
-        this.oesChanged.emit(value);
-      } else {
-        applicationControl?.disable();
+        this.formData.emit(this.applicationConfigFormGroup);
       }
     });
 
     this.applicationConfigFormGroup.get('application')?.valueChanges.subscribe(value => {
-      const oidcProvidersnControl = this.applicationConfigFormGroup.get('oidcProviders');
+      const oidcProvidersnControl = this.applicationConfigFormGroup.get('oidcProvider');
       if (value) {
         oidcProvidersnControl?.enable();
-        this.applicationChanged.emit(value);
-        this.selectedApplication = value;
-      } else {
-        oidcProvidersnControl?.disable();
+        this.formData.emit(this.applicationConfigFormGroup);
       }
     });
 
-    this.applicationConfigFormGroup.get('oidcProviders')?.valueChanges.subscribe(value => {
-      const oidcProvidersnControl = this.applicationConfigFormGroup.get('instrospecionEndpoint');
+    this.applicationConfigFormGroup.get('oidcProvider')?.valueChanges.subscribe(value => {
+      const oidcProvidersnControl = this.applicationConfigFormGroup.get('introspectionUrl');
       const clientIdControl = this.applicationConfigFormGroup.get('clientId');
       if (value) {
         this.getIntrospecionEndpoint(value);
         oidcProvidersnControl?.enable();
         clientIdControl?.enable();
-        this.oidcProvidersChanged.emit(value);
-      } else {
-        oidcProvidersnControl?.disable();
+        this.formData.emit(this.applicationConfigFormGroup);
       }
     });
 
-    this.applicationConfigFormGroup.get('instrospecionEndpoint')?.valueChanges.subscribe(value => {
+    this.applicationConfigFormGroup.get('introspectionUrl')?.valueChanges.subscribe(value => {
       const oidcProvidersnControl = this.applicationConfigFormGroup.get('storageRegion');
       if (value) {
         this.getIntrospecionEndpoint(value);
         oidcProvidersnControl?.enable();
-        this.instrospecionEndpointChanged.emit(value);
-      } else {
-        oidcProvidersnControl?.disable();
+        this.formData.emit(this.applicationConfigFormGroup);
       }
     });
 
     this.applicationConfigFormGroup.get('storageRegion')?.valueChanges.subscribe(value => {
-      const oidcProvidersnControl = this.applicationConfigFormGroup.get('status');
-      const enabled = this.applicationConfigFormGroup.get('enabled');
+      const active = this.applicationConfigFormGroup.get('activated');
+      const locked = this.applicationConfigFormGroup.get('locked');
       if (value) {
         this.getIntrospecionEndpoint(value);
-        oidcProvidersnControl?.enable();
-        enabled?.enable();
-        this.storageRegionChanged.emit(value);
-      } else {
-        oidcProvidersnControl?.disable();
-        enabled?.disable();
+        active?.enable();
+        locked?.enable();
+        this.formData.emit(this.applicationConfigFormGroup);
       }
+    });
+
+    this.applicationConfigFormGroup.get('activated')?.valueChanges.subscribe(value => {
+      if (value && this.applicationConfigFormGroup.valid)
+        this.formData.emit(this.applicationConfigFormGroup);
+    });
+
+    this.applicationConfigFormGroup.get('locked')?.valueChanges.subscribe(value => {
+      if (value && this.applicationConfigFormGroup.valid)
+        this.formData.emit(this.applicationConfigFormGroup);
     });
   }
 
@@ -150,7 +128,7 @@ export class ServiceEntitiesForm implements OnInit {
     this.selected = value;
     if (value === 'IDP') {
       this.instros = 'https://OIDC.AZ/instrospect';
-      this.applicationConfigFormGroup.patchValue({ instrospecionEndpoint: this.instros });
+      this.applicationConfigFormGroup.patchValue({ introspectionUrl: this.instros });
     } else if (value === 'CUSTOM') {
       this.instros = '';
     }
@@ -161,10 +139,6 @@ export class ServiceEntitiesForm implements OnInit {
   }
 
   get isIdpSelected(): boolean {
-    return this.applicationConfigFormGroup.get('oidcProviders')?.value === 'IDP';
-  }
-  setCustomer(event:any){
-
-    console.log(event)
+    return this.applicationConfigFormGroup.get('oidcProvider')?.value === 'IDP';
   }
 }

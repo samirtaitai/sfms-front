@@ -81,10 +81,7 @@ export class Stepper implements OnInit {
     this.selectedFlow = flow;
     this.groupConfigurations()
   }
-
-
   allTypesSelected = false;
-  addButonDisabled = false;
 
   childrenAccessor = (node: any) => node.children ?? [];
 
@@ -111,58 +108,15 @@ export class Stepper implements OnInit {
   roles: any[] = [];
   action: any[] = [];
   filterText = '';
-
+  firstStepFormComplete = false;
+  secondFormComplete = false;
   summary: any;
   displaySummay = false;
 
-  ngOnInit(): void {
-    this.serviceEntities = {
-      customer: {
-        name: '',
-        description: ''
-      },
-      orgEntity: {
-        code: '',
-        name: '',
-        debtor: 0
-      },
-      application: {
-        name: '',
-        description: '',
-        applicationFlows: []
-      },
-      oidcProvider: '',
-      introspectionUrl: '',
-      storageRegion: '',
-      locked: false,
-      activated: false
-    }
-  }
+  ngOnInit(): void { }
 
-
-  selectCustomer(value: Customer) {
-    this.serviceEntities.customer = value;
-  }
-
-  selectOe(value: Oes) {
-    this.serviceEntities.orgEntity = value;
-  }
-
-  selectApplication(value: Application) {
-    this.selectedApplication = value;
-    this.serviceEntities.application = value
-  }
-
-  selectIntrospection(value: String) {
-    this.serviceEntities.introspectionUrl = value;
-  }
-
-  selectOidcProvider(value: string) {
-    this.serviceEntities.oidcProvider = value;
-  }
-
-  selectStorageRegion(value: string) {
-    this.serviceEntities.storageRegion = value;
+  loadComplete() {
+    this.secondFormComplete = true;
   }
 
   addRole(role: any): void {
@@ -174,28 +128,7 @@ export class Stepper implements OnInit {
     }
   }
 
-  fileTypes: any[] = [
-    'All Types',
-    'doc',
-    'docx',
-    'pdf',
-    'rtf',
-    'dot',
-    'dotx',
-    'xls',
-    'pdf',
-    'csv',
-    'xlt',
-    'pdf',
-    'png',
-    'ppt',
-    'pdf',
-    'pot',
-    'pdf',
-    'png'
-
-  ];
-
+  fileTypes: any[] = [];
   get filteredFiles() {
     const text = this.filterText.toLowerCase();
     return this.fileTypes.filter(
@@ -204,7 +137,6 @@ export class Stepper implements OnInit {
         file.extension.toLowerCase().includes(text)
     );
   }
-
 
   constructor(
     private customersSrv: CustomerService,
@@ -223,10 +155,9 @@ export class Stepper implements OnInit {
     });
     this.fileTypesSrv.getAll().subscribe({
       next: (response) => {
-        this.fileTypes = response;
+        this.fileTypes = [{ description: 'All file types accepted', extension: "All Types", id: null }, ...response];
         this.loading = false;
         this.cdr.detectChanges();
-        console.log(this.fileTypes);
       }
     })
     this.oesSrv.getAll().subscribe({
@@ -248,22 +179,34 @@ export class Stepper implements OnInit {
       next: (resopnse) => {
         this.action = resopnse;
       }
-    })
+    });
+
     this.fileTypesForm = this._formBuilder.group({
-      actionId: ['', Validators.required],
+      action: ['', Validators.required],
       type: ['', Validators.required],
       size: ['', Validators.required]
     });
   }
 
+  onFormReceived(form: FormGroup) {
+    if (form.valid) {
+      this.firstStepFormComplete = true;
+      this.serviceEntities = form.value;
+    }
+    else
+      this.firstStepFormComplete = false;
+  }
+
   addConfiguration() {
     const config = { ...this.fileTypesForm.value, flowId: this.selectedFlow.id, flowName: this.selectedFlow.flowCode }
-    if (this.fileTypesForm.value.type === "All Types")
+    if (this.fileTypesForm.value.type.extension === "All Types") {
       this.configurations = this.configurations.filter((conf: { flowId: any; }) => conf.flowId !== this.selectedFlow.id);
+      config.type.extension = "*";
+    }
     else
       this.configurations = this.configurations.filter(
         (conf: { flowId: any; type: any }) =>
-          !(conf.flowId === config.flowId && conf.type === "All Types")
+          !(conf.flowId === config.flowId && conf.type.extension === "All Types")
       );
 
     this.configurations.push(config);
@@ -346,7 +289,7 @@ export class Stepper implements OnInit {
       storageRegion,
       introspectionUrl,
       flowRoles: this.selectedRoles,
-      fileFlowsConfig: this.consfigFlows()
+      fileFlowsConfig: this.consfigFlows()//type not id
     }
     this.applicationsSrv.createConsumer(consumer).subscribe({
       next: (response) => {
@@ -361,11 +304,11 @@ export class Stepper implements OnInit {
   }
 
   consfigFlows() {
-    return this.configurations.map((config: { flowId: any; actionId: any; type: any; size: any; }) => {
+    return this.configurations.map((config: { flowId: any; action: any; type: any; size: any; }) => {
       return {
         flowId: config.flowId,
-        actionId: config.actionId,
-        type: config.type,
+        actionId: config.action.id,
+        type: config.type.extension,
         fileSize: config.size
       }
     })

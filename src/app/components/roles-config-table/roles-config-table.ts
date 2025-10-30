@@ -27,13 +27,13 @@ interface RolI {
     MatOptionModule,
     MatTableModule,
     OptionsSelect
-],
+  ],
   templateUrl: './roles-config-table.html',
   styleUrl: './roles-config-table.css'
 })
 export class RolesConfigTable {
 
-  @Input() applicationFlows: { id: string; flowCode: string }[] = [];
+  @Input() applicationFlows: any[] = [];
   @Input() roles: { id: string; name: string }[] = [];
   @Output() addRoleEventEmmiter = new EventEmitter<RolI>();
 

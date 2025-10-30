@@ -11,7 +11,7 @@
         </div>
         <div class="select-wrapper">
             <label class="select-label">Organization Entities</label>
-            <select formControlName="OrgEntity" class="modern-select">
+            <select formControlName="orgEntity" class="modern-select">
                 <option value="">Select an oe</option>
                 @for (option of orgEntities; track option) {
                 <option [ngValue]="option">{{ option.name }}</option>
@@ -30,7 +30,7 @@
 
         <div class="select-wrapper">
             <label class="select-label">OIDC Providers</label>
-            <select formControlName="oidcProviders" class="modern-select">
+            <select formControlName="oidcProvider" class="modern-select">
                 <option value="">Select an oidcProvider</option>
                 @for (oidcProvider of oidcProviders; track oidcProvider) {
                 <option [ngValue]="oidcProvider">{{ oidcProvider }}</option>
@@ -52,7 +52,7 @@
 
         <div class="input-wrapper">
             <label class="input-label">Introspection Endpoint</label>
-            <input [value]="instros" formControlName="instrospecionEndpoint" type="text" class="modern-input"
+            <input [value]="instros" formControlName="introspectionUrl" type="text" class="modern-input"
                 placeholder="Introspection enpoints" />
         </div>
 
@@ -65,13 +65,21 @@
                 }
             </select>
         </div>
-        <div style="display: flex; gap: 20px;">
-            <p>Active <mat-slide-toggle [checked]="true" formControlName="status"
-                    labelPosition="before"></mat-slide-toggle>
-            </p>
-            <p>Locked<mat-slide-toggle formControlName="enabled" labelPosition="before"></mat-slide-toggle>
-            </p>
+
+        <div class="toggle-wrapper">
+            <div class="toggle-group">
+                <label for="activeToggle">Active</label>
+                <div class="custom-toggle">
+                    <mat-slide-toggle formControlName="activated" labelPosition="before"></mat-slide-toggle>
+                </div>
+            </div>
+
+            <div class="toggle-group">
+                <label for="lockedToggle">Locked</label>
+                <div class="custom-toggle">
+                    <mat-slide-toggle formControlName="locked" labelPosition="before"></mat-slide-toggle>
+                </div>
+            </div>
         </div>
     </div>
-
 </form>

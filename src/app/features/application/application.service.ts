@@ -7,7 +7,6 @@ export interface ApplicationFlow {
   id?: number;
   flowCode: string;
   description: string;
-  applicationFlows: any[]
 }
 
 export interface Application {
