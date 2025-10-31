@@ -34,7 +34,9 @@ interface IServiceEntitiesForm {
   introspectionUrl: String,
   storageRegion: string,
   locked: boolean,
-  activated: boolean
+  activated: boolean,
+  clientSecret: string,
+  clientId: string
 }
 
 @Component({
@@ -199,10 +201,8 @@ export class Stepper implements OnInit {
 
   addConfiguration() {
     const config = { ...this.fileTypesForm.value, flowId: this.selectedFlow.id, flowName: this.selectedFlow.flowCode }
-    if (this.fileTypesForm.value.type.extension === "All Types") {
+    if (this.fileTypesForm.value.type.extension === "All Types")
       this.configurations = this.configurations.filter((conf: { flowId: any; }) => conf.flowId !== this.selectedFlow.id);
-      config.type.extension = "*";
-    }
     else
       this.configurations = this.configurations.filter(
         (conf: { flowId: any; type: any }) =>
@@ -278,7 +278,7 @@ export class Stepper implements OnInit {
 
   onboardApplication() {
     this.loading = true;
-    const { orgEntity, customer, application, locked, activated, oidcProvider, storageRegion, introspectionUrl } = this.serviceEntities;
+    const { clientId, clientSecret, orgEntity, customer, application, locked, activated, oidcProvider, storageRegion, introspectionUrl } = this.serviceEntities;
     const consumer = {
       customerId: customer.id,
       orgEntityId: orgEntity.id,
@@ -288,9 +288,14 @@ export class Stepper implements OnInit {
       oidcProvider,
       storageRegion,
       introspectionUrl,
+      clientId,
+      clientSecret,
       flowRoles: this.selectedRoles,
       fileFlowsConfig: this.consfigFlows()//type not id
     }
+
+    console.log(consumer);
+
     this.applicationsSrv.createConsumer(consumer).subscribe({
       next: (response) => {
         this.summary = response.fileConfigurations[0]?.consumer;
