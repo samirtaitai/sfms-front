@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { MatCard, MatCardModule } from "@angular/material/card";
+import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from "@angular/material/icon";
 import { RouterLink } from '@angular/router';

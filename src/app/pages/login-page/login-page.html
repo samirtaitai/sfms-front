@@ -1,6 +1,7 @@
 <app-spinner [loading]="loading"></app-spinner>
 
-<div style="min-width: 100%; min-height: 100%; display: flex;" *ngIf="!loading">
+@if (!loading) {
+<div class="container">
     <mat-card class="example-card">
         <mat-card-header>
             <div class="example-header-image">
@@ -25,3 +26,4 @@
         </mat-card-actions>
     </mat-card>
 </div>
+}
