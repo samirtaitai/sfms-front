@@ -23,7 +23,9 @@
             ],
             "styles": [
               "src/custom-theme.scss",
-              "src/styles.css"
+              "node_modules/material-design-icons/iconfont/material-icons.css",
+              "src/styles.css",
+              "node_modules/typeface-roboto/index.css"
             ]
           },
           "configurations": {
@@ -89,7 +91,9 @@
             ],
             "styles": [
               "src/custom-theme.scss",
-              "src/styles.css"
+              "node_modules/material-design-icons/iconfont/material-icons.css",
+              "src/styles.css",
+              "node_modules/typeface-roboto/index.css"
             ]
           }
         }

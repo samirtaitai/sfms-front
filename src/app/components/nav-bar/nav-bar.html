@@ -1,25 +1,26 @@
-<!-- nav-bar.component.html -->
 <nav class="nav-bar">
-
     <div class="example-header-image">
         <img src="https://ngx-ndbx.frameworks.allianz.io/assets/logos/allianz_logo_with_name.svg" alt="Allianz logo">
     </div>
-    <div class="card-button">
-    </div>
-
     <button routerLink="/home" [ngClass]="{ 'active': isActive('/home') }" class="nav-button">
         Home
     </button>
-
+    @if (isAdminUser()) {
     <button routerLink="/admin-distributive" [ngClass]="{ 'active': isActive('/admin-distributive') }"
-        class="nav-button" *ngIf="isAdminUser()">
+        class="nav-button">
         Administrator
     </button>
-
+    }
     <button disabled routerLink="/billing" class="nav-button btn-disabled">
         Billing Details
     </button>
+    @if(isAdminUser()){
+    <app-options-select style="margin-left: auto;" [selected]="selectedEnvironment" label=""
+        [innerLabel]="selectedEnvironment.name" [options]="envirionmentsOptions"
+        (selectionChange)="setEnvironment($event)">
+    </app-options-select>
+    }
     <button matIconButton class="user-button " aria-label="User button" (click)="logOut()">
-        <mat-icon>logout</mat-icon>
+        <mat-icon>exit_to_app</mat-icon>
     </button>
 </nav>

@@ -1,0 +1,23 @@
+.sidenav-container {
+  height: 100vh;
+}
+
+.sidenav {
+  width: 220px;
+  background-color: #f0f4f8;
+  border-radius: 0px;
+}
+
+.main-content {
+  padding: 0px;
+}
+
+main {
+  flex: 1;
+}
+
+footer {
+  background-color: #f1f1f1;
+  padding: 0.5rem;
+  text-align: center;
+}

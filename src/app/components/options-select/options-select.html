@@ -1,7 +1,7 @@
 <div class="select-wrapper">
   <label class="select-label">{{ label }}</label>
   <select  [value]="selected" (change)="onChange($event)" class="modern-select">
-    <option>Select an option</option>
+    <option>{{innerLabel}}</option>
     @for (option of options; track option) {
     <option [value]="option.id">
       {{ option.name }}

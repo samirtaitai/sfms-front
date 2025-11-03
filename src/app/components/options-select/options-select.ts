@@ -21,8 +21,9 @@ import { MatOptionModule } from '@angular/material/core';
 
 export class OptionsSelect {
   @Input() label: string = 'Select';
+  @Input() innerLabel = 'Select an option';
   @Input() options: any[] = [];
-  @Input() selected: string = '';
+  @Input() selected: any;
   @Output() selectionChange = new EventEmitter<string>();
 
   onChange(event: Event): any {
