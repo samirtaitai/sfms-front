@@ -66,7 +66,7 @@
                         </mat-form-field>
                         <button style="color: #1e88e5;" (click)="addConfiguration()"
                             mat-icon-button>
-                            <mat-icon>data_saver_on</mat-icon>
+                            <mat-icon>add_ad</mat-icon>
                         </button>
                     </form>
                     <div style="height: 50px;">
@@ -152,6 +152,7 @@
             <thead>
                 <tr>
                     <th>Flow</th>
+                    <th>Action</th>
                     <th>Type</th>
                     <th>File Size</th>
                     <th>Action</th>
@@ -162,6 +163,7 @@
                 @for (config of group.configs; track config) {
                 <tr>
                     <td>{{ group.flowName }}</td>
+                    <td>{{ config.action.name }}</td>
                     <td>{{ config.type.description }}</td>
                     <td>{{ config.size }}</td>
                     <td class="actions">
