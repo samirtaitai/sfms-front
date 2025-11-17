@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { ApplicationService } from '../application.service';
-import { MatButtonModule } from '@angular/material/button';
 
 export interface DialogData {
   tittle: string;
@@ -11,24 +10,15 @@ export interface DialogData {
 
 @Component({
   selector: 'app-delete-aplication',
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    MatDialogTitle,
-    MatDialogContent,
-    MatDialogActions,
-  ],
-  providers: [ApplicationService],
+  standalone: false,
   templateUrl: './delete-aplication.html',
   styleUrl: './delete-aplication.css'
 })
 export class DeleteAplication {
   loading = false;
-
-  constructor(private applicationSrv: ApplicationService) { }
-
-  readonly dialogRef = inject(MatDialogRef<DeleteAplication>);
   readonly data = inject<DialogData>(MAT_DIALOG_DATA);
+
+  constructor(private applicationSrv: ApplicationService, public dialogRef: MatDialogRef<DeleteAplication>) { }
 
   onNoClick(): void {
     this.dialogRef.close();

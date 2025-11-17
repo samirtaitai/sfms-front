@@ -1,15 +1,6 @@
-<app-nav-bar></app-nav-bar>
 <app-toast [showToast]="showToast" [toastText]="toastMessage" type="success"></app-toast>
 <app-spinner [loading]="loading"></app-spinner>
-
 <div class="page-container" *ngIf="!loading">
-    <div style="display: flex;align-items: center; justify-content: end; gap: 50px;">
-        <button matButton style="display: flex;border-radius: 5px; height: 35px;" (click)="createApplication()">
-            <mat-icon>save</mat-icon>
-            Create Application
-        </button>
-    </div>
-
     <mat-card class="application-card" appearance="outlined">
         <mat-card-header>
             <mat-icon mat-card-avatar>web</mat-icon>
@@ -29,6 +20,11 @@
                 </mat-form-field>
             </form>
         </mat-card-content>
+        <div class="actions">
+            <button [disabled]="applicationForm.invalid" matButton color="filled" (click)="createApplication()">
+                Create Application
+            </button>
+        </div>
     </mat-card>
 
     <mat-card class="application-card" appearance="outlined">
@@ -50,14 +46,8 @@
                     </mat-form-field>
 
                 </div>
-                <div style="display: flex; align-items: center; justify-content: end; gap: 10px;">
-                    <button matButton="filled" [routerLink]="['/admin-distributive']"
-                        style="display: flex; margin-left: auto; border-radius: 5px; height: 25px; background-color: rgb(205, 75, 75);">
-                        Cancel
-                    </button>
-                    <button matButton="filled" style="display: flex; border-radius: 5px; height: 25px;"
-                        (click)="addAcction()">
-                        <mat-icon>post_add</mat-icon>
+                <div class="actions">
+                    <button matButton color="neutral" (click)="addAcction()">
                         Add Flow
                     </button>
                 </div>

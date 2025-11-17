@@ -10,6 +10,7 @@ import { MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent }
 import { MatIcon } from "@angular/material/icon";
 import { MatFormField, MatInputModule, MatLabel } from "@angular/material/input";
 import { MatButton } from '@angular/material/button';
+import { INTERNAL_ROUTES } from '../../../consts/routes';
 
 @Component({
   selector: 'app-create-storage-region',
@@ -76,7 +77,7 @@ export class CreateStorageRegion {
           this.showSuccessToast('Storage Region Created');
           this.regionFormGroup.reset();
           this.cdr.detectChanges();
-          this.router.navigate(['/storage-regions']);
+          this.router.navigate([INTERNAL_ROUTES.STORAGE_REGIONS]);
         }
       });
     }

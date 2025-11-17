@@ -1,20 +1,31 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { NavigationEnd, NavigationStart, Router, RouterOutlet } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
-import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from "@angular/material/expansion";
-import { Footer } from "./components/footer/footer";
+import { Router, NavigationStart, NavigationEnd, RouterOutlet } from '@angular/router';
+import { Footer } from './components/footer/footer';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb';
+import { NavBar } from "./components/nav-bar/nav-bar";
+import { INTERNAL_ROUTES } from './consts/routes';
+import { navBarVisibleOnRoutes } from './app.config';
+// ...otros imports
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule,
+  standalone: true,
+  imports: [
+    RouterOutlet,
+    CommonModule,
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
-    MatIconModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, Footer],
+    MatIconModule,
+    Footer,
+    BreadcrumbComponent,
+    NavBar
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -22,10 +33,7 @@ export class App {
   protected readonly title = signal('sfms-front');
   isLoading = false;
   isSidebarOpen = true;
-
-  toggleSidebar() {
-    this.isSidebarOpen = !this.isSidebarOpen;
-  }
+  showNavbar = false;
 
   constructor(private router: Router) {
     this.router.events.subscribe(event => {
@@ -33,7 +41,16 @@ export class App {
         this.isLoading = true;
       } else if (event instanceof NavigationEnd) {
         this.isLoading = false;
+        this.showNavbar = this.shouldShowNavbar(event.urlAfterRedirects);
       }
     });
+  }
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
+  private shouldShowNavbar(url: string): boolean {
+    return navBarVisibleOnRoutes.some(path => url.startsWith(path));
   }
 }

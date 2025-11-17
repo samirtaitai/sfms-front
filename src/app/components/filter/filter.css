@@ -1,15 +1,16 @@
-.filter-container {
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
 .filter-input {
-  width: 400px;
+  width: 500px;
+  height: 30px;
   padding: 0.5rem 1rem;
   border: 1px solid #d0d7de;
   border-radius: 6px;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
   color: #1e3a8a;
   background-color: #ffffff;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.filter-input:focus {
+  border-color: #1e3a8a; /* Cambia este color por el que prefieras */
+  outline: none;
 }

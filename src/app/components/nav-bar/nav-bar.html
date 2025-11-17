@@ -2,16 +2,16 @@
     <div class="example-header-image">
         <img src="https://ngx-ndbx.frameworks.allianz.io/assets/logos/allianz_logo_with_name.svg" alt="Allianz logo">
     </div>
-    <button routerLink="/home" [ngClass]="{ 'active': isActive('/home') }" class="nav-button">
+    <button [routerLink]="homeRouterLink" [ngClass]="{ 'active': isActive('/home') }" class="nav-button">
         Home
     </button>
     @if (isAdminUser()) {
-    <button routerLink="/admin-distributive" [ngClass]="{ 'active': isActive('/admin-distributive') }"
+    <button [routerLink]="adminRouterLink" [ngClass]="{ 'active': isActive('/admin-distributive') }"
         class="nav-button">
         Administrator
     </button>
     }
-    <button disabled routerLink="/billing" class="nav-button btn-disabled">
+    <button [routerLink]="billingRouterLink" class="nav-button" [ngClass]="{ 'active': isActive('/billing') }">
         Billing Details
     </button>
     @if(isAdminUser()){

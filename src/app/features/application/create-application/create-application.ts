@@ -2,36 +2,21 @@ import { Component, inject } from '@angular/core';
 import { MatListModule } from "@angular/material/list";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatInputModule } from "@angular/material/input";
-import { NavBar } from "../../../components/nav-bar/nav-bar";
 import { MatIconModule } from "@angular/material/icon";
 import { MatCard, MatCardModule } from "@angular/material/card";
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
-import { Application, ApplicationService } from '../application.service';
+import { ApplicationI, ApplicationService } from '../application.service';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { Spinner } from "../../../components/spinner/spinner";
 import { Toast } from "../../../components/toast/toast";
+import { INTERNAL_ROUTES } from '../../../consts/routes';
 
 @Component({
   selector: 'app-create-application',
-  imports: [
-    CommonModule,
-    MatListModule,
-    MatButtonToggleModule,
-    MatInputModule,
-    NavBar,
-    MatIconModule,
-    MatCard,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatButton,
-    RouterLink,
-    Spinner,
-    Toast
-  ],
-  providers: [ApplicationService],
+  standalone:false,
   templateUrl: './create-application.html',
   styleUrl: './create-application.css'
 })
@@ -91,7 +76,7 @@ export class CreateApplication {
 
   createApplication() {
     this.loading = true;
-    const application: Application = {
+    const application: ApplicationI = {
       name: this.applicationForm.value.name,
       description: this.applicationForm.value.description,
       applicationFlows: this.applicationFlows
@@ -105,7 +90,7 @@ export class CreateApplication {
           this.loading = false;
           this.showSuccessToast('Application Created Successfully');
           this.cdr.detectChanges();
-          this.router.navigate(['/applications']);
+          this.router.navigate([INTERNAL_ROUTES.APPLICATIONS.PATH]);
         },
         complete: () => {
           this.loading = false;

@@ -13,6 +13,7 @@ import { RouterLink } from '@angular/router';
 import { Spinner } from "../../../components/spinner/spinner";
 import { Toast } from "../../../components/toast/toast";
 import { Router } from '@angular/router';
+import { INTERNAL_ROUTES } from '../../../consts/routes';
 
 enum CUSTOMER_TYPE {
   productOwner = 'PRODUCT_OWNER',
@@ -80,7 +81,7 @@ export class CreateCustomer {
           this.showSuccessToast('Customer Created Successfully');
           this.customerFormGroup.reset();
           this.cdr.detectChanges();
-          this.router.navigate(['/customers']);
+          this.router.navigate([INTERNAL_ROUTES.CUSTOMERS]);
         }
       });
     }

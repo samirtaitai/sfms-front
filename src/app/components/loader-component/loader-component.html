@@ -1,16 +1,12 @@
-<div *ngIf="loading" class="loader-card">
+@if(loading){
+<div class="loader-card">
     <div class="loader-header"></div>
     <div class="loader-body">
+        @for (_ of items; track $index) {
         <div class="loader-line short"></div>
         <div class="loader-line"></div>
         <div class="loader-line"></div>
+        }
     </div>
 </div>
-<div *ngIf="loading" class="loader-card">
-    <div class="loader-header"></div>
-    <div class="loader-body">
-        <div class="loader-line short"></div>
-        <div class="loader-line"></div>
-        <div class="loader-line"></div>
-    </div>
-</div>
+}

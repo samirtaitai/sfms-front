@@ -10,5 +10,5 @@ import { Component, Input } from '@angular/core';
 })
 export class LoaderComponent {
   @Input() loading = false;
-
+  items = new Array(10).fill(null);
 }

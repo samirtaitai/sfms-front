@@ -1,29 +1,24 @@
-<app-nav-bar></app-nav-bar>
-<div class="container" *ngIf="applications && !loading">
-    <div class="page-header">
-        <div style="display: flex;align-items: center; justify-content: space-around; gap: 10px;">
-            <app-filter (filterChanged)="onFilterChanged($event)" [loading]="loading"
-                placeHolder="Filter Applications..."></app-filter>
-            <button mat-button [routerLink]="['/admin-distributive']"
-                style="display: flex; margin-left: 50px; border-radius: 5px; height: 25px; background-color: rgb(205, 75, 75); color: white;">
-                Cancel
-            </button>
-            <button routerLink="/create-application" matButton="filled"
-                style="display: flex; margin-left: auto; border-radius: 5px; height: 25px; background-color:#065bb5; color: white;">
-                <mat-icon>post_add</mat-icon>
-                Create Application
-            </button>
-        </div>
+<div class="container">
+    <app-filter (filterChanged)="onFilterChanged($event)" [loading]="loading"
+        placeHolder="Filter Applications..."></app-filter>
 
+    <div class="actions">
+        <button [disabled]="loading" (click)="getApplicationsList()" matButton color="neutral">
+            <mat-icon>refresh</mat-icon>
+            Update
+        </button>
+        <button [routerLink]="createApplicationRouterLink" matButton color="filled">
+            Create Application
+        </button>
     </div>
-
+    @if(applications && !loading){
     <div class="table-wrapper">
         <table class="custom-table">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
-                    <th>Actions</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -31,17 +26,15 @@
                     <td>{{ application.name }}</td>
                     <td>{{ application.description }}</td>
                     <td>
-                        <button matIconButton (click)="deleteConfirm(application.name,application.id)"
-                            aria-label="Example icon button with a vertical three dot icon">
-                            <mat-icon style="font-size: medium; color: rgba(208, 10, 10, 0.523);">delete</mat-icon>
+                        <button class="w-100" matButton (click)="applicationDetails(application)">
+                            Application details
+                            <mat-icon>info</mat-icon>
                         </button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
+    }
 </div>
-
-
-
 <app-loader-component [loading]="loading"></app-loader-component>

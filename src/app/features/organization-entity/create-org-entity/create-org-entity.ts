@@ -1,36 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatCard, MatCardModule } from "@angular/material/card";
-import { MatSelectModule } from "@angular/material/select";
-import { MatIconModule } from "@angular/material/icon";
-import { NavBar } from "../../../components/nav-bar/nav-bar";
-import { CommonModule } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
-import { MatButton } from '@angular/material/button';
-import { OesService } from '../oes.service';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { Spinner } from "../../../components/spinner/spinner";
-import { Toast } from "../../../components/toast/toast";
+import { Router } from '@angular/router';
+
+import { INTERNAL_ROUTES } from '../../../consts/routes';
+import { OesService } from '../oes.service';
 
 @Component({
   selector: 'app-create-org-entity',
-  imports: [
-    CommonModule,
-    MatCard,
-    MatCardModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    NavBar,
-    MatInputModule,
-    MatButton,
-    RouterLink,
-    Spinner,
-    Toast
-  ],
-  providers: [OesService],
   templateUrl: './create-org-entity.html',
+  standalone:false,
   styleUrl: './create-org-entity.css'
 })
 export class CreateOrgEntity {
@@ -67,7 +46,7 @@ export class CreateOrgEntity {
           this.loading = false;
           this.showSuccessToast('Organization Entity Created Successfully');
           this.cdr.detectChanges();
-          this.router.navigate(['/organization-entities']);
+          this.router.navigate([INTERNAL_ROUTES.ORG.PATH]);
         }
       })
     }

@@ -1,0 +1,30 @@
+<div class="customer-card">
+    <div class="card-media">
+        <img [src]="img" alt="Customer photo" />
+    </div>
+    <div class="card-header">
+        <strong>
+            <h2 class="card-tittle">{{entityName}}</h2>
+        </strong>
+        <span class="status-chip">Active</span>
+    </div>
+    <div class="card-content">
+        @for (entity of entityProperties; track $index) {
+        @if (entity.dataType === dataTypes.date) {
+        <div class="info-block">
+            <span class="label">{{entity.name}}</span>
+            <span class="value">{{ entity.value| date:'medium' }}</span>
+        </div>
+        } @else {
+        <div class="info-block">
+            <span class="label">{{entity.name}}</span>
+            <span class="value">{{ entity.value }}</span>
+        </div>
+        }
+        }
+    </div>
+    <div class="card-actions">
+        <button matButton color="danger" (click)="emitDeleteEvent()">Delete {{entity}}</button>
+        <button matButton disabled color="filled" (click)="emitEditEvent()">Edit</button>
+    </div>
+</div>

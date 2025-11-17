@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { loginMock } from '../../../../__mocks__/login';
 import { Observable, Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { INTERNAL_ROUTES } from '../../consts/routes';
 
 class User {
   userName: string;
@@ -32,7 +33,7 @@ export class Auth {
       userName: '',
       rol: ''
     };
-    this.router.navigate(['/login'])
+    this.router.navigate([INTERNAL_ROUTES.LOGIN])
   }
 
   async login(userName: string, password: string) {
@@ -45,10 +46,10 @@ export class Auth {
             this.user = new User(userName, rol);
             switch (this.user.rol) {
               case 'admin':
-                this.router.navigate(['/home']);
+                this.router.navigate([INTERNAL_ROUTES.HOME]);
                 break;
               case 'agent':
-                this.router.navigate(['/home']);
+                this.router.navigate([INTERNAL_ROUTES.HOME]);
                 break;
               default:
                 break;

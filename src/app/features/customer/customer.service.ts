@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from '../../core/services/http.service';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
+import { INTERNAL_ROUTES } from '../../consts/routes';
 
 export interface Customer {
     id?: number;
@@ -9,11 +11,21 @@ export interface Customer {
     description: string;
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 
 export class CustomerService {
-    constructor(private http: HttpService) { }
+    constructor(private http: HttpService, private router: Router) { }
 
+    customerDetails: any;
+
+    getCustomerDetails(): any {
+        return this.customerDetails;
+    }
+
+    goToCustomerDetails(customer: any) {
+        this.customerDetails = customer;
+        this.router.navigate([INTERNAL_ROUTES.CUSTOMERS.CUSTOMER_DETAILS]);
+    }
 
     getAll(): Observable<Customer[]> {
         return this.http.get<Customer[]>(environment.baseUrl + '/admin/customers');

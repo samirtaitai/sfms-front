@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { OesService } from '../oes.service';
 
 export interface DialogData {
@@ -11,24 +10,16 @@ export interface DialogData {
 
 @Component({
   selector: 'app-delete-org',
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    MatDialogTitle,
-    MatDialogContent,
-    MatDialogActions,
-  ],
-  providers: [OesService],
+  standalone: false,
   templateUrl: './delete-org.html',
   styleUrl: './delete-org.css'
 })
 export class DeleteOrg {
   loading = false;
-
-  constructor(private oesSrv: OesService) { }
-
   readonly dialogRef = inject(MatDialogRef<DeleteOrg>);
   readonly data = inject<DialogData>(MAT_DIALOG_DATA);
+
+  constructor(private oesSrv: OesService) { }
 
   onNoClick(): void {
     this.dialogRef.close();

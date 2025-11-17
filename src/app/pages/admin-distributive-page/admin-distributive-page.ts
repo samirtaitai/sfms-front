@@ -22,7 +22,6 @@ import { MatInputModule } from "@angular/material/input";
     MatSidenavModule,
     RouterLink,
     MatInputModule,
-
 ],
   templateUrl: './admin-distributive-page.html',
   styleUrl: './admin-distributive-page.css'
@@ -43,8 +42,6 @@ export class AdminDistributivePage {
   onEntityChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     this.selectedEntity = selectElement.value;
-    console.log('Selected entity:', this.selectedEntity);
-    // Aquí puedes disparar lógica de filtrado o navegación
   }
 
 

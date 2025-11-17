@@ -1,0 +1,19 @@
+
+.chip {
+  display: inline-block;
+  padding: 2px 5px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  color: white;
+  text-align: center;
+  min-width: 50px;
+}
+
+.active {
+  background-color: #2a833fd7; /* verde */
+}
+
+.inactive {
+  background-color: #dc3546cf; /* rojo */
+}

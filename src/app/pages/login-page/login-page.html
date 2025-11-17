@@ -20,8 +20,8 @@
             </form>
         </mat-card-content>
         <mat-card-actions style="margin-top: 20px;">
-            <button [disabled]="loginFormGroup.invalid || loading" (click)="startLoginProcess()"
-                style="height: 30px; background-color: #006192;; color: white; border-radius: 2px; margin-left: auto;"
+            <button class="login-button" [disabled]="loginFormGroup.invalid || loading" (click)="startLoginProcess()"
+                matButton color="filled"
                 matButton>Login</button>
         </mat-card-actions>
     </mat-card>

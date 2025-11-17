@@ -1,0 +1,6 @@
+@if(customerDetails?.name){
+<app-entity-details-card img="default-avatar.svg" entity="Customer" [entityName]="entityCardTittle" [entityProperties]="customerProperties"
+    (deleteButtonEvent)="deleteCustomer()"
+    (editButtonEvent)="editCustomer()"
+    ></app-entity-details-card>
+}

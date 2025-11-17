@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatToolbar } from "@angular/material/toolbar";
 
 @Component({
   selector: 'app-filter',
@@ -8,8 +9,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FormsModule
-  ],
+    FormsModule,
+    MatToolbar
+],
   templateUrl: './filter.html',
   styleUrl: './filter.css'
 })

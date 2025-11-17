@@ -4,8 +4,8 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSlideToggle } from "@angular/material/slide-toggle";
 import { Customer } from '../../features/customer/customer.service';
-import { Oes } from '../../features/organization-entity/oes.service';
-import { Application, ApplicationService } from '../../features/application/application.service';
+import { OesI } from '../../features/organization-entity/oes.service';
+import { ApplicationI, ApplicationService } from '../../features/application/application.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -26,8 +26,8 @@ export class ServiceEntitiesForm implements OnInit {
   private _formBuilder = inject(FormBuilder);
 
   @Input() customers!: Customer[];
-  @Input() orgEntities!: Oes[];
-  @Input() applications!: Application[];
+  @Input() orgEntities!: OesI[];
+  @Input() applications!: ApplicationI[];
   @Input() oidcProviders!: any;
 
   @Output() formData = new EventEmitter<any>();

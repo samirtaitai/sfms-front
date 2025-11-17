@@ -1,8 +1,8 @@
-<app-nav-bar></app-nav-bar>
 <app-toast [showToast]="showToast" [toastText]="toastMessage" type="success"></app-toast>
 <app-spinner [loading]="loading"></app-spinner>
 
-<div class="page-container" *ngIf="!loading">
+@if(!loading){
+<div class="page-container">
     <mat-card class="application-card" appearance="outlined">
         <mat-card-header>
             <mat-icon mat-card-avatar>web</mat-icon>
@@ -25,17 +25,15 @@
                     <mat-button-toggle value="ORG ENTITY">Org Entity</mat-button-toggle>
                 </mat-button-toggle-group>
             </form>
-            <div style="display: flex; align-items: center; justify-content: end; gap: 10px;">
-                <button matButton="filled" [routerLink]="['/admin-distributive']"
-                    style="display: flex; margin-left: auto; border-radius: 5px; height: 25px; background-color: rgb(205, 75, 75);">
+            <div class="actions">
+                <button matButton color="danger" [routerLink]="['/admin-distributive']">
                     Cancel
                 </button>
-                <button [disabled]="customerFormGroup.invalid" matButton="filled"
-                    style="display: flex;  border-radius: 5px; height: 25px;" (click)="createCustomer()">
-                    <mat-icon>post_add</mat-icon>
+                <button [disabled]="customerFormGroup.invalid" matButton color="filled" (click)="createCustomer()">
                     Create Customer
                 </button>
             </div>
         </mat-card-content>
     </mat-card>
 </div>
+}

@@ -1,20 +1,17 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { NavBar } from "../../../components/nav-bar/nav-bar";
 import { StorageRegionI, StorageRegions } from '../../../services/storage-regions';
 import { LoaderComponent } from "../../../components/loader-component/loader-component";
 import { Filter } from "../../../components/filter/filter";
 import { MatIcon } from "@angular/material/icon";
-import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { MatButton, MatIconButton } from '@angular/material/button';
+
 
 @Component({
   selector: 'app-storage-regions-page',
-  imports: [CommonModule, RouterLink, NavBar, LoaderComponent, Filter, MatIcon,MatButton,MatIconButton],
   standalone: true,
   templateUrl: './storage-regions-page.html',
   styleUrl: './storage-regions-page.css',
-  providers: [StorageRegions]
+  providers: [StorageRegions],
+  imports: [LoaderComponent, Filter, MatIcon]
 })
 export class StorageRegionsPage implements OnInit {
   loading = false;
@@ -27,6 +24,10 @@ export class StorageRegionsPage implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getStorageRegions();
+  }
+
+  getStorageRegions() {
     this.loading = true;
     this.storageRegionsSrv.getAll().subscribe({
       next: (regions) => {
@@ -50,7 +51,7 @@ export class StorageRegionsPage implements OnInit {
     );
   }
 
-  deleteConfirm(regionCode:any){
+  deleteConfirm(regionCode: any) {
 
   }
 

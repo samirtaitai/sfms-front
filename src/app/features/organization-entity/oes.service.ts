@@ -1,35 +1,47 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from '../../core/services/http.service';
 import { environment } from '../../../environments/environment';
+import { INTERNAL_ROUTES } from '../../consts/routes';
+import { Router } from '@angular/router';
 
-export interface Oes {
+export interface OesI {
   id?: number;
   code: string;
   name: string;
   debtor: number;
 }
 
-@Injectable()
+@Injectable({providedIn:"root"})
 export class OesService {
   private readonly baseUrl = `${environment.baseUrl}/admin/oes`;
+  private organizationEntityDetails!: OesI;
 
-  constructor(private http: HttpService) {}
+  constructor(private http: HttpService, private router: Router) { }
 
-  getAll(): Observable<Oes[]> {
-    return this.http.get<Oes[]>(this.baseUrl);
+  getOeDetails(): any {
+    return this.organizationEntityDetails;
   }
 
-  getById(id: number): Observable<Oes> {
-    return this.http.get<Oes>(`${this.baseUrl}/${id}`);
+  goToOeDetails(organizationEntity: any) {
+    this.organizationEntityDetails = organizationEntity;
+    this.router.navigate([INTERNAL_ROUTES.ORG.ORG_DETAILS]);
   }
 
-  create(oes: Oes): Observable<Oes> {
-    return this.http.post<Oes>(this.baseUrl, oes);
+  getAll(): Observable<OesI[]> {
+    return this.http.get<OesI[]>(this.baseUrl);
   }
 
-  update(id: number, oes: Oes): Observable<Oes> {
-    return this.http.put<Oes>(`${this.baseUrl}/${id}`, oes);
+  getById(id: number): Observable<OesI> {
+    return this.http.get<OesI>(`${this.baseUrl}/${id}`);
+  }
+
+  create(oes: OesI): Observable<OesI> {
+    return this.http.post<OesI>(this.baseUrl, oes);
+  }
+
+  update(id: number, oes: OesI): Observable<OesI> {
+    return this.http.put<OesI>(`${this.baseUrl}/${id}`, oes);
   }
 
   delete(id: any): Observable<void> {

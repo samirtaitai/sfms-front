@@ -1,0 +1,59 @@
+<div class="container">
+    <app-filter (filterChanged)="onFilterChanged($event)" [loading]="loading"
+        placeHolder="Filter Services..."></app-filter>
+
+    <div class="actions">
+        <button [disabled]="loading" (click)="getAllServices()" matButton color="neutral">
+            <mat-icon>refresh</mat-icon>
+            Update
+        </button>
+        <button [routerLink]="createServiceRouterLink" matButton color="filled">
+            Onboard Application
+        </button>
+    </div>
+    @if(allConsumers && !loading){
+    <div class="table-wrapper">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Organization Entity</th>
+                    <th>Application</th>
+                    <th>OIDC Provider</th>
+                    <th>Compliance Region</th>
+                    <th>Status</th>
+                    <th>Locked</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let consumer of filtredConsumers; trackBy: trackConsumer">
+                    <td>{{ consumer.customer.name }}</td>
+                    <td>{{ consumer.orgEntity.name }}</td>
+                    <td>{{consumer.application.name}}</td>
+                    <td>{{consumer.oidcProvider}}</td>
+                    <td>{{consumer.complianceRegion}}</td>
+                    <td>
+                        <span [ngClass]="consumer.active ? 'chip active' : 'chip inactive'">
+                            {{ consumer.active ? 'Active' : 'Not Active' }}
+                        </span>
+                    </td>
+                    <td>
+                        <span [ngClass]="consumer.locked ? 'chip inactive': 'chip active'">
+                            {{ consumer.locked ? 'Locked' : 'Unlocked' }}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="w-100" matButton aria-label="Example icon button with a vertical three dot icon">
+                            Service details
+                            <mat-icon>info</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    }
+</div>
+
+<app-loader-component [loading]="loading"></app-loader-component>

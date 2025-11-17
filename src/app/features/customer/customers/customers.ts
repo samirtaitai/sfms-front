@@ -11,6 +11,7 @@ import { LoaderComponent } from "../../../components/loader-component/loader-com
 import { NavBar } from "../../../components/nav-bar/nav-bar";
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialog } from '../confirmation-dialog/confirmation-dialog';
+import { INTERNAL_ROUTES } from '../../../consts/routes';
 
 @Component({
   selector: 'app-customers',
@@ -23,10 +24,8 @@ import { ConfirmationDialog } from '../confirmation-dialog/confirmation-dialog';
     RouterLink,
     Filter,
     LoaderComponent,
-    NavBar,
     MatButton
   ],
-  providers: [CustomerService],
   templateUrl: './customers.html',
   styleUrl: './customers.css'
 })
@@ -34,6 +33,7 @@ export class Customers implements OnInit {
   customers: any;
   loading = false;
   filteredCustomers: any;
+  createCustomerRouterLink = INTERNAL_ROUTES.CUSTOMERS.CREATE;
 
   constructor(
     private customerSrv: CustomerService,
@@ -41,6 +41,10 @@ export class Customers implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getAllCustomersList();
+  }
+
+  getAllCustomersList() {
     this.loading = true;
     this.customerSrv.getAll().subscribe({
       next: (value) => {
@@ -71,17 +75,17 @@ export class Customers implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result === true) {
-        this.loading = true;
-        this.customerSrv.getAll().subscribe({
-          next: (value) => {
-            this.customers = value;
-            this.filteredCustomers = value;
-            this.loading = false;
-            this.cdr.detectChanges();
-          },
-        });
-      }
+      if (result === true)
+        this.getAllCustomersList();
+
     });
+  }
+
+  customerDetails(customer: any) {
+    this.customerSrv.goToCustomerDetails(customer)
+  }
+
+  getCustomersList() {
+    this.getAllCustomersList();
   }
 }

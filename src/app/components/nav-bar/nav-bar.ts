@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { OptionsSelect } from "../options-select/options-select";
 import { EnvironmentService } from '../../core/services/environment.service';
+import { INTERNAL_ROUTES } from '../../consts/routes';
 
 interface envOptions {
   id: string,
@@ -29,6 +30,9 @@ interface envOptions {
   styleUrl: './nav-bar.css'
 })
 export class NavBar implements OnInit {
+  homeRouterLink = INTERNAL_ROUTES.HOME;
+  billingRouterLink = INTERNAL_ROUTES.BILLING.PATH;
+  adminRouterLink = INTERNAL_ROUTES.ADMIN;
   isHomeRoute = false;
   selectedEnvironment!: envOptions;
   envirionmentsOptions: envOptions[] = [

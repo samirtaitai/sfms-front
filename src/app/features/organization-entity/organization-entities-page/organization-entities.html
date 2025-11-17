@@ -1,22 +1,18 @@
-<app-nav-bar></app-nav-bar>
+<div class="container">
+    <app-filter (filterChanged)="onFilterChanged($event)" [loading]="loading"
+        placeHolder="Filter Organization Entities..."></app-filter>
 
-<div class="container" *ngIf="oes && !loading">
-    <div class="page-header">
-        <div style="display: flex;align-items: center; justify-content: space-around; gap: 10px;">
-            <app-filter (filterChanged)="onFilterChanged($event)" [loading]="loading"
-                placeHolder="Filter Organization Entities..."></app-filter>
-            <button mat-button [routerLink]="['/admin-distributive']"
-                style="display: flex; margin-left: 50px; border-radius: 5px; height: 25px; background-color: rgb(205, 75, 75); color: white;">
-                Cancel
-            </button>
-            <button routerLink="/create-org-entity" matButton="filled"
-                style="display: flex; margin-left: auto; border-radius: 5px; height: 25px; background-color:#065bb5; color: white;">
-                <mat-icon>post_add</mat-icon>
-                Create Organization Entity
-            </button>
-        </div>
+    <div class="actions">
+        <button [disabled]="loading" [disabled]="loading" (click)="getAllOes()" matButton color="neutral">
+            <mat-icon>refresh</mat-icon>
+            Update
+        </button>
+        <button [routerLink]="createOeRouterLink" matButton color="filled">
+            Create ORG
+        </button>
     </div>
 
+    @if(oes && !loading){
     <div class="table-wrapper">
         <table class="custom-table">
             <thead>
@@ -24,24 +20,27 @@
                     <th>Name</th>
                     <th>Code</th>
                     <th>Debtor</th>
-                    <th>Actions</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let customer of filtredOes; trackBy: trackCustomer">
-                    <td>{{ customer.name }}</td>
-                    <td>{{ customer.code }}</td>
-                    <td>{{ customer.debtor }}</td>
+                <tr *ngFor="let organizationEntity of filtredOes; trackBy: trackCustomer">
+                    <td>{{ organizationEntity.name }}</td>
+                    <td>{{ organizationEntity.code }}</td>
+                    <td>{{ organizationEntity.debtor }}</td>
                     <td>
-                        <button matIconButton (click)="deleteConfirm(customer.name,customer.id)"
+                        <button (click)="organizationEntitynDetails(organizationEntity)" class="w-100" matButton
                             aria-label="Example icon button with a vertical three dot icon">
-                            <mat-icon style="font-size: medium; color: rgba(208, 10, 10, 0.523);">delete</mat-icon>
+                            Org details
+                            <mat-icon>info</mat-icon>
                         </button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
+    }
+
 </div>
 
 

@@ -1,0 +1,4 @@
+@if(applicationDetails?.name){
+<app-entity-details-card img="application.svg" entity="Application" [entityName]="entityCardTittle" [entityProperties]="applicationProperties"
+    (editButtonEvent)="editApplication()" (deleteButtonEvent)="deleteConfirm()"></app-entity-details-card>
+}

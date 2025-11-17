@@ -1,46 +1,30 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { MatCardModule } from "@angular/material/card";
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from "@angular/material/icon";
-import { RouterLink } from '@angular/router';
-import { Application, ApplicationService } from '../application.service';
-import { Filter } from "../../../components/filter/filter";
-import { LoaderComponent } from "../../../components/loader-component/loader-component";
-import { CommonModule } from '@angular/common';
+import { ApplicationI, ApplicationService } from '../application.service';
 import { ChangeDetectorRef } from '@angular/core';
-import { NavBar } from "../../../components/nav-bar/nav-bar";
 import { MatDialog } from '@angular/material/dialog';
-import { DeleteAplication } from '../delete-aplication/delete-aplication';
+import { INTERNAL_ROUTES } from '../../../consts/routes';
 
 @Component({
   selector: 'app-applications',
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    RouterLink,
-    Filter,
-    LoaderComponent,
-    NavBar
-  ],
-  providers: [ApplicationService],
-  standalone: true,
   templateUrl: './applications.html',
+  standalone: false,
   styleUrl: './applications.css'
 })
-export class Applications implements OnInit {
-  applications: Application[] = [];
-  filtredApplications: Application[] = [];
+
+export class ApplicationsComponent implements OnInit {
+  applications: ApplicationI[] = [];
+  filtredApplications: ApplicationI[] = [];
   loading: any;
+  createApplicationRouterLink = INTERNAL_ROUTES.APPLICATIONS.CREATE;
   readonly dialog = inject(MatDialog);
 
-  constructor(
-    private applicationSrv: ApplicationService,
-    private cdr: ChangeDetectorRef
+  constructor(private cdr: ChangeDetectorRef, private applicationSrv: ApplicationService) { }
 
-  ) { }
   ngOnInit(): void {
+    this.getApplicationsList();
+  }
+
+  getApplicationsList() {
     this.loading = true;
     this.applicationSrv.getAll().subscribe({
       next: (response) => {
@@ -49,7 +33,11 @@ export class Applications implements OnInit {
         this.loading = false;
         this.cdr.detectChanges();
       }
-    })
+    });
+  }
+
+  refreshApplications() {
+    this.getApplicationsList();
   }
 
   onFilterChanged(filter: string) {
@@ -64,23 +52,9 @@ export class Applications implements OnInit {
     return application.id || application.name;
   }
 
-  deleteConfirm(applicationName: string, applicationId: any): void {
-    const dialogRef = this.dialog.open(DeleteAplication, {
-      data: { tittle: 'Delete application', text: `are you sure you want to delete ${applicationName} ?`, applicationId },
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === true) {
-        this.loading = true;
-        this.applicationSrv.getAll().subscribe({
-          next: (response) => {
-            this.applications = response;
-            this.filtredApplications = [...this.applications];
-            this.loading = false;
-            this.cdr.detectChanges();
-          }
-        })
-      }
-    });
+
+  applicationDetails(application: any) {
+    this.applicationSrv.goToApplicationDetails(application);
   }
 }

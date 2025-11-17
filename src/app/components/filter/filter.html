@@ -1,10 +1,4 @@
-<div class="filter-container">
-  <input
-    type="text"
-    [(ngModel)]="filterText"
-    (input)="onFilterChange()"
-    [placeholder]="placeHolder"
-    class="filter-input"
-    [disabled]="loading"
-  />
-</div>
+<mat-toolbar color="primary" class="search-card">
+  <input type="text" [(ngModel)]="filterText" (input)="onFilterChange()" [placeholder]="placeHolder"
+    class="filter-input" [disabled]="loading" />
+</mat-toolbar>
